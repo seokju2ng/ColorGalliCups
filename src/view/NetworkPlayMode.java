@@ -63,6 +63,7 @@ public class NetworkPlayMode extends JPanel {
    private ImageIcon[] img;
    private int index = 3;
    private boolean[] handCheck;
+   JLabel problemCard;
    
    public NetworkPlayMode() {
       panel = new JPanel();
@@ -224,7 +225,7 @@ public class NetworkPlayMode extends JPanel {
       problemCardPanel.setBounds(900, 10, 250, 250);
       problemCardPanel.setBackground(Color.white);
 
-      JLabel problemCard = new JLabel(new ImageIcon("image/sampleCard.png"));
+      problemCard = new JLabel(new ImageIcon("image/sampleCard.png"));
       problemCard.setBounds(50, 5, 154, 238);
 
       problemCardPanel.add(problemCard);
@@ -391,10 +392,17 @@ public class NetworkPlayMode extends JPanel {
             pauseBackground.setVisible(true);
             pauseButton.setVisible(false);
             exitButton.setVisible(false);
+            for(int i = 0; i < 5; i++)
+            	keyBoard[i].setVisible(false);
+            problemCard.setVisible(false);
+            
          } else if (e.getSource().equals(pauseBackground)) {
             pauseBackground.setVisible(false);
             pauseButton.setVisible(true);
             exitButton.setVisible(true);
+            for(int i = 0; i < 5; i++)
+            	keyBoard[i].setVisible(true);
+            problemCard.setVisible(true);
          }
       }
    }
