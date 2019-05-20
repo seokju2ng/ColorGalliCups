@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -28,6 +30,12 @@ public class NetworkMode extends JPanel{
 	private JLabel nickName;
 	public NetworkMode() {
 		//super("ColorGalli Cups");
+		this.addComponentListener( new ComponentAdapter() {
+	        @Override
+	        public void componentShown( ComponentEvent e ) {
+	        	 NetworkMode.this.requestFocusInWindow();
+	        }
+	    });
 		makeUI();
 //		this.setVisible(true);
 //		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -133,7 +141,7 @@ public class NetworkMode extends JPanel{
 		public void keyPressed(KeyEvent e) {
 			if(e.getKeyCode() == KeyEvent.VK_DOWN) {
 				System.out.println("down");
-				if(cor != 2) {
+				if(cor != 3) {
 					ll[cor].setVisible(false);
 					rl[cor].setVisible(false);
 					cor = cor+1;
