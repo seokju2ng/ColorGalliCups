@@ -329,8 +329,13 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		bellBtn.addActionListener(new ButtonHandler());
 		exitBtn.addKeyListener(new KeyHandler());// listener
 		exitBtn.addActionListener(new ButtonHandler());
-		pauseBtn.addKeyListener(new KeyHandler());// listener
-		pauseBtn.addActionListener(new ButtonHandler());
+		pauseBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				pauseBtn.requestFocusInWindow();
+			}			
+		});
 		exitBtn.addMouseListener(new MouseHandler());
 		exitBtn.addActionListener(new ButtonHandler());
 		pauseBtn.addMouseListener(new MouseHandler());
