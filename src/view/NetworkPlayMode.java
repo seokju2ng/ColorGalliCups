@@ -201,10 +201,14 @@ public class NetworkPlayMode extends JPanel {
       pauseButton.setBorderPainted(false);
       pauseButton.setContentAreaFilled(false);
       pauseButton.setFocusPainted(false);
-      pauseButton.addKeyListener(new KeyHandler());
       pauseButton.addActionListener(new ButtonHandler());
+      pauseButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				pauseButton.requestFocusInWindow();
+			}			
+		});
       pauseButton.addMouseListener(new MouseHandler());
-      pauseButton.addActionListener(new FocusHandler());
       panel.add(exitButton);
       panel.add(pauseButton);
       // 여기까지가 전원, 일시정지 버튼
@@ -385,8 +389,12 @@ public class NetworkPlayMode extends JPanel {
             }
          } else if (e.getSource().equals(pauseButton)) {
             pauseBackground.setVisible(true);
+            pauseButton.setVisible(false);
+            exitButton.setVisible(false);
          } else if (e.getSource().equals(pauseBackground)) {
             pauseBackground.setVisible(false);
+            pauseButton.setVisible(true);
+            exitButton.setVisible(true);
          }
       }
    }
