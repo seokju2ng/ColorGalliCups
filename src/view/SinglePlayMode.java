@@ -438,7 +438,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		aKey.setFocusPainted(false);
 		aKey.setBorderPainted(false);
 		east.add(aKey);
-		// s
+		// sdd
 		sKey = new JButton(new ImageIcon("image/black(s).png"));
 		sKey.setBounds(405, 550, 75, 75);
 		sKey.setContentAreaFilled(false);
