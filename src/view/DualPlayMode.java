@@ -522,8 +522,8 @@ public class DualPlayMode extends JPanel implements ActionListener {
       }
 
       for (int i = 2; i < 4; i++) {
-         hands[i][2].setBounds(480, 290, 300, 180);
-         hands[i][3].setBounds(600, 220, 300, 300);
+	hands[i][2].setBounds(-65, 300, 300, 180);
+	hands[i][3].setBounds(130, 300, 300, 180);
          ////////// 여기 위치 변경해야 함
       }*/
       
