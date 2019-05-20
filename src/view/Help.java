@@ -22,7 +22,7 @@ import etc.ChangePanelService;
 import view.MainView.Handler;
 
 public class Help extends JPanel{
-	private JButton[] b;
+	//private JButton[] b;
 	private int cor;
 	private JLabel[] ll;
 	private JLabel[] rl;
@@ -54,7 +54,7 @@ public class Help extends JPanel{
 		p2.setBounds(431,150,500,400);
 		p.add(p2);
 		
-		b = new JButton[4];
+		JButton[] b = new JButton[4];	// 멤버필드에서 로컬변수로 변경
 		Font font = new Font("Nanum Brush Script", Font.BOLD, 40);
 		MouseHandler ml = new MouseHandler();
 		Handler l = new Handler();
