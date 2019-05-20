@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -13,12 +15,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import etc.ChangePanelService;
+import view.MainView.Handler;
 
 public class Tutorial extends JPanel {
    public Tutorial() {
       setLayout(null);
       setBackground(new Color(251,229,214));
-      
+      this.addComponentListener( new ComponentAdapter() {
+	        @Override
+	        public void componentShown( ComponentEvent e ) {
+	        	 Tutorial.this.requestFocusInWindow();
+	        }
+	    });
+      this.addKeyListener(new Handler());
       JLabel picture=new JLabel(new ImageIcon("image/tutorial.gif"));
       picture.setBounds(230, 50, 900, 500);
       add(picture);
