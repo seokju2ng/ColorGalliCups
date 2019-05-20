@@ -1,4 +1,3 @@
-/* 옵션 */ 
 package view;
 
 import java.awt.Color;
@@ -8,6 +7,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -19,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import etc.ChangePanelService;
+import view.MainView.Handler;
 
 public class Option extends JPanel {
    private JButton[] buttons;
@@ -36,6 +38,7 @@ public class Option extends JPanel {
    public Option() {
       gbl = new GridBagLayout();
       gbc = new GridBagConstraints();
+      
       Font font=new Font("Nanum Brush Script", Font.BOLD, 50);
       Color bg = new Color(251,229,214);      // 배경 색
       Color fg = new Color(255, 80, 80);
@@ -43,6 +46,14 @@ public class Option extends JPanel {
       setLayout(gbl);
       setFont(font);
       setBackground(bg);         // 판넬의 배경화면 색 설정
+      this.addComponentListener( new ComponentAdapter() {
+	        @Override
+	        public void componentShown( ComponentEvent e ) {
+	        	 Option.this.requestFocusInWindow();
+	        }
+	    });
+      this.addKeyListener(new ArrowsHandler());
+      
       
       ImageIcon rightArrow=new ImageIcon("image/left_o.png");      // 오른쪽을 가리키는 화살표
       ImageIcon leftArrow=new ImageIcon("image/right_o.png");         // 왼쪽을 가리키는 화살표
