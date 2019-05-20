@@ -63,6 +63,7 @@ public class NetworkPlayMode extends JPanel {
    JLabel problemCard;
    
    public NetworkPlayMode() {
+	   this.setFocusTraversalKeysEnabled(false);
       panel = new JPanel();
       this.addComponentListener(new FocusHandler());
 

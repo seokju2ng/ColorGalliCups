@@ -486,6 +486,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
    //////////////////////// 여기까지 카드 에니메이션/////////////
 
    public DualPlayMode() {
+	   this.setFocusTraversalKeysEnabled(false);
       this.setLayout(null);
       this.setBackground(Color.white);
       this.addComponentListener(new FocusHandler());

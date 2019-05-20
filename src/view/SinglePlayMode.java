@@ -286,6 +286,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 	// *************여기까지 에니메이션**********************////////
 
 	public SinglePlayMode() {
+		this.setFocusTraversalKeysEnabled(false);
 		this.addComponentListener(new FocusHandler());
 		// 카드를 가장 먼저 붙음 Edit by DK KIM//
 		systemCardDeck = new Cards();
