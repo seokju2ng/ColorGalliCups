@@ -8,46 +8,48 @@ import javax.swing.JPanel;
 import etc.ChangePanelService;
 
 public class ColorGalliCups extends JFrame{
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-	/* 전부 private로 수정, 멤버필드를 local로 변경
 	private JPanel mainPanel;
 	private CardLayout layout;
+	
 	private MainView mainView;
 	private GameMode gameMode;
 	private SinglePlayMode singleMode;
 	private DualPlayMode dualMode;
 	private NetworkMode networkMode;
 	private NetworkPlayMode networkPlayMode;
-	private Option option;
+	private OptionView option;
 	private Help help;
 	private KeyControl keyControl;
 	private Tutorial tutorial;
 	private GameInfo gameInfo;
 	private WaitingRoomCrown waitingRoomC;
 	private WaitingRoomNormal waitingRoomN;
-	*/
 	
 	public ColorGalliCups() {
 		super("ColorGalli Cups");
 		
-		// 멤버필드를 local로 변경
-		JPanel mainPanel = new JPanel();
-		CardLayout layout = new CardLayout();
+		mainPanel = new JPanel();
+		layout = new CardLayout();
 		mainPanel.setLayout(layout);
-		MainView mainView = new MainView();
-		Option option = new Option();
-		Help help = new Help();
-		Tutorial tutorial = new Tutorial();
-		GameMode gameMode = new GameMode();
-		GameInfo gameInfo = new GameInfo();
-		KeyControl keyControl = new KeyControl();
-		NetworkPlayMode networkPlayMode = new NetworkPlayMode();
-		NetworkMode networkMode = new NetworkMode();
-		SinglePlayMode singleMode = new SinglePlayMode();
-		DualPlayMode dualMode = new DualPlayMode();
-		WaitingRoomCrown waitingRoomC = new WaitingRoomCrown();
-		WaitingRoomNormal waitingRoomN = new WaitingRoomNormal();
-		// 멤버필드를 local로 변경 끝
+		
+		
+		mainView = new MainView();
+		option = new OptionView();
+		help = new Help();
+		tutorial = new Tutorial();
+		gameMode = new GameMode();
+		gameInfo = new GameInfo();
+		keyControl = new KeyControl();
+		networkPlayMode = new NetworkPlayMode();
+		networkMode = new NetworkMode();
+		singleMode = new SinglePlayMode();
+		dualMode = new DualPlayMode();
+		waitingRoomC = new WaitingRoomCrown();
+		waitingRoomN = new WaitingRoomNormal();
 		
 		mainPanel.add("MainView", mainView);
 		mainPanel.add("Option", option);
