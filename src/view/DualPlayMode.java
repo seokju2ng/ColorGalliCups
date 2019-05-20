@@ -659,7 +659,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
       // cardPanel.setBorder(new LineBorder(Color.red, 5));
       timePanel.setBounds(50, 20, 180, 100);
       // timePanel.setBorder(new LineBorder(Color.red, 5));
-      cardPanel.setBounds(270, 60, 180, 60);
+      cardPanel.setBounds(270, 20, 180, 100);
       timer = new JLabel("00:00", SwingConstants.CENTER);
       timer.setFont(new Font("배달의민족 한나는 열한살", Font.BOLD, 20));
 
