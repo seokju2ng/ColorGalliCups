@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -20,7 +22,13 @@ public class RankView extends JDialog {
 	   //super(f, "Rank", true);
       super.setTitle("Rank");
       setLayout(null);
-
+      this.addComponentListener( new ComponentAdapter() {
+	        @Override
+	        public void componentShown( ComponentEvent e ) {
+	        	 RankView.this.requestFocusInWindow();
+	        }
+	    });
+      
       Font cfont=new Font("배달의민족 한나체 Pro", Font.BOLD, 30);
       Font font=new Font("배달의민족 한나체 Pro", Font.PLAIN, 20);
       
