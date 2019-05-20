@@ -7,6 +7,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -16,12 +18,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import etc.ChangePanelService;
+import view.MainView.Handler;
 
 public class KeyControl extends JPanel {
    public KeyControl() {
       this.setLayout(null);
       this.setBackground(new Color(251,229,214));
-      
+      this.addComponentListener( new ComponentAdapter() {
+	        @Override
+	        public void componentShown( ComponentEvent e ) {
+	        	 KeyControl.this.requestFocusInWindow();
+	        }
+	    });
+      this.addKeyListener(new Handler());
 //      JButton[] threeButtons=new JButton[] {new JButton(new ImageIcon("image/red(q)_k.png")), new JButton(new ImageIcon("image/green(w)_k.png")), new JButton(new ImageIcon("image/blue(e)_k.png"))};
       JButton[] fiveButtons=new JButton[] {new JButton(new ImageIcon("image/red(q)_k.png")), new JButton(new ImageIcon("image/yellow(w)_k.png")), new JButton(new ImageIcon("image/green(e)_k.png")), new JButton(new ImageIcon("image/blue(a)_k.png")), new JButton(new ImageIcon("image/black(s)_k.png"))};
       JButton functionButton = new JButton(new ImageIcon("image/spacebar.png"));
@@ -59,9 +68,7 @@ public class KeyControl extends JPanel {
       ///////////////////////////////////////////// DOUBLEPLAY /////////////////////////////////////////////////////////
   
       JLabel doublePlay = new JLabel(new ImageIcon("image/doubleplay.png"));
-      
-	//git study
- 
+    
       doublePlay.setBounds(610, 10, 250, 150);
       add(doublePlay);
       
