@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 
 import etc.ChangePanelService;
 
-public class Option extends JPanel {
+public class OptionView extends JPanel {
    private JButton[] buttons;
    private JLabel[] rarrows;
    private JLabel[] larrows;
@@ -32,7 +32,7 @@ public class Option extends JPanel {
    private JButton back;
    private JButton[] slash;
    
-   public Option() {
+   public OptionView() {
       gbl = new GridBagLayout();
       gbc = new GridBagConstraints();
       
