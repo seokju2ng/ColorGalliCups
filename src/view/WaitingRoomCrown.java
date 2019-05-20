@@ -28,12 +28,7 @@ public class WaitingRoomCrown extends JPanel{
 	private JButton backButton;
 	
 	public WaitingRoomCrown() {
-		this.addComponentListener( new ComponentAdapter() {
-	        @Override
-	        public void componentShown( ComponentEvent e ) {
-	        	 WaitingRoomCrown.this.requestFocusInWindow();
-	        }
-	    });
+		this.addComponentListener(new FocusHandler());
 		makeUI();
 	}
 	private void makeUI() {
