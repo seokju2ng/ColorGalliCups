@@ -7,8 +7,6 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -86,13 +84,6 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 			}
 		}
 	}
-
-	private class ButtonHandler implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			SinglePlayMode.this.requestFocusInWindow();
-		}
-	}
-
 	private class ClickHandler implements ActionListener {
 
 		@Override
@@ -295,12 +286,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 	// *************여기까지 에니메이션**********************////////
 
 	public SinglePlayMode() {
-		this.addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentShown(ComponentEvent e) {
-				SinglePlayMode.this.requestFocusInWindow();
-			}
-		});
+		this.addComponentListener(new FocusHandler());
 		// 카드를 가장 먼저 붙음 Edit by DK KIM//
 		systemCardDeck = new Cards();
 		one_Deck = new ArrayList<>();
@@ -326,9 +312,9 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		this.setFocusable(true);
 		addKeyListener(new KeyHandler());// listener
 		bellBtn.addKeyListener(new KeyHandler());// listener
-		bellBtn.addActionListener(new ButtonHandler());
+		bellBtn.addActionListener(new FocusButtonHandler(this));
 		exitBtn.addKeyListener(new KeyHandler());// listener
-		exitBtn.addActionListener(new ButtonHandler());
+		exitBtn.addActionListener(new FocusButtonHandler(this));
 		pauseBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -337,16 +323,16 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 			}			
 		});
 		exitBtn.addMouseListener(new MouseHandler());
-		exitBtn.addActionListener(new ButtonHandler());
+		exitBtn.addActionListener(new FocusButtonHandler(this));
 		pauseBtn.addMouseListener(new MouseHandler());
-		pauseBtn.addActionListener(new ButtonHandler());
+		pauseBtn.addActionListener(new FocusButtonHandler(this));
 		pauseBackground.addActionListener(new ClickHandler());
-		pauseBackground.addActionListener(new ButtonHandler());
-		qKey.addActionListener(new ButtonHandler());
-		wKey.addActionListener(new ButtonHandler());
-		eKey.addActionListener(new ButtonHandler());
-		aKey.addActionListener(new ButtonHandler());
-		sKey.addActionListener(new ButtonHandler());
+		pauseBackground.addActionListener(new FocusButtonHandler(this));
+		qKey.addActionListener(new FocusButtonHandler(this));
+		wKey.addActionListener(new FocusButtonHandler(this));
+		eKey.addActionListener(new FocusButtonHandler(this));
+		aKey.addActionListener(new FocusButtonHandler(this));
+		sKey.addActionListener(new FocusButtonHandler(this));
 		// this.setSize(1363, 714);
 		// this.setVisible(true);
 
