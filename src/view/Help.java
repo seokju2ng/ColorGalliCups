@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -17,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import etc.ChangePanelService;
+import view.MainView.Handler;
 
 public class Help extends JPanel{
 	private JButton[] b;
@@ -24,6 +27,12 @@ public class Help extends JPanel{
 	private JLabel[] ll;
 	private JLabel[] rl;
 	public Help() {
+		this.addComponentListener( new ComponentAdapter() {
+	        @Override
+	        public void componentShown( ComponentEvent e ) {
+	        	 Help.this.requestFocusInWindow();
+	        }
+	    });
 		//super("ColorGalli Cups");
 		makeUI();
 //		this.setVisible(true);
