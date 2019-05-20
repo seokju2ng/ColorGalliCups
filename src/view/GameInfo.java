@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -14,9 +16,17 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import etc.ChangePanelService;
+import view.MainView.Handler;
 
 public class GameInfo extends JPanel {
    public GameInfo() {
+	   this.addComponentListener( new ComponentAdapter() {
+	        @Override
+	        public void componentShown( ComponentEvent e ) {
+	        	 GameInfo.this.requestFocusInWindow();
+	        }
+	    });
+	   this.addKeyListener(new Handler());
       Color bg=new Color(197, 90, 17);
       Font font=new Font("nanum brush script", Font.BOLD, 45);
       this.setLayout(null);
