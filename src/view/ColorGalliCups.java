@@ -8,26 +8,22 @@ import javax.swing.JPanel;
 import etc.ChangePanelService;
 
 public class ColorGalliCups extends JFrame{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	JPanel mainPanel;
-	CardLayout layout;
-	
-	MainView mainView;
-	GameMode gameMode;
-	SinglePlayMode singleMode;
-	DualPlayMode dualMode;
-	NetworkMode networkMode;
-	NetworkPlayMode networkPlayMode;
-	Option option;
-	Help help;
-	KeyControl keyControl;
-	Tutorial tutorial;
-	GameInfo gameInfo;
-	WaitingRoomCrown waitingRoomC;
-	WaitingRoomNormal waitingRoomN;
+	private JPanel mainPanel;		// 전부 private 
+	private CardLayout layout;
+	private MainView mainView;
+	private GameMode gameMode;
+	private SinglePlayMode singleMode;
+	private DualPlayMode dualMode;
+	private NetworkMode networkMode;
+	private NetworkPlayMode networkPlayMode;
+	private Option option;
+	private Help help;
+	private KeyControl keyControl;
+	private Tutorial tutorial;
+	private GameInfo gameInfo;
+	private WaitingRoomCrown waitingRoomC;
+	private WaitingRoomNormal waitingRoomN;
 	
 	public ColorGalliCups() {
 		super("ColorGalli Cups");
