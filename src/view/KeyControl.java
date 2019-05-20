@@ -7,8 +7,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -18,18 +16,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import etc.ChangePanelService;
-import view.MainView.Handler;
 
 public class KeyControl extends JPanel {
    public KeyControl() {
       this.setLayout(null);
       this.setBackground(new Color(251,229,214));
-      this.addComponentListener( new ComponentAdapter() {
-	        @Override
-	        public void componentShown( ComponentEvent e ) {
-	        	 KeyControl.this.requestFocusInWindow();
-	        }
-	    });
+      this.addComponentListener(new FocusHandler());
       this.addKeyListener(new Handler());
 //      JButton[] threeButtons=new JButton[] {new JButton(new ImageIcon("image/red(q)_k.png")), new JButton(new ImageIcon("image/green(w)_k.png")), new JButton(new ImageIcon("image/blue(e)_k.png"))};
       JButton[] fiveButtons=new JButton[] {new JButton(new ImageIcon("image/red(q)_k.png")), new JButton(new ImageIcon("image/yellow(w)_k.png")), new JButton(new ImageIcon("image/green(e)_k.png")), new JButton(new ImageIcon("image/blue(a)_k.png")), new JButton(new ImageIcon("image/black(s)_k.png"))};
@@ -56,12 +48,14 @@ public class KeyControl extends JPanel {
          singleButtons5[i].setContentAreaFilled(false);
          singleButtons5[i].setFocusPainted(false);
          singleButtons5[i].setBorderPainted(false);
+         singleButtons5[i].addActionListener(new FocusButtonHandler(this));
          add(singleButtons5[i]);
       }
       functionButton.setBounds(190, 350, 350, 94);
       functionButton.setContentAreaFilled(false);
       functionButton.setFocusPainted(false);
       functionButton.setBorderPainted(false);
+      functionButton.addActionListener(new FocusButtonHandler(this));
       add(functionButton);
       ///////////////////////////////////////////// SINGLEPLAY 끝////////////////////////////////////////////////////////
       
@@ -100,6 +94,7 @@ public class KeyControl extends JPanel {
          firstPlay5[i].setContentAreaFilled(false);
          firstPlay5[i].setFocusPainted(false);
          firstPlay5[i].setBorderPainted(false);
+         firstPlay5[i].addActionListener(new FocusButtonHandler(this));
          add(firstPlay5[i]);
       }
       for(int i=3;i<5;i++) {
@@ -107,12 +102,14 @@ public class KeyControl extends JPanel {
          firstPlay5[i].setContentAreaFilled(false);
          firstPlay5[i].setFocusPainted(false);
          firstPlay5[i].setBorderPainted(false);
+         firstPlay5[i].addActionListener(new FocusButtonHandler(this));
          add(firstPlay5[i]);
       }
       functionButton1.setBounds(735, 400, 191, 59);
       functionButton1.setContentAreaFilled(false);
       functionButton1.setFocusPainted(false);
       functionButton1.setBorderPainted(false);
+      functionButton1.addActionListener(new FocusButtonHandler(this));
       add(functionButton1);
       
       
@@ -132,6 +129,7 @@ public class KeyControl extends JPanel {
          secondPlay5[i].setContentAreaFilled(false);
          secondPlay5[i].setFocusPainted(false);
          secondPlay5[i].setBorderPainted(false);
+         secondPlay5[i].addActionListener(new FocusButtonHandler(this));
          add(secondPlay5[i]);
       }
       for(int i=3;i<5;i++) {
@@ -139,6 +137,7 @@ public class KeyControl extends JPanel {
          secondPlay5[i].setContentAreaFilled(false);
          secondPlay5[i].setFocusPainted(false);
          secondPlay5[i].setBorderPainted(false);
+         secondPlay5[i].addActionListener(new FocusButtonHandler(this));
          add(secondPlay5[i]);
       }
       
@@ -146,6 +145,7 @@ public class KeyControl extends JPanel {
       functionButton2.setContentAreaFilled(false);
       functionButton2.setFocusPainted(false);
       functionButton2.setBorderPainted(false);
+      functionButton2.addActionListener(new FocusButtonHandler(this));
       add(functionButton2);
       
       ///////////////////////////////////////////// DOUBLEPLAY 끝 /////////////////////////////////////////////////////////
