@@ -9,7 +9,8 @@ import etc.ChangePanelService;
 
 public class ColorGalliCups extends JFrame{
 	private static final long serialVersionUID = 1L;
-	private JPanel mainPanel;		// 전부 private 
+	/* 전부 private로 수정, 멤버필드를 local로 변경
+	private JPanel mainPanel;
 	private CardLayout layout;
 	private MainView mainView;
 	private GameMode gameMode;
@@ -24,28 +25,29 @@ public class ColorGalliCups extends JFrame{
 	private GameInfo gameInfo;
 	private WaitingRoomCrown waitingRoomC;
 	private WaitingRoomNormal waitingRoomN;
+	*/
 	
 	public ColorGalliCups() {
 		super("ColorGalli Cups");
 		
-		mainPanel = new JPanel();
-		layout = new CardLayout();
+		// 멤버필드를 local로 변경
+		JPanel mainPanel = new JPanel();
+		CardLayout layout = new CardLayout();
 		mainPanel.setLayout(layout);
-		
-		
-		mainView = new MainView();
-		option = new Option();
-		help = new Help();
-		tutorial = new Tutorial();
-		gameMode = new GameMode();
-		gameInfo = new GameInfo();
-		keyControl = new KeyControl();
-		networkPlayMode = new NetworkPlayMode();
-		networkMode = new NetworkMode();
-		singleMode = new SinglePlayMode();
-		dualMode = new DualPlayMode();
-		waitingRoomC = new WaitingRoomCrown();
-		waitingRoomN = new WaitingRoomNormal();
+		MainView mainView = new MainView();
+		Option option = new Option();
+		Help help = new Help();
+		Tutorial tutorial = new Tutorial();
+		GameMode gameMode = new GameMode();
+		GameInfo gameInfo = new GameInfo();
+		KeyControl keyControl = new KeyControl();
+		NetworkPlayMode networkPlayMode = new NetworkPlayMode();
+		NetworkMode networkMode = new NetworkMode();
+		SinglePlayMode singleMode = new SinglePlayMode();
+		DualPlayMode dualMode = new DualPlayMode();
+		WaitingRoomCrown waitingRoomC = new WaitingRoomCrown();
+		WaitingRoomNormal waitingRoomN = new WaitingRoomNormal();
+		// 멤버필드를 local로 변경 끝
 		
 		mainPanel.add("MainView", mainView);
 		mainPanel.add("Option", option);
