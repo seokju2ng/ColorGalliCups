@@ -16,7 +16,6 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -30,13 +29,7 @@ public class GameMode extends JPanel {
    private int cor;
    
    public GameMode() {
-	   this.addComponentListener( new ComponentAdapter() {
-	        @Override
-	        public void componentShown( ComponentEvent e ) {
-	        	 GameMode.this.requestFocusInWindow();
-	        	 GameMode.this.setFocusable(true);
-	        }
-	    });
+	   this.addComponentListener(new FocusHandler());
 	   setLayout(new BorderLayout());
 	   this.addKeyListener(new Handler());
 	   makeUI();
