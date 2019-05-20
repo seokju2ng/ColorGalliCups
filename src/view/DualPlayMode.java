@@ -759,8 +759,15 @@ public class DualPlayMode extends JPanel implements ActionListener {
       pause.setBounds(280, 30, 80, 80);
       exit.setBounds(380, 30, 80, 80);
 
-      pause.addActionListener(new ActionHandler()); // pause버튼에 액션핸들러 추가
+     pause.addActionListener(new ActionHandler()); // pause버튼에 액션핸들러 추가
       pause.addMouseListener(new MouseHandler());
+      pause.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				pause.requestFocusInWindow();
+			}			
+		});
       exit.addActionListener(e -> {
          int res = JOptionPane.showConfirmDialog(null, "게임을 종료하시겠습니까?", "게임 종료", JOptionPane.YES_NO_OPTION,
                JOptionPane.WARNING_MESSAGE);
@@ -770,7 +777,6 @@ public class DualPlayMode extends JPanel implements ActionListener {
       }); // exit버튼에 액션핸들러 추가
       exit.addMouseListener(new MouseHandler());
       exit.addActionListener(new ButtonHandler());
-      pause.addActionListener(new ButtonHandler());
       pause.addFocusListener(new FocusListener() {
 
          @Override
