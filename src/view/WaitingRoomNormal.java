@@ -5,10 +5,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -28,12 +24,7 @@ public class WaitingRoomNormal extends JPanel{
 	private JButton backButton;
 	
 	public WaitingRoomNormal() {
-		this.addComponentListener( new ComponentAdapter() {
-	        @Override
-	        public void componentShown( ComponentEvent e ) {
-	        	 WaitingRoomNormal.this.requestFocusInWindow();
-	        }
-	    });
+		this.addComponentListener(new FocusHandler());
 		makeUI();
 	}
 	private void makeUI() {
