@@ -121,6 +121,8 @@ public class DualPlayMode extends JPanel implements ActionListener {
                pauseBackground.setVisible(true);
                pause.setVisible(false);
                exit.setVisible(false);
+               for(int i = cardCnt; i <38; i++)
+            	   systemCardDeck.card_arr.get(i).setVisible(false);
                pauseFlag = true;
             }
 
@@ -131,6 +133,8 @@ public class DualPlayMode extends JPanel implements ActionListener {
                pauseBackground.setVisible(false);
                pause.setVisible(true);
                exit.setVisible(true);
+               for(int i = cardCnt; i <38; i++)
+            	   systemCardDeck.card_arr.get(i).setVisible(true);
                pauseFlag = false;
             }
          }
