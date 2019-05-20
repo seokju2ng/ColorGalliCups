@@ -7,6 +7,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -87,7 +89,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 
 	private class ButtonHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-
+			SinglePlayMode.this.requestFocusInWindow();
 		}
 	}
 
@@ -96,7 +98,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource().equals(pauseBtn)) {
-				pauseBackground.setVisible(true);
+				pauseBackground.setVisible(true);				
 			} else if (e.getSource().equals(pauseBackground)) {
 				pauseBackground.setVisible(false);
 			}
@@ -243,7 +245,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 
 	// *******************************************************
 	// edit by DK Kim, first
-	private JLabel correctCnt; //west에 있던거 멤버로 뺌.
+	private JLabel correctCnt; // west에 있던거 멤버로 뺌.
 	private Timer tm = new Timer(1, this);
 	private int initY = 31, velY = 10; // 초기 카드위치와 카드가 움직이는 속도
 	private boolean flag = true; // 사용자의 정답여부
@@ -274,7 +276,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 
 					one_Deck.add(new JLabel(ImageCut.resizeIcon(icon, 90, 140)));
 					one_Deck.get(cnt).setBounds(549 + cnt * 30, 15, 90, 150);
-					west.setBorder(new LineBorder(Color.gray, 5));
+					west.setBorder(new LineBorder(Color.gray, 0));
 					for (int i = one_Deck.size() - 1; i >= 0; i--) {
 						west.add(one_Deck.get(i));
 					}
@@ -282,8 +284,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 					cnt++;
 					flag = false;
 					cardCnt++;
-					correctCnt.setText(""+cnt);
-					
+					correctCnt.setText("" + cnt);
 
 					// user_Deck.add(new JLabel(ImageCut.resizeIcon(icon, 90, 140))); //사용자 카드덱에 추가
 					// user_Deck.get(cnt).setBounds(50+)
@@ -294,6 +295,12 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 	// *************여기까지 에니메이션**********************////////
 
 	public SinglePlayMode() {
+		this.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				SinglePlayMode.this.requestFocusInWindow();
+			}
+		});
 		// 카드를 가장 먼저 붙음 Edit by DK KIM//
 		systemCardDeck = new Cards();
 		one_Deck = new ArrayList<>();
@@ -319,11 +326,22 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		this.setFocusable(true);
 		addKeyListener(new KeyHandler());// listener
 		bellBtn.addKeyListener(new KeyHandler());// listener
+		bellBtn.addActionListener(new ButtonHandler());
 		exitBtn.addKeyListener(new KeyHandler());// listener
+		exitBtn.addActionListener(new ButtonHandler());
 		pauseBtn.addKeyListener(new KeyHandler());// listener
+		pauseBtn.addActionListener(new ButtonHandler());
 		exitBtn.addMouseListener(new MouseHandler());
+		exitBtn.addActionListener(new ButtonHandler());
 		pauseBtn.addMouseListener(new MouseHandler());
+		pauseBtn.addActionListener(new ButtonHandler());
 		pauseBackground.addActionListener(new ClickHandler());
+		pauseBackground.addActionListener(new ButtonHandler());
+		qKey.addActionListener(new ButtonHandler());
+		wKey.addActionListener(new ButtonHandler());
+		eKey.addActionListener(new ButtonHandler());
+		aKey.addActionListener(new ButtonHandler());
+		sKey.addActionListener(new ButtonHandler());
 		// this.setSize(1363, 714);
 		// this.setVisible(true);
 
@@ -542,7 +560,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		// --correctPanel의 컴포넌트 시작
 		JLabel correct = new JLabel("정답개수", SwingConstants.CENTER);
 		correct.setFont(new Font("배달의민족 한나는 열한살", Font.BOLD, 36));
-		 correctCnt = new JLabel("0", SwingConstants.CENTER);
+		correctCnt = new JLabel("0", SwingConstants.CENTER);
 		correctCnt.setFont(new Font("배달의민족 한나는 열한살", Font.BOLD, 30));
 		correctPanel.add(correct);
 		correctPanel.add(correctCnt);
