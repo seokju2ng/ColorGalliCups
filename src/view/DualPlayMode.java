@@ -655,7 +655,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
       // cardPanel.setBorder(new LineBorder(Color.red, 5));
       timePanel.setBounds(50, 20, 180, 100);
       // timePanel.setBorder(new LineBorder(Color.red, 5));
-      cardPanel.setBounds(270, 20, 180, 100);
+      cardPanel.setBounds(270, 60, 180, 60);
       timer = new JLabel("00:00", SwingConstants.CENTER);
       timer.setFont(new Font("배달의민족 한나는 열한살", Font.BOLD, 20));
 
@@ -813,7 +813,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 
       for (int i = 2; i < 4; i++) {
          hands[i][2].setBounds(-70, 300, 300, 180);
-         hands[i][3].setBounds(135, 235, 300, 300);
+         hands[i][3].setBounds(135, 295, 300, 180);
          ////////// 여기 위치 변경해야 함
       }
       
