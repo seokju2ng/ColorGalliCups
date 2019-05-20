@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -117,6 +119,8 @@ public class DualPlayMode extends JPanel implements ActionListener {
             if (pauseFlag == false) {
                p2.setVisible(false);
                pauseBackground.setVisible(true);
+               pause.setVisible(false);
+               exit.setVisible(false);
                pauseFlag = true;
             }
 
@@ -125,6 +129,8 @@ public class DualPlayMode extends JPanel implements ActionListener {
             if (pauseFlag == true) {
                p2.setVisible(true);
                pauseBackground.setVisible(false);
+               pause.setVisible(true);
+               exit.setVisible(true);
                pauseFlag = false;
             }
          }
@@ -400,7 +406,11 @@ public class DualPlayMode extends JPanel implements ActionListener {
    // 애니메이션//
    // ImageIcon icon = new ImageIcon("image/dotdanbae2.png");
    // Image img = icon.getImage();
-
+   private class ButtonHandler implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			DualPlayMode.this.requestFocusInWindow();
+		}
+	}
    private Timer tm = new Timer(10, this);
    private int initX = 604, velX = 5; // 초기 카드위치와 카드가 움직이는 속도
    private boolean one_flag = false; // 1p의 정답여부
@@ -481,6 +491,13 @@ public class DualPlayMode extends JPanel implements ActionListener {
    public DualPlayMode() {
       this.setLayout(null);
       this.setBackground(Color.white);
+      this.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				DualPlayMode.this.requestFocusInWindow();
+			}
+		});
+      addKeyListener(new KeyHandler());
       ////////////////////////////// 준희가 수정 //////////////////
       //JPanel panel = new JPanel();
       img = new ImageIcon[] { null, null, new ImageIcon("image/hand(2p)left.png"), new ImageIcon("image/hand(2p).png") };
@@ -530,6 +547,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
       pauseBackground.setBorderPainted(false);
       pauseBackground.setVisible(false);
       pauseBackground.addActionListener(new ActionHandler());
+      pauseBackground.addActionListener(new ButtonHandler());
       this.add(pauseBackground);
 
       // 카드를 가장 먼저 붙임)(0518애니메이션)
@@ -665,25 +683,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
       cardPanel.add(cardNum);
       // 1p 덱에 카드추가(카드얻었을시)//
       one_Deck = new ArrayList<>();
-      // one_Deck.add(new JLabel(new ImageIcon("image/card(back).png")));
-      // one_Deck.add(new JLabel(new ImageIcon("image/card(back).png")));
-      // one_Deck.add(new JLabel(new ImageIcon("image/card(back).png")));
-      // one_Deck.add(new JLabel(new ImageIcon("image/card(back).png")));
-      // one_Deck.add(new JLabel(new ImageIcon("image/card(back).png")));
-      // one_Deck.get(0).setBounds(50, 190, 90, 140);
-      // one_Deck.get(1).setBounds(55, 190, 90, 140);
-      // one_Deck.get(2).setBounds(60, 190, 90, 140);
-      // one_Deck.get(3).setBounds(65, 190, 90, 140);
-      // one_Deck.get(4).setBounds(70, 190, 90, 140);
-      // p1.add(one_Deck.get(0));
-      // p1.add(one_Deck.get(1));
-      // p1.add(one_Deck.get(2));
-      // p1.add(one_Deck.get(3));
-      // p1.add(one_Deck.get(4));
-      // p1.add(one_Deck.get(3));
-      // p1.add(one_Deck.get(2));
-      // p1.add(one_Deck.get(1));
-      // p1.add(one_Deck.get(0));
+
       ///////////////////////////////
       this.add(p1);
    }
@@ -769,6 +769,8 @@ public class DualPlayMode extends JPanel implements ActionListener {
          }
       }); // exit버튼에 액션핸들러 추가
       exit.addMouseListener(new MouseHandler());
+      exit.addActionListener(new ButtonHandler());
+      pause.addActionListener(new ButtonHandler());
       pause.addFocusListener(new FocusListener() {
 
          @Override
@@ -837,6 +839,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
       bell.setContentAreaFilled(false);
       bell.setFocusPainted(false);
       bell.setBorderPainted(false);
+      bell.addActionListener(new ButtonHandler());
       //bell.setOpaque(false);
 
       // this.add(card);
@@ -861,6 +864,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
          one_buttons[i].setContentAreaFilled(false);
          one_buttons[i].setFocusPainted(false);
          one_buttons[i].setBorderPainted(false);
+         
          if (i < 3) {
             one_buttons[i].setBounds(20 + i * 45, 550, 40, 40);
          } else {
@@ -870,6 +874,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
          one_buttons[0].setFocusable(true);
          one_buttons[0].requestFocus(); // 초기에 버튼쪽에 focus를 요청한다.
          one_buttons[0].setFocusable(true);
+         one_buttons[i].addActionListener(new ButtonHandler());
          p2.add(one_buttons[i]);
       }
 
@@ -885,6 +890,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
             two_buttons[i].setBounds(i * 45 + 90, 600, 40, 40);
          }
          two_buttons[i].addKeyListener(new KeyHandler());
+         two_buttons[i].addActionListener(new ButtonHandler());
          p2.add(two_buttons[i]);
       }
    }
