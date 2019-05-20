@@ -7,8 +7,6 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -30,12 +28,7 @@ public class MainView extends JPanel {
    private RankView rank;
    
    public MainView() {
-	   this.addComponentListener( new ComponentAdapter() {
-	        @Override
-	        public void componentShown( ComponentEvent e ) {
-	        	 MainView.this.requestFocusInWindow();
-	        }
-	    });
+	   this.addComponentListener(new FocusHandler());
 	   this.addKeyListener(new Handler());
 	   setLayout(new BorderLayout());
 	   
