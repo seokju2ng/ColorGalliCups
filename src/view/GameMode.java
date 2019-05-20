@@ -7,6 +7,8 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -28,7 +30,15 @@ public class GameMode extends JPanel {
    private int cor;
    
    public GameMode() {
+	   this.addComponentListener( new ComponentAdapter() {
+	        @Override
+	        public void componentShown( ComponentEvent e ) {
+	        	 GameMode.this.requestFocusInWindow();
+	        	 GameMode.this.setFocusable(true);
+	        }
+	    });
 	   setLayout(new BorderLayout());
+	   this.addKeyListener(new Handler());
 	   makeUI();
 	   this.setSize(1363, 714);
    }
