@@ -122,7 +122,10 @@ public class NetworkMode extends JPanel{
 			if(cor == 1) {
 				String num = JOptionPane.showInputDialog("방번호를 입력해주세요.(4자리)");
 				if(num != null) {
-					while(num.length() != 4) num = JOptionPane.showInputDialog("방번호를 입력해주세요.(4자리)");
+					while(num.length() != 4) {
+						num = JOptionPane.showInputDialog("방번호를 입력해주세요.(4자리)");
+						if(num == null) return;
+					}
 					cps.changePanel("WatingRoomNormal");
 				}
 			}
