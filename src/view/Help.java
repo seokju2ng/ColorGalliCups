@@ -27,12 +27,7 @@ public class Help extends JPanel{
 	private JLabel[] ll;
 	private JLabel[] rl;
 	public Help() {
-		this.addComponentListener( new ComponentAdapter() {
-	        @Override
-	        public void componentShown( ComponentEvent e ) {
-	        	 Help.this.requestFocusInWindow();
-	        }
-	    });
+		this.addComponentListener(new FocusHandler());
 		//super("ColorGalli Cups");
 		makeUI();
 //		this.setVisible(true);
