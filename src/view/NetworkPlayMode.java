@@ -6,8 +6,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -36,7 +34,6 @@ public class NetworkPlayMode extends JPanel {
    private JLabel[] userId;
    private JButton[] keyBoard;
    private JLabel bell;
-   private int pointIndex = 0;
    private JLabel[] currentPointArr;
    private JButton exitButton;
    private JButton pauseButton;
@@ -67,12 +64,7 @@ public class NetworkPlayMode extends JPanel {
    
    public NetworkPlayMode() {
       panel = new JPanel();
-      this.addComponentListener(new ComponentAdapter() {
-         @Override
-         public void componentShown(ComponentEvent e) {
-            NetworkPlayMode.this.requestFocusInWindow();
-         }
-      });
+      this.addComponentListener(new FocusHandler());
 
       // hello
 
@@ -132,7 +124,7 @@ public class NetworkPlayMode extends JPanel {
       pauseBackground.setBorderPainted(false);
       pauseBackground.setVisible(false);
       pauseBackground.addActionListener(new ButtonHandler());
-      pauseBackground.addActionListener(new FocusHandler());
+      pauseBackground.addActionListener(new FocusButtonHandler(this));
       panel.add(pauseBackground);
 
       panel.setBorder(new LineBorder(Color.BLACK));
@@ -197,7 +189,7 @@ public class NetworkPlayMode extends JPanel {
       exitButton.addKeyListener(new KeyHandler());
       exitButton.addActionListener(new ButtonHandler());
       exitButton.addMouseListener(new MouseHandler());
-      exitButton.addActionListener(new FocusHandler());
+      exitButton.addActionListener(new FocusButtonHandler(this));
       pauseButton.setBounds(700, 10, 80, 80);
       pauseButton.setBorderPainted(false);
       pauseButton.setContentAreaFilled(false);
@@ -295,7 +287,7 @@ public class NetworkPlayMode extends JPanel {
          keyBoard[i].setBorderPainted(false);
          keyBoard[i].setContentAreaFilled(false);
          keyBoard[i].setFocusPainted(false);
-         keyBoard[i].addActionListener(new FocusHandler());
+         keyBoard[i].addActionListener(new FocusButtonHandler(this));
       }
       for (int i = 0; i < 3; i++) {
          keyBoard[i].setBounds(550 + i * 95, 480, 80, 80);
@@ -425,11 +417,6 @@ public class NetworkPlayMode extends JPanel {
       }
    }
    
-   private class FocusHandler implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			NetworkPlayMode.this.requestFocusInWindow();
-		}
-	}
    private class KeyHandler implements KeyListener {
       @Override
       public void keyTyped(KeyEvent e) {
