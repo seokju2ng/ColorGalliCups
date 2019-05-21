@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 public class CardDao {
 	private ArrayList<Card> cards;
@@ -124,7 +125,21 @@ public class CardDao {
 //		return cnt;
 //	}
 	
-	public boolean loadCard() {return true;}
+	public boolean loadCard() {
+		if(cards == null) return false;
+		ArrayList<String> load = new CardIO().loadCard();
+		if(load.size() == 0) return false;
+		int n = Integer.parseInt(load.get(0));
+		for(int i = 1; i <= n; i++) {
+			StringTokenizer st = new StringTokenizer(load.get(i), " ");
+			int num = Integer.parseInt(st.nextToken());
+			String path = st.nextToken();
+			String answer = st.nextToken();
+			cards.add(new Card(num, path, answer));
+		}
+		return true;
+	}
+	
 	public boolean saveCard() {return true;}
 	public static CardDao getInstance() {
 		return cardDao;

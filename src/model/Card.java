@@ -12,6 +12,11 @@ public class Card {
 	public Card(int num, String path, String answer) {
 		this.num = num; this.path = path; this.answer = answer;
 	}
+	public Card(Card card) {
+		this.num = card.getNum();
+		this.path = card.getPath();
+		this.answer = card.getAnswer();
+	}
 	public int getNum() {
 		return num;
 	}
