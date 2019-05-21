@@ -26,6 +26,7 @@ import javax.swing.border.LineBorder;
 import etc.Board;
 import etc.ChangePanelService;
 import etc.HandVanish;
+import etc.MouseBtnHandler;
 import etc.RoundedPanel;
 
 public class NetworkPlayMode extends JPanel {
@@ -183,7 +184,9 @@ public class NetworkPlayMode extends JPanel {
       exitButton.setFocusPainted(false);
       exitButton.addKeyListener(new KeyHandler());
       exitButton.addActionListener(new ButtonHandler());
-      exitButton.addMouseListener(new MouseHandler());
+      MouseBtnHandler mbh = new MouseBtnHandler(exitButton,pauseButton);
+      exitButton.addMouseListener(mbh);
+      pauseButton.addMouseListener(mbh);
       exitButton.addActionListener(new FocusButtonHandler(this));
       pauseButton.setBounds(700, 10, 80, 80);
       pauseButton.setBorderPainted(false);
@@ -196,7 +199,7 @@ public class NetworkPlayMode extends JPanel {
 				pauseButton.requestFocusInWindow();
 			}			
 		});
-      pauseButton.addMouseListener(new MouseHandler());
+   
       panel.add(exitButton);
       panel.add(pauseButton);
       // 여기까지가 전원, 일시정지 버튼
@@ -360,24 +363,6 @@ public class NetworkPlayMode extends JPanel {
             for(int i = 0; i < 5; i++)
             	keyBoard[i].setVisible(true);
             problemCard.setVisible(true);
-         }
-      }
-   }
-
-   private class MouseHandler extends MouseAdapter {
-      public void mouseEntered(MouseEvent e) {
-         if (e.getSource().equals(exitButton)) {
-            exitButton.setIcon(new ImageIcon("image/exit(click).png"));
-         } else if (e.getSource().equals(pauseButton)) {
-            pauseButton.setIcon(new ImageIcon("image/pause(click).png"));
-         }
-      }
-
-      public void mouseExited(MouseEvent e) {
-         if (e.getSource().equals(exitButton)) {
-            exitButton.setIcon(new ImageIcon("image/exit.png"));
-         } else if (e.getSource().equals(pauseButton)) {
-            pauseButton.setIcon(new ImageIcon("image/pause.png"));
          }
       }
    }
