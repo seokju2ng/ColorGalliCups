@@ -31,6 +31,7 @@ import etc.Board;
 import etc.Cards;
 import etc.ChangePanelService;
 import etc.ImageCut;
+import etc.KeyImage;
 import etc.RoundedPanel;
 
 public class SinglePlayMode extends JPanel implements ActionListener {
@@ -42,11 +43,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 	private JPanel west;
 	private JButton pauseBackground;
 	// 5개의 키 버튼
-	private JLabel qKey;
-	private JLabel wKey;
-	private JLabel eKey;
-	private JLabel aKey;
-	private JLabel sKey;
+	private JLabel[] controllKey;
 	// ***********************************************************
 	private int[] colorFlag;//
 	private int gamePanelIndex;
@@ -102,19 +99,19 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		public void keyPressed(KeyEvent e) {
 			if (e.getKeyCode() == KeyEvent.VK_Q) {
 				spaceFlag = false;
-				qKey.setIcon(new ImageIcon("image/red(q)_press.png"));
+				controllKey[0].setVisible(false);
 
 			} else if (e.getKeyCode() == KeyEvent.VK_W) {
-				wKey.setIcon(new ImageIcon("image/yellow(w)_press.png"));
+				controllKey[1].setVisible(false);
 				spaceFlag = false;
 			} else if (e.getKeyCode() == KeyEvent.VK_E) {
-				eKey.setIcon(new ImageIcon("image/green(e)_press.png"));
+				controllKey[2].setVisible(false);
 				spaceFlag = false;
 			} else if (e.getKeyCode() == KeyEvent.VK_A) {
-				aKey.setIcon(new ImageIcon("image/blue(a)_press.png"));
+				controllKey[3].setVisible(false);
 				spaceFlag = false;
 			} else if (e.getKeyCode() == KeyEvent.VK_S) {
-				sKey.setIcon(new ImageIcon("image/black(s)_press.png"));
+				controllKey[4].setVisible(false);
 				spaceFlag = false;
 			} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 				int setCupFlag = 0;
@@ -141,7 +138,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		public void keyReleased(KeyEvent e) {
 			// TODO Auto-generated method stub
 			if (e.getKeyCode() == KeyEvent.VK_Q) {
-				qKey.setIcon(new ImageIcon("image/red(q).png"));
+				controllKey[0].setVisible(true);
 				if (colorFlag[0] == 0) {
 					colorFlag[0] = gamePanelIndex + 1;
 					board.getCups(0, gamePanelIndex, 4-gamePanelY).setVisible(true);
@@ -149,7 +146,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 						gamePanelY++;
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_W) {
-				wKey.setIcon(new ImageIcon("image/yellow(w).png"));
+				controllKey[1].setVisible(true);
 				if (colorFlag[1] == 0) {
 					colorFlag[1] = gamePanelIndex + 1;
 					board.getCups(1, gamePanelIndex, 4-gamePanelY).setVisible(true);
@@ -157,7 +154,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 						gamePanelY++;
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_E) {
-				eKey.setIcon(new ImageIcon("image/green(e).png"));
+				controllKey[2].setVisible(true);
 				if (colorFlag[2] == 0) {
 					colorFlag[2] = gamePanelIndex + 1;
 					board.getCups(2, gamePanelIndex, 4-gamePanelY).setVisible(true);
@@ -165,7 +162,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 						gamePanelY++;
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_A) {
-				aKey.setIcon(new ImageIcon("image/blue(a).png"));
+				controllKey[3].setVisible(true);
 				if (colorFlag[3] == 0) {
 					colorFlag[3] = gamePanelIndex + 1;
 					board.getCups(3, gamePanelIndex, 4-gamePanelY).setVisible(true);
@@ -173,7 +170,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 						gamePanelY++;
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_S) {
-				sKey.setIcon(new ImageIcon("image/black(s).png"));
+				controllKey[4].setVisible(true);
 				if (colorFlag[4] == 0) {
 					colorFlag[4] = gamePanelIndex + 1;
 					board.getCups(4, gamePanelIndex, 4-gamePanelY).setVisible(true);
@@ -278,7 +275,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		systemCardDeck = new Cards();
 		one_Deck = new ArrayList<>();
 		////////////////////////////////////
-		
+
 		colorFlag = new int[5];
 		spaceFlag = false;
 		for (int i = 0; i < 5; i++) {
@@ -336,7 +333,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		// 컴포넌트 생성 --------------------------------------------------------------
 		east = new JPanel();
 		east.setLayout(null);
-		east.setBackground(Color.white);
+
 		// 카드 덱 -----------
 		JPanel cardDeck = new RoundedPanel(null, 120, Color.WHITE);
 		for (int i = 0; i < systemCardDeck.card_arr.size(); i++) {
@@ -344,7 +341,6 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 			cardDeck.add(systemCardDeck.card_arr.get(i));
 
 		}
-		cardDeck.setBackground(Color.white);
 		cardDeck.setBounds(50, 20, 300, 300);
 
 		east.add(cardDeck);
@@ -385,28 +381,16 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 
 		// 키보드 아이콘 --------------------------------------------------------------
 		// q
-		qKey = new JLabel(new ImageIcon("image/red(q).png"));
-		qKey.setBounds(65, 550, 75, 75);
-		// qKey.addKeyListener(new KeyHandler());//listener
-		east.add(qKey);
-		// w
-		wKey = new JLabel(new ImageIcon("image/yellow(w).png"));
-		wKey.setBounds(150, 550, 75, 75);
-		east.add(wKey);
-		// e
-		eKey = new JLabel(new ImageIcon("image/green(e).png"));
-		eKey.setBounds(235, 550, 75, 75);
-		east.add(eKey);
-		// a
-		aKey = new JLabel(new ImageIcon("image/blue(a).png"));
-		aKey.setBounds(320, 550, 75, 75);
-		east.add(aKey);
-		// sdd
-		sKey = new JLabel(new ImageIcon("image/black(s).png"));
-		sKey.setBounds(405, 550, 75, 75);
-		east.add(sKey);
+		
+		controllKey = KeyImage.getKey("1P", 75, 75);
+		
+		for(int i = 0; i < 5; i++) {
+			controllKey[i].setBounds(65 + i * 85, 550, 75, 75);
+			controllKey[i + 5].setBounds(65 + i * 85, 550, 75, 75);
+			east.add(controllKey[i]);
+			east.add(controllKey[i + 5]);
+		}
 
-		// 메인 JPanel에 추가
 		gbc.weightx = 0.4;
 		make(east, 1, 0, 1, 1);
 	}
@@ -416,7 +400,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 
 		west = new JPanel();
 		west.setLayout(null);
-		west.setBackground(Color.white);
+
 		// 게임화면(w:787.8, h:470)
 		board = new Board(5,5);
 		board.setBounds(15, 185, 785, 440);
@@ -446,7 +430,6 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		JPanel timePanel = new JPanel(new GridLayout(2, 1));
 		timePanel.setBorder(new LineBorder(Color.gray, 1));
 		timePanel.setBounds(15, 15, 252, 150);
-		timePanel.setBackground(Color.white);
 		// --timePanel의 컴포넌트 시작
 		JLabel timeRemaining = new JLabel("남은시간", SwingConstants.CENTER);
 		timeRemaining.setFont(new Font("배달의민족 한나는 열한살", Font.BOLD, 36));
@@ -459,7 +442,6 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 
 		// 정답개수 --------------------------------------------------------------
 		JPanel correctPanel = new JPanel(new GridLayout(2, 1));
-		correctPanel.setBackground(Color.white);
 		// --correctPanel의 컴포넌트 시작
 		JLabel correct = new JLabel("정답개수", SwingConstants.CENTER);
 		correct.setFont(new Font("배달의민족 한나는 열한살", Font.BOLD, 36));

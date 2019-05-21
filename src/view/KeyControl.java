@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import etc.ChangePanelService;
+import etc.KeyImage;
 
 public class KeyControl extends JPanel {
 	public KeyControl() {
@@ -23,13 +24,12 @@ public class KeyControl extends JPanel {
 		this.setBackground(new Color(251, 229, 214));
 		this.addComponentListener(new FocusHandler());
 		this.addKeyListener(new Handler());
+		
 //		 JButton[] threeButtons=new JButton[] {new JButton(new
 //		 ImageIcon("image/red(q)_k.png")), new JButton(new
 //		 ImageIcon("image/green(w)_k.png")), new JButton(new
 //		 ImageIcon("image/blue(e)_k.png"))};
-		JLabel[] fiveButtons = new JLabel[] { new JLabel(new ImageIcon("image/red(q)_k.png")),
-				new JLabel(new ImageIcon("image/yellow(w)_k.png")), new JLabel(new ImageIcon("image/green(e)_k.png")),
-				new JLabel(new ImageIcon("image/blue(a)_k.png")), new JLabel(new ImageIcon("image/black(s)_k.png")) };
+		JLabel[] fiveButtons = KeyImage.getKey("1P", 90, 90);
 		JLabel functionButton = new JLabel(new ImageIcon("image/spacebar.png"));
 		/////////////////////////////////////////// SINGLEPLAY
 		/////////////////////////////////////////// ////////////////////////////////////////////////
@@ -38,10 +38,11 @@ public class KeyControl extends JPanel {
 		singlePlay.setBounds(40, 10, 250, 150);
 		add(singlePlay);
 
-		JLabel[] singleButtons5 = fiveButtons;
-		for (int i = 0; i < fiveButtons.length; i++) {
-			singleButtons5[i].setBounds(110 + 100 * i, 200, 100, 100);
-			add(singleButtons5[i]);
+		for (int i = 0; i < fiveButtons.length / 2; i++) {
+			fiveButtons[i].setBounds(110 + 100 * i, 200, 90, 90);
+			fiveButtons[i + 1].setBounds(110 + 100 * i, 200,  90, 90);
+			add(fiveButtons[i]);
+			add(fiveButtons[i + 5]);
 		}
 		functionButton.setBounds(190, 350, 350, 94);
 		add(functionButton);
@@ -79,20 +80,20 @@ public class KeyControl extends JPanel {
 		// add(firstPlay3[i]);
 		// }
 
-		JLabel[] firstPlay5 = new JLabel[] { new JLabel(new ImageIcon("image/red(q)_1p_k.png")),
-				new JLabel(new ImageIcon("image/yellow(w)_1p_k.png")),
-				new JLabel(new ImageIcon("image/green(e)_1p_k.png")),
-				new JLabel(new ImageIcon("image/blue(a)_1p_k.png")),
-				new JLabel(new ImageIcon("image/black(s)_1p_k.png")) };
+		JLabel[] firstPlay5 = KeyImage.getKey("1P", 60, 60);
 		JLabel functionButton1 = new JLabel(new ImageIcon("image/spacebar_1p.png"));
 
 		for (int i = 0; i < 3; i++) {
 			firstPlay5[i].setBounds(730 + 70 * i, 230, 60, 60);
+			firstPlay5[i + 5].setBounds(730 + 70 * i, 230, 60, 60);
 			add(firstPlay5[i]);
+			add(firstPlay5[i + 5]);
 		}
 		for (int i = 3; i < 5; i++) {
 			firstPlay5[i].setBounds(560 + 70 * i, 300, 60, 60);
+			firstPlay5[i + 5].setBounds(560 + 70 * i, 300, 60, 60);
 			add(firstPlay5[i]);
+			add(firstPlay5[i + 5]);
 		}
 		functionButton1.setBounds(735, 400, 191, 59);
 		add(functionButton1);
@@ -108,20 +109,20 @@ public class KeyControl extends JPanel {
 		// secondPlay3[i].setBorderPainted(false);
 		// add(secondPlay3[i]);
 		// }
-		JLabel[] secondPlay5 = new JLabel[] { new JLabel(new ImageIcon("image/red(i)_2p_k.png")),
-				new JLabel(new ImageIcon("image/yellow(o)_2p_k.png")),
-				new JLabel(new ImageIcon("image/green(p)_2p_k.png")),
-				new JLabel(new ImageIcon("image/blue(k)_2p_k.png")),
-				new JLabel(new ImageIcon("image/black(l)_2p_k.png")) };
+		JLabel[] secondPlay5 = KeyImage.getKey("2P", 60, 60);
 		JLabel functionButton2 = new JLabel(new ImageIcon("image/enter_2p.png"));
 
 		for (int i = 0; i < 3; i++) {
-			secondPlay5[i].setBounds(980 + 70 * i, 230, 125, 59);
+			secondPlay5[i].setBounds(1010 + 70 * i, 230, 60, 60);
+			secondPlay5[i + 5].setBounds(1010 + 70 * i, 230, 60, 60);
+			add(secondPlay5[i]);
 			add(secondPlay5[i]);
 		}
 		for (int i = 3; i < 5; i++) {
 			secondPlay5[i].setBounds(835 + 70 * i, 300, 60, 60);
+			secondPlay5[i + 5].setBounds(835 + 70 * i, 300, 60, 60);
 			add(secondPlay5[i]);
+			add(secondPlay5[i + 5]);
 		}
 
 		functionButton2.setBounds(1015, 400, 191, 60);
