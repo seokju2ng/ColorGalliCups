@@ -537,7 +537,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 		int height = 700;
 
 		// 1p에 보드 생성//
-		board1 = new Board("dual",5,5); // 5열짜리 보드를 만듦.
+		board1 = new Board(5,5); // 5열짜리 보드를 만듦.
 		board1.setBounds(45, 350, 400, 240);
 		board1.setBackground(Color.white);
 		// ********************************************************
@@ -620,7 +620,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 		pointerTwo[0].setVisible(true);
 		///////////////////////////////
 		// 2p에 보드 추가//
-		board2 = new Board("dual",5,5); // 5열짜리 보드를 만듦.
+		board2 = new Board(5,5); // 5열짜리 보드를 만듦.
 		board2.setBounds(45, 350, 400, 240);
 		board2.setBackground(Color.white);
 
