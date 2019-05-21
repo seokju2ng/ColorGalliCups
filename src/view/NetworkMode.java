@@ -27,12 +27,8 @@ public class NetworkMode extends JPanel{
 	private JLabel[] rl;
 	private JLabel nickName;
 	public NetworkMode() {
-		//super("ColorGalli Cups");
 		this.addComponentListener(new FocusHandler());
 		makeUI();
-//		this.setVisible(true);
-//		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-//		this.setResizable(false);
 		this.setSize(1363, 714);
 	}
 	private void makeUI() {
@@ -100,11 +96,7 @@ public class NetworkMode extends JPanel{
 		rl[0].setVisible(true);
 		
 		add(p);
-		//p.setFocusable(true);
-		p.addKeyListener(l);
-		setFocusable(true);
 		addKeyListener(l);
-		
 	}
 	
 	class Handler extends KeyAdapter implements ActionListener {

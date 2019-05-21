@@ -41,11 +41,11 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 	private JPanel west;
 	private JButton pauseBackground;
 	// 5개의 키 버튼
-	private JButton qKey;
-	private JButton wKey;
-	private JButton eKey;
-	private JButton aKey;
-	private JButton sKey;
+	private JLabel qKey;
+	private JLabel wKey;
+	private JLabel eKey;
+	private JLabel aKey;
+	private JLabel sKey;
 	// ***********************************************************
 	private int[] colorFlag;//
 	private int gamePanelIndex;
@@ -63,7 +63,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 	private JPanel[] line;
 	// ***********************************************************
 	// 버튼
-	private JButton bellBtn;
+	private JLabel bellBtn;
 	private JButton exitBtn;
 	private JButton pauseBtn;
 
@@ -312,28 +312,12 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		// Handler
 		this.setFocusable(true);
 		addKeyListener(new KeyHandler());// listener
-		bellBtn.addKeyListener(new KeyHandler());// listener
-		bellBtn.addActionListener(new FocusButtonHandler(this));
-		exitBtn.addKeyListener(new KeyHandler());// listener
-		exitBtn.addActionListener(new FocusButtonHandler(this));
-		pauseBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				pauseBtn.requestFocusInWindow();
-			}			
-		});
 		exitBtn.addMouseListener(new MouseHandler());
 		exitBtn.addActionListener(new FocusButtonHandler(this));
-		pauseBtn.addMouseListener(new MouseHandler());
 		pauseBtn.addActionListener(new FocusButtonHandler(this));
+		pauseBtn.addMouseListener(new MouseHandler());
 		pauseBackground.addActionListener(new ClickHandler());
 		pauseBackground.addActionListener(new FocusButtonHandler(this));
-		qKey.addActionListener(new FocusButtonHandler(this));
-		wKey.addActionListener(new FocusButtonHandler(this));
-		eKey.addActionListener(new FocusButtonHandler(this));
-		aKey.addActionListener(new FocusButtonHandler(this));
-		sKey.addActionListener(new FocusButtonHandler(this));
 		// this.setSize(1363, 714);
 		// this.setVisible(true);
 
@@ -382,12 +366,8 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		east.add(cardDeck);
 
 		// 종 버튼 --------------------------------------------------------------
-		bellBtn = new JButton(new ImageIcon("image/bell.png"));
+		bellBtn = new JLabel(new ImageIcon("image/bell.png"));
 		bellBtn.setBounds(192, 380, 165, 140);
-		bellBtn.setContentAreaFilled(false);
-		bellBtn.setFocusPainted(false);
-		bellBtn.setBorderPainted(false);
-		bellBtn.addActionListener(new ClickHandler());
 		east.add(bellBtn);
 
 		// 종료 버튼 --------------------------------------------------------------
@@ -421,40 +401,25 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 
 		// 키보드 아이콘 --------------------------------------------------------------
 		// q
-		qKey = new JButton(new ImageIcon("image/red(q).png"));
+		qKey = new JLabel(new ImageIcon("image/red(q).png"));
 		qKey.setBounds(65, 550, 75, 75);
-		qKey.setContentAreaFilled(false);
-		qKey.setFocusPainted(false);
-		qKey.setBorderPainted(false);
 		// qKey.addKeyListener(new KeyHandler());//listener
 		east.add(qKey);
 		// w
-		wKey = new JButton(new ImageIcon("image/yellow(w).png"));
+		wKey = new JLabel(new ImageIcon("image/yellow(w).png"));
 		wKey.setBounds(150, 550, 75, 75);
-		wKey.setContentAreaFilled(false);
-		wKey.setFocusPainted(false);
-		wKey.setBorderPainted(false);
 		east.add(wKey);
 		// e
-		eKey = new JButton(new ImageIcon("image/green(e).png"));
+		eKey = new JLabel(new ImageIcon("image/green(e).png"));
 		eKey.setBounds(235, 550, 75, 75);
-		eKey.setContentAreaFilled(false);
-		eKey.setFocusPainted(false);
-		eKey.setBorderPainted(false);
 		east.add(eKey);
 		// a
-		aKey = new JButton(new ImageIcon("image/blue(a).png"));
+		aKey = new JLabel(new ImageIcon("image/blue(a).png"));
 		aKey.setBounds(320, 550, 75, 75);
-		aKey.setContentAreaFilled(false);
-		aKey.setFocusPainted(false);
-		aKey.setBorderPainted(false);
 		east.add(aKey);
 		// sdd
-		sKey = new JButton(new ImageIcon("image/black(s).png"));
+		sKey = new JLabel(new ImageIcon("image/black(s).png"));
 		sKey.setBounds(405, 550, 75, 75);
-		sKey.setContentAreaFilled(false);
-		sKey.setFocusPainted(false);
-		sKey.setBorderPainted(false);
 		east.add(sKey);
 
 		// 메인 JPanel에 추가

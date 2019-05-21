@@ -40,11 +40,7 @@ public class Tutorial extends JPanel {
       this.addKeyListener(l);
       back.addKeyListener(l);
       back.addActionListener(l);
-      rarrow.addKeyListener(l);
-      larrow.addKeyListener(l);
-      picture.addKeyListener(l);
-      this.setFocusable(true);
-      //back.setFocusable(true);
+      
       add(back);
       add(rarrow);
       add(larrow);

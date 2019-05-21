@@ -25,18 +25,13 @@ public class GameInfo extends JPanel {
       this.setBackground(new Color(251,229,214));
       
 
-      JLabel[] labels=new JLabel[] {new JLabel("2019 (T)PerfectColor"), new JLabel("Threekimchoisong"), new JLabel("Directed by Lectopia"), new JLabel("Thanks to Hong, Jeong HK, Kim KH, Jeong KE")};
+      JLabel[] labels=new JLabel[] {new JLabel("2019 (T)PerfectColor",SwingConstants.CENTER), new JLabel("Threekimchoisong",SwingConstants.CENTER), new JLabel("Directed by Lectopia",SwingConstants.CENTER), new JLabel("Thanks to Hong, Jeong HK, Kim KH, Jeong KE",SwingConstants.CENTER)};
       for(int i=0;i<labels.length;i++) {
          labels[i].setFont(font);
          labels[i].setForeground(bg);
+         labels[i].setBounds(180,100 + i * 80, 1000, 80);
          add(labels[i]);
-         labels[i].setHorizontalAlignment(SwingConstants.CENTER);
       }
-      
-      labels[0].setBounds(180,100,1000,80);
-      labels[1].setBounds(180,180,1000,80);
-      labels[2].setBounds(180,260,1000,80);
-      labels[3].setBounds(180,340,1000,80);
       
       JButton back=new JButton("뒤로가기");
       back.setFont(font);

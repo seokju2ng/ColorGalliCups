@@ -76,7 +76,6 @@ public class WaitingRoomCrown extends JPanel{
 		});
 		
 		startButton = new JButton(new ImageIcon("image/startBtn.png"));
-//		startButton.setFont(font);
 		startButton.setBounds(580, 580, 211, 70);
 		startButton.setBorderPainted(false);
 		startButton.setContentAreaFilled(false);

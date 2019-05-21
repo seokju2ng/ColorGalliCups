@@ -28,7 +28,7 @@ public class ColorGalliCups extends JFrame{
 //	private GameInfo gameInfo;
 //	private WaitingRoomCrown waitingRoomC;
 //	private WaitingRoomNormal waitingRoomN;
-	
+	                
 	public ColorGalliCups() {
 		super("ColorGalli Cups");
 		
@@ -78,7 +78,7 @@ public class ColorGalliCups extends JFrame{
 		changePanel.addPanel("NetworkMode", new NetworkMode());
 		changePanel.addPanel("NetworkPlayMode", new NetworkPlayMode());
 //		changePanel.addPanel("SingleMode", new SinglePlayMode());
-		changePanel.addPanel("DualMode", new DualPlayMode());
+//		changePanel.addPanel("DualMode", new DualPlayMode());
 		changePanel.addPanel("WaitingRoomCrown", new WaitingRoomCrown());
 		
 		add(mainPanel);
