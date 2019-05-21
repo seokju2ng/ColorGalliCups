@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -29,7 +27,7 @@ import etc.Board;
 import etc.Cards;
 import etc.ChangePanelService;
 import etc.HandVanish;
-import etc.ImageCut;
+import etc.KeyImage;
 import etc.RoundedPanel;
 
 public class DualPlayMode extends JPanel implements ActionListener {
@@ -68,8 +66,8 @@ public class DualPlayMode extends JPanel implements ActionListener {
 	private ArrayList<JLabel> two_Deck; // 2p player가 맞춘 카드개수.
 	// private JLabel card; // 중앙 덱에 올라갈 카드
 
-	private JButton[] one_buttons; // 1p전용 키 버튼
-	private JButton[] two_buttons; // 2p전용 키 버튼
+	private JLabel[] one_buttons; // 1p전용 키 버튼
+	private JLabel[] two_buttons; // 2p전용 키 버튼
 
 	private JButton pauseBackground;
 	private boolean pauseFlag = false; // 일시정지 여부
@@ -135,34 +133,34 @@ public class DualPlayMode extends JPanel implements ActionListener {
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
 			if (e.getKeyCode() == KeyEvent.VK_Q) {
-				one_buttons[0].setIcon(ImageCut.one_pressed_image[0]);
+				one_buttons[0].setVisible(false);
 				spaceFlag1p = false;
 			} else if (e.getKeyCode() == KeyEvent.VK_W) {
-				one_buttons[1].setIcon(ImageCut.one_pressed_image[1]);
+				one_buttons[1].setVisible(false);
 				spaceFlag1p = false;
 			} else if (e.getKeyCode() == KeyEvent.VK_E) {
-				one_buttons[2].setIcon(ImageCut.one_pressed_image[2]);
+				one_buttons[2].setVisible(false);
 				spaceFlag1p = false;
 			} else if (e.getKeyCode() == KeyEvent.VK_A) {
-				one_buttons[3].setIcon(ImageCut.one_pressed_image[3]);
+				one_buttons[3].setVisible(false);
 				spaceFlag1p = false;
 			} else if (e.getKeyCode() == KeyEvent.VK_S) {
-				one_buttons[4].setIcon(ImageCut.one_pressed_image[4]);
+				one_buttons[4].setVisible(false);
 				spaceFlag1p = false;
 			} else if (e.getKeyCode() == KeyEvent.VK_I) {
-				two_buttons[0].setIcon(ImageCut.two_pressed_image[0]);
+				two_buttons[0].setVisible(false);
 				spaceFlag2p = false;
 			} else if (e.getKeyCode() == KeyEvent.VK_O) {
-				two_buttons[1].setIcon(ImageCut.two_pressed_image[1]);
+				two_buttons[1].setVisible(false);
 				spaceFlag2p = false;
 			} else if (e.getKeyCode() == KeyEvent.VK_P) {
-				two_buttons[2].setIcon(ImageCut.two_pressed_image[2]);
+				two_buttons[2].setVisible(false);
 				spaceFlag2p = false;
 			} else if (e.getKeyCode() == KeyEvent.VK_K) {
-				two_buttons[3].setIcon(ImageCut.two_pressed_image[3]);
+				two_buttons[3].setVisible(false);
 				spaceFlag2p = false;
 			} else if (e.getKeyCode() == KeyEvent.VK_L) {
-				two_buttons[4].setIcon(ImageCut.two_pressed_image[4]);
+				two_buttons[4].setVisible(false);
 				spaceFlag2p = false;
 			} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 				int setCupFlag = 0;
@@ -213,7 +211,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 		public void keyReleased(KeyEvent e) {
 			// TODO Auto-generated method stub
 			if (e.getKeyCode() == KeyEvent.VK_Q) {
-				one_buttons[0].setIcon(ImageCut.one_image[0]);
+				one_buttons[0].setVisible(true);
 				if (colorFlag1p[0] == 0) {
 					colorFlag1p[0] = gamePanelIndex1p + 1;
 					// System.out.println(redCup1p+"," + gamePanelIndex1p +"," + gamePanelY1p);
@@ -223,7 +221,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 						gamePanelY1p++;
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_W) {
-				one_buttons[1].setIcon(ImageCut.one_image[1]);
+				one_buttons[1].setVisible(true);
 				if (colorFlag1p[1] == 0) {
 					colorFlag1p[1] = gamePanelIndex1p + 1;
 					board1.getCups(1, gamePanelIndex1p, 4-gamePanelY1p).setVisible(true);
@@ -231,7 +229,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 						gamePanelY1p++;
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_E) {
-				one_buttons[2].setIcon(ImageCut.one_image[2]);
+				one_buttons[2].setVisible(true);
 				if (colorFlag1p[2] == 0) {
 					colorFlag1p[2] = gamePanelIndex1p + 1;
 					board1.getCups(2, gamePanelIndex1p, 4-gamePanelY1p).setVisible(true);
@@ -239,7 +237,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 						gamePanelY1p++;
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_A) {
-				one_buttons[3].setIcon(ImageCut.one_image[3]);
+				one_buttons[3].setVisible(true);
 				if (colorFlag1p[3] == 0) {
 					colorFlag1p[3] = gamePanelIndex1p + 1;
 					board1.getCups(3, gamePanelIndex1p, 4-gamePanelY1p).setVisible(true);
@@ -247,7 +245,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 						gamePanelY1p++;
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_S) {
-				one_buttons[4].setIcon(ImageCut.one_image[4]);
+				one_buttons[4].setVisible(true);
 				if (colorFlag1p[4] == 0) {
 					colorFlag1p[4] = gamePanelIndex1p + 1;
 					board1.getCups(4, gamePanelIndex1p, 4-gamePanelY1p).setVisible(true);
@@ -303,7 +301,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 
 			// 2p
 			else if (e.getKeyCode() == KeyEvent.VK_I) {
-				two_buttons[0].setIcon(ImageCut.two_image[0]);
+				two_buttons[0].setVisible(true);
 				if (colorFlag2p[0] == 0) {
 					colorFlag2p[0] = gamePanelIndex2p + 1;
 					board2.getCups(0, gamePanelIndex2p, 4-gamePanelY2p).setVisible(true);
@@ -311,7 +309,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 						gamePanelY2p++;
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_O) {
-				two_buttons[1].setIcon(ImageCut.two_image[1]);
+				two_buttons[1].setVisible(true);
 				if (colorFlag2p[1] == 0) {
 					colorFlag2p[1] = gamePanelIndex2p + 1;
 					board2.getCups(1, gamePanelIndex2p, 4-gamePanelY2p).setVisible(true);
@@ -319,7 +317,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 						gamePanelY2p++;
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_P) {
-				two_buttons[2].setIcon(ImageCut.two_image[2]);
+				two_buttons[2].setVisible(true);
 				if (colorFlag2p[2] == 0) {
 					colorFlag2p[2] = gamePanelIndex2p + 1;
 					board2.getCups(2, gamePanelIndex2p, 4-gamePanelY2p).setVisible(true);
@@ -327,7 +325,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 						gamePanelY2p++;
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_K) {
-				two_buttons[3].setIcon(ImageCut.two_image[3]);
+				two_buttons[3].setVisible(true);
 				if (colorFlag2p[3] == 0) {
 					colorFlag2p[3] = gamePanelIndex2p + 1;
 					board2.getCups(3, gamePanelIndex2p, 4-gamePanelY2p).setVisible(true);
@@ -335,7 +333,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 						gamePanelY2p++;
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_L) {
-				two_buttons[4].setIcon(ImageCut.two_image[4]);
+				two_buttons[4].setVisible(true);
 				if (colorFlag2p[4] == 0) {
 					colorFlag2p[4] = gamePanelIndex2p + 1;
 					board2.getCups(4, gamePanelIndex2p, 4-gamePanelY2p).setVisible(true);
@@ -425,7 +423,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 				this.revalidate(); // 부모컨테이너를 새로고침한다
 				this.repaint(); // 새로고침.
 
-				one_Deck.add(new JLabel(ImageCut.resizeIcon(icon, 90, 140))); // 1p 사용자 카드덱에 카드추가
+				one_Deck.add(new JLabel(KeyImage.resizeIcon(icon, 90, 140))); // 1p 사용자 카드덱에 카드추가
 				one_Deck.get(one_cnt).setBounds(50 + one_cnt * 10, 190, 90, 140); // 좌표는 나중에 수정
 				for (int i = one_Deck.size() - 1; i >= 0; i--) {
 					p1.add(one_Deck.get(i));
@@ -451,7 +449,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 				this.revalidate(); // 부모컨테이너를 새로고침한다
 				this.repaint(); // 새로고침.
 
-				two_Deck.add(new JLabel(ImageCut.resizeIcon(icon, 90, 140))); // 2p 사용자 카드덱에 카드추가
+				two_Deck.add(new JLabel(KeyImage.resizeIcon(icon, 90, 140))); // 2p 사용자 카드덱에 카드추가
 				two_Deck.get(two_cnt).setBounds(350 - two_cnt * 10, 190, 90, 140); // 좌표는 나중에 수정
 				for (int i = two_Deck.size() - 1; i >= 0; i--) {
 					p3.add(two_Deck.get(i)); // 겹치는 순서 지키기위해 같은 것도 다시 add한다.
@@ -733,40 +731,33 @@ public class DualPlayMode extends JPanel implements ActionListener {
 	/*------------ centerpane(p2)에 버튼10개 달아주는 메소드 ---------------*/
 	public void addKeyButtons() {
 		p2.setLayout(null);
-		one_buttons = new JButton[5];
-		two_buttons = new JButton[5];
+		one_buttons = KeyImage.getKey("1P", 40, 40);
+		two_buttons = KeyImage.getKey("2P", 40, 40);
 
-		for (int i = 0; i < one_buttons.length; i++) {
-			one_buttons[i] = new JButton();
-			one_buttons[i].setIcon(ImageCut.one_image[i]);
-			one_buttons[i].setContentAreaFilled(false);
-			one_buttons[i].setFocusPainted(false);
-			one_buttons[i].setBorderPainted(false);
-
+		for (int i = 0; i < one_buttons.length / 2; i++) {
 			if (i < 3) {
 				one_buttons[i].setBounds(20 + i * 45, 550, 40, 40);
+				one_buttons[i + 5].setBounds(20 + i * 45, 550, 40, 40);
 			} else {
 				one_buttons[i].setBounds(i * 45 - 100, 600, 40, 40);
+				one_buttons[i + 5].setBounds(i * 45 - 100, 600, 40, 40);
 			}
 			one_buttons[i].addKeyListener(new KeyHandler());
-			one_buttons[i].addActionListener(new FocusButtonHandler(this));
 			p2.add(one_buttons[i]);
+			p2.add(one_buttons[i + 5]);
 		}
 
-		for (int i = 0; i < two_buttons.length; i++) {
-			two_buttons[i] = new JButton();
-			two_buttons[i].setIcon(ImageCut.two_image[i]);
-			two_buttons[i].setContentAreaFilled(false);
-			two_buttons[i].setFocusPainted(false);
-			two_buttons[i].setBorderPainted(false);
+		for (int i = 0; i < two_buttons.length / 2; i++) {
 			if (i < 3) {
 				two_buttons[i].setBounds(210 + i * 45, 550, 40, 40);
+				two_buttons[i + 5].setBounds(210 + i * 45, 550, 40, 40);
 			} else {
 				two_buttons[i].setBounds(i * 45 + 90, 600, 40, 40);
+				two_buttons[i + 5].setBounds(i * 45 + 90, 600, 40, 40);
 			}
 			two_buttons[i].addKeyListener(new KeyHandler());
-			two_buttons[i].addActionListener(new FocusButtonHandler(this));
 			p2.add(two_buttons[i]);
+			p2.add(two_buttons[i + 5]);
 		}
 	}
 	public void playSound(String fileName) {
