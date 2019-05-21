@@ -397,13 +397,14 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		exitBtn.setFocusPainted(false);
 		exitBtn.setBorderPainted(false);
 		exitBtn.addActionListener(new ClickHandler());
-		exitBtn.addActionListener(e -> {
-			int res = JOptionPane.showConfirmDialog(null, "게임을 종료하시겠습니까?", "게임 종료", JOptionPane.YES_NO_OPTION,
-					JOptionPane.WARNING_MESSAGE);
-			if (res == JOptionPane.YES_OPTION) {
-				ChangePanelService.getInstance().changePanel("MainView");
+		exitBtn.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				int res = JOptionPane.showConfirmDialog(null, "게임을 종료하시겠습니까?", "게임 종료", JOptionPane.YES_NO_OPTION,
+						JOptionPane.WARNING_MESSAGE);
+				if (res == JOptionPane.YES_OPTION) {
+					ChangePanelService.getInstance().changePanel("MainView", SinglePlayMode.this);
+				}
 			}
-
 		});
 
 		east.add(exitBtn);

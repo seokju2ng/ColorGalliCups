@@ -17,7 +17,7 @@ public class RoundedPanel extends JPanel {
       super(layout);
       cornerRadius = radius;
    }
-
+   
    public RoundedPanel(LayoutManager layout, int radius, Color bgColor) {
       super(layout);
       cornerRadius = radius;

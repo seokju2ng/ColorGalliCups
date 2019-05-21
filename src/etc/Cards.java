@@ -13,7 +13,7 @@ public class Cards  {
 	
 	public Cards() {
 		card_arr = new ArrayList<>();
-	
+		
 		for(int i = 0 ; i  < 38 ; i++) {
 			card_arr.add(new JLabel(new ImageIcon("image/"+(i+1)+".png")));
 		}

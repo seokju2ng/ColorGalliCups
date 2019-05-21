@@ -27,6 +27,11 @@ public class WaitingRoomNormal extends JPanel{
 		this.addComponentListener(new FocusHandler());
 		makeUI();
 	}
+	public void setRoomNum(int roomNum) {
+		this.roomNum = roomNum;
+		roomNumLabel.setText("방번호 : " + roomNum);
+	}
+	
 	private void makeUI() {
 		Color backgroundColor = new Color(251, 229, 214);
 		Font font = new Font("BM HANNA 11yrs old", Font.BOLD, 35); 

@@ -110,8 +110,10 @@ public class NetworkMode extends JPanel{
 	class Handler extends KeyAdapter implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("enter");
-			ChangePanelService cps = ChangePanelService.getInstance();
-			if(cor == 0) cps.changePanel("WatingRoomCrown");
+			if(cor == 0) {
+				ChangePanelService cps = ChangePanelService.getInstance();
+				cps.changePanel("WaitingRoomCrown");
+			}
 			if(cor == 1) {
 				String num = JOptionPane.showInputDialog("방번호를 입력해주세요.(4자리)");
 				if(num != null) {
@@ -119,7 +121,11 @@ public class NetworkMode extends JPanel{
 						num = JOptionPane.showInputDialog("방번호를 입력해주세요.(4자리)");
 						if(num == null) return;
 					}
-					cps.changePanel("WatingRoomNormal");
+					ChangePanelService cps = ChangePanelService.getInstance();
+					WaitingRoomNormal wrn = new WaitingRoomNormal();
+					wrn.setRoomNum(Integer.parseInt(num));
+					cps.addPanel("WaitingRoomNormal", wrn);
+					cps.changePanel("WaitingRoomNormal");
 				}
 			}
 			else if(cor == 2) {
@@ -132,7 +138,10 @@ public class NetworkMode extends JPanel{
 					nickName.setText("닉네임 : "+name);
 				}
 			}
-			else if(cor == 3) cps.changePanel("GameMode");
+			else if(cor == 3) {
+				ChangePanelService cps = ChangePanelService.getInstance();
+				cps.changePanel("GameMode");
+			}
 		}
 		public void keyPressed(KeyEvent e) {
 			if(e.getKeyCode() == KeyEvent.VK_DOWN) {

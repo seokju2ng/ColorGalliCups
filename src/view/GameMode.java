@@ -27,6 +27,8 @@ public class GameMode extends JPanel {
    private JLabel leftCursorArr[];
    private JLabel rightCursorArr[];
    private int cor;
+   private SinglePlayMode singleMode;
+   private DualPlayMode dualMode;
    
    public GameMode() {
 	   this.addComponentListener(new FocusHandler());
@@ -42,6 +44,11 @@ public class GameMode extends JPanel {
 	      menuArr[1] = new JButton("2p Mode");
 	      menuArr[2] = new JButton("Network Mode");
 	      menuArr[3] = new JButton("Back");
+	      
+//	      singleMode = new SinglePlayMode();
+//	      ChangePanelService.getInstance().addPanel("SingleMode", singleMode);
+	      
+	      
 	      
 	      ImageIcon leftCursorImage = new ImageIcon("image/LeftCursor.png");
 	      ImageIcon rightCursorImage = new ImageIcon("image/RightCursor.png");
@@ -102,8 +109,18 @@ public class GameMode extends JPanel {
    class Handler extends KeyAdapter implements ActionListener{
 	   public void actionPerformed(ActionEvent e) {
 		   ChangePanelService cps = ChangePanelService.getInstance();
-			if (cor == 0) cps.changePanel("SingleMode");
-			else if(cor == 1) cps.changePanel("DualMode");
+			if (cor == 0) {
+//				cps.removePanel(singleMode);
+				singleMode = new SinglePlayMode();
+				cps.addPanel("SingleMode", singleMode);
+				cps.changePanel("SingleMode");
+			}
+			else if(cor == 1) {
+//				cps.removePanel(singleMode);
+				dualMode = new DualPlayMode();
+				cps.addPanel("DualMode", dualMode);
+				cps.changePanel("DualMode");
+			}
 			else if(cor == 2) cps.changePanel("NetworkMode");
 			else if(cor == 3) cps.changePanel("MainView");
 		}

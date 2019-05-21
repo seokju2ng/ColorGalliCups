@@ -761,12 +761,14 @@ public class DualPlayMode extends JPanel implements ActionListener {
 				pause.requestFocusInWindow();
 			}			
 		});
-      exit.addActionListener(e -> {
-         int res = JOptionPane.showConfirmDialog(null, "게임을 종료하시겠습니까?", "게임 종료", JOptionPane.YES_NO_OPTION,
-               JOptionPane.WARNING_MESSAGE);
-         if (res == JOptionPane.YES_OPTION) {
-            ChangePanelService.getInstance().changePanel("MainView");
-         }
+      exit.addActionListener(new ActionListener() {
+    	  	public void actionPerformed(ActionEvent e) {
+	         int res = JOptionPane.showConfirmDialog(null, "게임을 종료하시겠습니까?", "게임 종료", JOptionPane.YES_NO_OPTION,
+	               JOptionPane.WARNING_MESSAGE);
+	         if (res == JOptionPane.YES_OPTION) {
+	        	 	ChangePanelService.getInstance().changePanel("MainView", DualPlayMode.this);
+	         }
+    	  	}
       }); // exit버튼에 액션핸들러 추가
       exit.addMouseListener(new MouseHandler());
       exit.addActionListener(new FocusButtonHandler(this));
