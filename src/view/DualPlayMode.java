@@ -37,16 +37,6 @@ public class DualPlayMode extends JPanel implements ActionListener {
 
 	// ********************************************************
 	// edit by minseongChoi
-	private JLabel redCup1p[][];
-	private JLabel blueCup1p[][];
-	private JLabel greenCup1p[][];
-	private JLabel yellowCup1p[][];
-	private JLabel blackCup1p[][];
-	private JLabel redCup2p[][];
-	private JLabel blueCup2p[][];
-	private JLabel greenCup2p[][];
-	private JLabel yellowCup2p[][];
-	private JLabel blackCup2p[][];
 	private int[] colorFlag1p;//
 	private int[] colorFlag2p;//
 	private int gamePanelIndex1p;
@@ -227,7 +217,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 				if (colorFlag1p[0] == 0) {
 					colorFlag1p[0] = gamePanelIndex1p + 1;
 					// System.out.println(redCup1p+"," + gamePanelIndex1p +"," + gamePanelY1p);
-					redCup1p[gamePanelIndex1p][4 - gamePanelY1p].setVisible(true);
+					board1.getCups(0, gamePanelIndex1p, 4-gamePanelY1p).setVisible(true);
 
 					if (gamePanelY1p < 4)
 						gamePanelY1p++;
@@ -236,7 +226,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 				one_buttons[1].setIcon(ImageCut.one_image[1]);
 				if (colorFlag1p[1] == 0) {
 					colorFlag1p[1] = gamePanelIndex1p + 1;
-					yellowCup1p[gamePanelIndex1p][4 - gamePanelY1p].setVisible(true);
+					board1.getCups(1, gamePanelIndex1p, 4-gamePanelY1p).setVisible(true);
 					if (gamePanelY1p < 4)
 						gamePanelY1p++;
 				}
@@ -244,7 +234,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 				one_buttons[2].setIcon(ImageCut.one_image[2]);
 				if (colorFlag1p[2] == 0) {
 					colorFlag1p[2] = gamePanelIndex1p + 1;
-					greenCup1p[gamePanelIndex1p][4 - gamePanelY1p].setVisible(true);
+					board1.getCups(2, gamePanelIndex1p, 4-gamePanelY1p).setVisible(true);
 					if (gamePanelY1p < 4)
 						gamePanelY1p++;
 				}
@@ -252,7 +242,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 				one_buttons[3].setIcon(ImageCut.one_image[3]);
 				if (colorFlag1p[3] == 0) {
 					colorFlag1p[3] = gamePanelIndex1p + 1;
-					blueCup1p[gamePanelIndex1p][4 - gamePanelY1p].setVisible(true);
+					board1.getCups(3, gamePanelIndex1p, 4-gamePanelY1p).setVisible(true);
 					if (gamePanelY1p < 4)
 						gamePanelY1p++;
 				}
@@ -260,7 +250,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 				one_buttons[4].setIcon(ImageCut.one_image[4]);
 				if (colorFlag1p[4] == 0) {
 					colorFlag1p[4] = gamePanelIndex1p + 1;
-					blackCup1p[gamePanelIndex1p][4 - gamePanelY1p].setVisible(true);
+					board1.getCups(4, gamePanelIndex1p, 4-gamePanelY1p).setVisible(true);
 					if (gamePanelY1p < 4)
 						gamePanelY1p++;
 				}
@@ -272,11 +262,11 @@ public class DualPlayMode extends JPanel implements ActionListener {
 						colorFlag1p[i] = 0;
 						pointerOne[i].setVisible(false);
 						for (int j = 0; j < 5; j++) {
-							redCup1p[i][j].setVisible(false);
-							blackCup1p[i][j].setVisible(false);
-							greenCup1p[i][j].setVisible(false);
-							yellowCup1p[i][j].setVisible(false);
-							blueCup1p[i][j].setVisible(false);
+							board1.getCups(0, i, j).setVisible(false);
+							board1.getCups(1, i, j).setVisible(false);
+							board1.getCups(2, i, j).setVisible(false);
+							board1.getCups(3, i, j).setVisible(false);
+							board1.getCups(4, i, j).setVisible(false);
 						}
 					}
 					gamePanelIndex1p = 0;
@@ -316,7 +306,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 				two_buttons[0].setIcon(ImageCut.two_image[0]);
 				if (colorFlag2p[0] == 0) {
 					colorFlag2p[0] = gamePanelIndex2p + 1;
-					redCup2p[gamePanelIndex2p][4 - gamePanelY2p].setVisible(true);
+					board2.getCups(0, gamePanelIndex2p, 4-gamePanelY2p).setVisible(true);
 					if (gamePanelY2p < 4)
 						gamePanelY2p++;
 				}
@@ -324,7 +314,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 				two_buttons[1].setIcon(ImageCut.two_image[1]);
 				if (colorFlag2p[1] == 0) {
 					colorFlag2p[1] = gamePanelIndex2p + 1;
-					yellowCup2p[gamePanelIndex2p][4 - gamePanelY2p].setVisible(true);
+					board2.getCups(1, gamePanelIndex2p, 4-gamePanelY2p).setVisible(true);
 					if (gamePanelY2p < 4)
 						gamePanelY2p++;
 				}
@@ -332,7 +322,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 				two_buttons[2].setIcon(ImageCut.two_image[2]);
 				if (colorFlag2p[2] == 0) {
 					colorFlag2p[2] = gamePanelIndex2p + 1;
-					greenCup2p[gamePanelIndex2p][4 - gamePanelY2p].setVisible(true);
+					board2.getCups(2, gamePanelIndex2p, 4-gamePanelY2p).setVisible(true);
 					if (gamePanelY2p < 4)
 						gamePanelY2p++;
 				}
@@ -340,7 +330,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 				two_buttons[3].setIcon(ImageCut.two_image[3]);
 				if (colorFlag2p[3] == 0) {
 					colorFlag2p[3] = gamePanelIndex2p + 1;
-					blueCup2p[gamePanelIndex2p][4 - gamePanelY2p].setVisible(true);
+					board2.getCups(3, gamePanelIndex2p, 4-gamePanelY2p).setVisible(true);
 					if (gamePanelY2p < 4)
 						gamePanelY2p++;
 				}
@@ -348,7 +338,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 				two_buttons[4].setIcon(ImageCut.two_image[4]);
 				if (colorFlag2p[4] == 0) {
 					colorFlag2p[4] = gamePanelIndex2p + 1;
-					blackCup2p[gamePanelIndex2p][4 - gamePanelY2p].setVisible(true);
+					board2.getCups(4, gamePanelIndex2p, 4-gamePanelY2p).setVisible(true);
 					if (gamePanelY2p < 4)
 						gamePanelY2p++;
 				}
@@ -359,11 +349,11 @@ public class DualPlayMode extends JPanel implements ActionListener {
 						colorFlag2p[i] = 0;
 						pointerTwo[i].setVisible(false);
 						for (int j = 0; j < 5; j++) {
-							redCup2p[i][j].setVisible(false);
-							blackCup2p[i][j].setVisible(false);
-							greenCup2p[i][j].setVisible(false);
-							yellowCup2p[i][j].setVisible(false);
-							blueCup2p[i][j].setVisible(false);
+							board2.getCups(0, i, j).setVisible(false);
+							board2.getCups(1, i, j).setVisible(false);
+							board2.getCups(2, i, j).setVisible(false);
+							board2.getCups(3, i, j).setVisible(false);
+							board2.getCups(4, i, j).setVisible(false);
 						}
 					}
 					gamePanelIndex2p = 0;
@@ -402,8 +392,6 @@ public class DualPlayMode extends JPanel implements ActionListener {
 	}
 
 	// 애니메이션//
-	// ImageIcon icon = new ImageIcon("image/dotdanbae2.png");
-	// Image img = icon.getImage();
 	private Timer tm = new Timer(10, this);
 	private int initX = 604, velX = 5; // 초기 카드위치와 카드가 움직이는 속도
 	private boolean one_flag = false; // 1p의 정답여부
@@ -496,19 +484,6 @@ public class DualPlayMode extends JPanel implements ActionListener {
 		JLabel[] hand0 = new JLabel[] { null, null, new JLabel(img[2]), new JLabel(img[3]) };
 		JLabel[] hand1 = new JLabel[] { null, null, new JLabel(img[2]), new JLabel(img[3]) };
 		hands = new JLabel[][] { null, null, hand0, hand1 };
-
-		/*
-		 * for (int i = 2; i < 4; i++) { for (int j = 2; j < 4; j++) {
-		 * //panel.add(hands[i][j]); p2.add(hands[i][j]); hands[i][j].setVisible(false);
-		 * } }
-		 * 
-		 * for (int i = 2; i < 4; i++) { hands[i][2].setBounds(-65, 300, 300, 180);
-		 * hands[i][3].setBounds(130, 300, 300, 180); ////////// 여기 위치 변경해야 함 }
-		 */
-
-		// this.add(panel);
-		//////////////////////////// 준희가 수정 끝 ////////////////////
-		// setSize(WIDTH, HEIGHT);
 		// ********************************************************
 		// edit by minseongChoi, first
 		colorFlag1p = new int[5];
@@ -534,8 +509,6 @@ public class DualPlayMode extends JPanel implements ActionListener {
 		// 카드를 가장 먼저 붙임)(0518애니메이션)
 		systemCardDeck = new Cards();
 
-		// this.card = new JLabel(new ImageIcon("image/dotdanbae2.png"));
-		// card.setBounds(604, 41, 154, 238);
 		for (int i = 0; i < systemCardDeck.card_arr.size(); i++) {
 			systemCardDeck.card_arr.get(i).setBounds(604, 41, 154, 238);
 			this.add(systemCardDeck.card_arr.get(i));
@@ -548,13 +521,6 @@ public class DualPlayMode extends JPanel implements ActionListener {
 		showEast();
 		// setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
-
-		// this.setFocusable(true);
-
-		// one_buttons[0].setFocusable(true);
-		// one_buttons[0].requestFocus(); // 초기에 버튼쪽에 focus를 요청한다.
-		// one_buttons[0].setFocusable(true);
-
 	}
 
 	public void showWest() {
@@ -571,46 +537,20 @@ public class DualPlayMode extends JPanel implements ActionListener {
 		int height = 700;
 
 		// 1p에 보드 생성//
-		board1 = new Board(5); // 5열짜리 보드를 만듦.
+		board1 = new Board("dual",5,5); // 5열짜리 보드를 만듦.
 		board1.setBounds(45, 350, 400, 240);
 		board1.setBackground(Color.white);
 		// ********************************************************
 		// edit by minseongChoi, first
-		redCup1p = new JLabel[5][5];
-		blueCup1p = new JLabel[5][5];
-		greenCup1p = new JLabel[5][5];
-		yellowCup1p = new JLabel[5][5];
-		blackCup1p = new JLabel[5][5];
-		// JLabel redCup2p[][] = new JLabel[5][5];
-		// JLabel blueCup2p[][] = new JLabel[5][5];
-		// JLabel greenCup2p[][] = new JLabel[5][5];
-		// JLabel yellowCup2p[][] = new JLabel[5][5];
-		// JLabel blackCup2p[][] = new JLabel[5][5];
-		// -----------------------------------------
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				redCup1p[i][j] = new JLabel(new ImageIcon("image/cup(red)_dual.png"));
-				blackCup1p[i][j] = new JLabel(new ImageIcon("image/cup(black)_dual.png"));
-				greenCup1p[i][j] = new JLabel(new ImageIcon("image/cup(green)_dual.png"));
-				blueCup1p[i][j] = new JLabel(new ImageIcon("image/cup(blue)_dual.png"));
-				yellowCup1p[i][j] = new JLabel(new ImageIcon("image/cup(yellow)_dual.png"));
-				redCup1p[i][j].setBounds(5, 100 + (15 * j), 70, 80);
-				blackCup1p[i][j].setBounds(5, 100 + (15 * j), 70, 80);
-				greenCup1p[i][j].setBounds(5, 100 + (15 * j), 70, 80);
-				blueCup1p[i][j].setBounds(5, 100 + (15 * j), 70, 80);
-				yellowCup1p[i][j].setBounds(5, 100 + (15 * j), 70, 80);
-				redCup1p[i][j].setVisible(false);
-				blackCup1p[i][j].setVisible(false);
-				greenCup1p[i][j].setVisible(false);
-				yellowCup1p[i][j].setVisible(false);
-				blueCup1p[i][j].setVisible(false);
-				board1.getBoardPanel(i).add(redCup1p[i][j]);
-				board1.getBoardPanel(i).add(blackCup1p[i][j]);
-				board1.getBoardPanel(i).add(greenCup1p[i][j]);
-				board1.getBoardPanel(i).add(blueCup1p[i][j]);
-				board1.getBoardPanel(i).add(yellowCup1p[i][j]);
-			}
-		}
+		board1.setCupsImg(0,"image/cup(red)_dual.png");
+		board1.setCupsImg(1,"image/cup(yellow)_dual.png");
+		board1.setCupsImg(2,"image/cup(green)_dual.png");
+		board1.setCupsImg(3,"image/cup(blue)_dual.png");
+		board1.setCupsImg(4,"image/cup(black)_dual.png");
+		board1.setCupsBounds(5,100,70,80,15);
+		board1.setCups();
+		
+		
 		// end
 		// **************************************************************************
 		///////////////////////////////
@@ -680,42 +620,19 @@ public class DualPlayMode extends JPanel implements ActionListener {
 		pointerTwo[0].setVisible(true);
 		///////////////////////////////
 		// 2p에 보드 추가//
-		board2 = new Board(5); // 5열짜리 보드를 만듦.
+		board2 = new Board("dual",5,5); // 5열짜리 보드를 만듦.
 		board2.setBounds(45, 350, 400, 240);
 		board2.setBackground(Color.white);
 
 		// ********************************************************
 		// edit by minseongChoi, first
-		redCup2p = new JLabel[5][5];
-		blueCup2p = new JLabel[5][5];
-		greenCup2p = new JLabel[5][5];
-		yellowCup2p = new JLabel[5][5];
-		blackCup2p = new JLabel[5][5];
-		// -----------------------------------------
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				redCup2p[i][j] = new JLabel(new ImageIcon("image/cup(red)_dual.png"));
-				blackCup2p[i][j] = new JLabel(new ImageIcon("image/cup(black)_dual.png"));
-				greenCup2p[i][j] = new JLabel(new ImageIcon("image/cup(green)_dual.png"));
-				blueCup2p[i][j] = new JLabel(new ImageIcon("image/cup(blue)_dual.png"));
-				yellowCup2p[i][j] = new JLabel(new ImageIcon("image/cup(yellow)_dual.png"));
-				redCup2p[i][j].setBounds(5, 100 + (15 * j), 70, 80);
-				blackCup2p[i][j].setBounds(5, 100 + (15 * j), 70, 80);
-				greenCup2p[i][j].setBounds(5, 100 + (15 * j), 70, 80);
-				blueCup2p[i][j].setBounds(5, 100 + (15 * j), 70, 80);
-				yellowCup2p[i][j].setBounds(5, 100 + (15 * j), 70, 80);
-				redCup2p[i][j].setVisible(false);
-				blackCup2p[i][j].setVisible(false);
-				greenCup2p[i][j].setVisible(false);
-				yellowCup2p[i][j].setVisible(false);
-				blueCup2p[i][j].setVisible(false);
-				board2.getBoardPanel(i).add(redCup2p[i][j]);
-				board2.getBoardPanel(i).add(blackCup2p[i][j]);
-				board2.getBoardPanel(i).add(greenCup2p[i][j]);
-				board2.getBoardPanel(i).add(blueCup2p[i][j]);
-				board2.getBoardPanel(i).add(yellowCup2p[i][j]);
-			}
-		}
+		board2.setCupsImg(0,"image/cup(red)_dual.png");
+		board2.setCupsImg(1,"image/cup(yellow)_dual.png");
+		board2.setCupsImg(2,"image/cup(green)_dual.png");
+		board2.setCupsImg(3,"image/cup(blue)_dual.png");
+		board2.setCupsImg(4,"image/cup(black)_dual.png");
+		board2.setCupsBounds(5, 100, 70, 80, 15);
+		board2.setCups();
 		// end
 		// **************************************************************************
 		///////////////////////////
@@ -796,11 +713,6 @@ public class DualPlayMode extends JPanel implements ActionListener {
 		ImageIcon img2 = new ImageIcon("image/bell.png");
 
 		this.bell = new JButton(img2);
-		// this.card = new JLabel(img1);
-		// card.setBorder(new LineBorder(Color.red, 5));
-		// bell.setBorder(new LineBorder(Color.red, 5)); // 종 버튼에 경계선 추가
-		// card.setBounds(60,20,154,238);
-		// card.setBounds(60, 20, 154, 238);
 		bell.setBounds(90, 380, 190, 150);
 		bell.setContentAreaFilled(false);
 		bell.setFocusPainted(false);
@@ -857,13 +769,6 @@ public class DualPlayMode extends JPanel implements ActionListener {
 			p2.add(two_buttons[i]);
 		}
 	}
-
-	/*
-	 * public void showEast() { this.p3 = new RoundedPanel(120,Color.white);
-	 * p3.setLayout(null); //p3.setBorder(new LineBorder(Color.red,5));
-	 * p3.setBounds(863,0,500,700); this.add(p3); }
-	 */
-
 	public void playSound(String fileName) {
 		try {
 			AudioInputStream ais = AudioSystem.getAudioInputStream(new File(fileName));
