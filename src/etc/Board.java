@@ -16,7 +16,7 @@ public class Board extends JPanel {
 	private Cups cups;
 	private int cupCnt;
 	//<<Constructor>>
-	public Board(String cupsImgType ,int cupCnt, int colNum) {
+	public Board(int cupCnt, int colNum) {
 		this.setLayout(new GridLayout(0, 5));
 		this.colNum = colNum;
 		this.cupCnt = cupCnt;
@@ -26,7 +26,7 @@ public class Board extends JPanel {
 			cols[i].setBorder(new LineBorder(Color.BLACK,1));
 			this.add(cols[i]);
 		}
-		cups =new Cups(cupsImgType,cupCnt,colNum);
+		cups =new Cups(cupCnt,colNum);
 	}
 	//<<Method>>
 	public void setCupsBounds(int x, int y, int area, int height, int interval) {
