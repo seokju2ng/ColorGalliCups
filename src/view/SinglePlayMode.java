@@ -33,6 +33,7 @@ import etc.ChangePanelService;
 import etc.ImageCut;
 import etc.KeyImage;
 import etc.RoundedPanel;
+import etc.Time1;
 
 public class SinglePlayMode extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -59,6 +60,8 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 	private JLabel bellBtn;
 	private JButton exitBtn;
 	private JButton pauseBtn;
+	//***********시간을 나타내는 패널(Edit by DK KIM)
+	private Time1 timePanel;
 
 	private class MouseHandler extends MouseAdapter {
 		public void mouseEntered(MouseEvent e) {
@@ -77,14 +80,17 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 			}
 		}
 	}
+
 	private class ClickHandler implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource().equals(pauseBtn)) {
-				pauseBackground.setVisible(true);				
+				pauseBackground.setVisible(true);
+				timePanel.getTimer().stop();
 			} else if (e.getSource().equals(pauseBackground)) {
 				pauseBackground.setVisible(false);
+				timePanel.getTimer().start();
 			}
 		}
 
@@ -141,7 +147,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 				controllKey[0].setVisible(true);
 				if (colorFlag[0] == 0) {
 					colorFlag[0] = gamePanelIndex + 1;
-					board.getCups(0, gamePanelIndex, 4-gamePanelY).setVisible(true);
+					board.getCups(0, gamePanelIndex, 4 - gamePanelY).setVisible(true);
 					if (gamePanelY < 4)
 						gamePanelY++;
 				}
@@ -149,7 +155,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 				controllKey[1].setVisible(true);
 				if (colorFlag[1] == 0) {
 					colorFlag[1] = gamePanelIndex + 1;
-					board.getCups(1, gamePanelIndex, 4-gamePanelY).setVisible(true);
+					board.getCups(1, gamePanelIndex, 4 - gamePanelY).setVisible(true);
 					if (gamePanelY < 4)
 						gamePanelY++;
 				}
@@ -157,7 +163,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 				controllKey[2].setVisible(true);
 				if (colorFlag[2] == 0) {
 					colorFlag[2] = gamePanelIndex + 1;
-					board.getCups(2, gamePanelIndex, 4-gamePanelY).setVisible(true);
+					board.getCups(2, gamePanelIndex, 4 - gamePanelY).setVisible(true);
 					if (gamePanelY < 4)
 						gamePanelY++;
 				}
@@ -165,7 +171,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 				controllKey[3].setVisible(true);
 				if (colorFlag[3] == 0) {
 					colorFlag[3] = gamePanelIndex + 1;
-					board.getCups(3, gamePanelIndex, 4-gamePanelY).setVisible(true);
+					board.getCups(3, gamePanelIndex, 4 - gamePanelY).setVisible(true);
 					if (gamePanelY < 4)
 						gamePanelY++;
 				}
@@ -173,7 +179,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 				controllKey[4].setVisible(true);
 				if (colorFlag[4] == 0) {
 					colorFlag[4] = gamePanelIndex + 1;
-					board.getCups(4, gamePanelIndex, 4-gamePanelY).setVisible(true);
+					board.getCups(4, gamePanelIndex, 4 - gamePanelY).setVisible(true);
 					if (gamePanelY < 4)
 						gamePanelY++;
 				}
@@ -251,7 +257,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 					System.out.println("뭐가");
 
 					ImageIcon icon = (ImageIcon) systemCardDeck.card_arr.get(cardCnt).getIcon();
-					one_Deck.add(new JLabel(ImageCut.resizeIcon(icon, 90, 140)));
+					one_Deck.add(new JLabel(KeyImage.resizeIcon(icon, 90, 140)));
 					one_Deck.get(cnt).setBounds(549 + cnt * 30, 15, 90, 150);
 					west.setBorder(new LineBorder(Color.gray, 0));
 					for (int i = one_Deck.size() - 1; i >= 0; i--) {
@@ -265,6 +271,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 				}
 			}
 		}
+		System.out.println(timePanel.getTimer().isRunning());
 	}
 	// *************여기까지 에니메이션**********************////////
 
@@ -357,11 +364,13 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		exitBtn.setFocusPainted(false);
 		exitBtn.setBorderPainted(false);
 		exitBtn.addActionListener(new ClickHandler());
-		exitBtn.addActionListener(new ActionListener(){
+		exitBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int res = JOptionPane.showConfirmDialog(null, "게임을 종료하시겠습니까?", "게임 종료", JOptionPane.YES_NO_OPTION,
 						JOptionPane.WARNING_MESSAGE);
 				if (res == JOptionPane.YES_OPTION) {
+					timePanel.getTimer().stop();
+					tm.stop();
 					ChangePanelService.getInstance().changePanel("MainView", SinglePlayMode.this);
 				}
 			}
@@ -381,10 +390,10 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 
 		// 키보드 아이콘 --------------------------------------------------------------
 		// q
-		
+
 		controllKey = KeyImage.getKey("1P", 75, 75);
-		
-		for(int i = 0; i < 5; i++) {
+
+		for (int i = 0; i < 5; i++) {
 			controllKey[i].setBounds(65 + i * 85, 550, 75, 75);
 			controllKey[i + 5].setBounds(65 + i * 85, 550, 75, 75);
 			east.add(controllKey[i]);
@@ -402,16 +411,16 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		west.setLayout(null);
 
 		// 게임화면(w:787.8, h:470)
-		board = new Board(5,5);
+		board = new Board(5, 5);
 		board.setBounds(15, 185, 785, 440);
 		board.setBackground(Color.white);
-		
+
 		board.setCupsBounds(13, 170, 130, 140, 30);
-		board.setCupsImg(0,"image/cup(red)_solo.png");
-		board.setCupsImg(1,"image/cup(yellow)_solo.png");
-		board.setCupsImg(2,"image/cup(green)_solo.png");
-		board.setCupsImg(3,"image/cup(blue)_solo.png");
-		board.setCupsImg(4,"image/cup(black)_solo.png");
+		board.setCupsImg(0, "image/cup(red)_solo.png");
+		board.setCupsImg(1, "image/cup(yellow)_solo.png");
+		board.setCupsImg(2, "image/cup(green)_solo.png");
+		board.setCupsImg(3, "image/cup(blue)_solo.png");
+		board.setCupsImg(4, "image/cup(black)_solo.png");
 		board.setCups();
 		west.add(board);
 		// --point
@@ -427,16 +436,16 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 
 		// 남은시간 w:272.6 60
 		// --------------------------------------------------------------
-		JPanel timePanel = new JPanel(new GridLayout(2, 1));
+		timePanel = new Time1(15, 15, 252, 150);
 		timePanel.setBorder(new LineBorder(Color.gray, 1));
-		timePanel.setBounds(15, 15, 252, 150);
+//		timePanel.setBounds(15, 15, 252, 150);
 		// --timePanel의 컴포넌트 시작
-		JLabel timeRemaining = new JLabel("남은시간", SwingConstants.CENTER);
-		timeRemaining.setFont(new Font("배달의민족 한나는 열한살", Font.BOLD, 36));
-		timePanel.add(timeRemaining);
-		JLabel time = new JLabel("00:00", SwingConstants.CENTER);
-		time.setFont(new Font("배달의민족 한나는 열한살", Font.BOLD, 30));
-		timePanel.add(time);
+//		JLabel timeRemaining = new JLabel("남은시간", SwingConstants.CENTER);
+//		timeRemaining.setFont(new Font("배달의민족 한나는 열한살", Font.BOLD, 36));
+//		timePanel.add(timeRemaining);
+//		JLabel time = new JLabel("00:00", SwingConstants.CENTER);
+//		time.setFont(new Font("배달의민족 한나는 열한살", Font.BOLD, 30));
+//		timePanel.add(time);
 		// --timePanel의 컴포넌트 끝
 		west.add(timePanel);
 
