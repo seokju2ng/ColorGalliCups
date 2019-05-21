@@ -27,6 +27,7 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.LineBorder;
 
+import etc.Board;
 import etc.Cards;
 import etc.ChangePanelService;
 import etc.ImageCut;
@@ -52,15 +53,10 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 	private int gamePanelY;
 	private boolean spaceFlag;
 	// 컵
-	private JLabel redCup[][];
-	private JLabel blueCup[][];
-	private JLabel greenCup[][];
-	private JLabel yellowCup[][];
-	private JLabel blackCup[][];
+	private Board board;
 	// 포인트
 	private JLabel[] point;
-	// 게임 패널
-	private JPanel[] line;
+
 	// ***********************************************************
 	// 버튼
 	private JLabel bellBtn;
@@ -148,7 +144,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 				qKey.setIcon(new ImageIcon("image/red(q).png"));
 				if (colorFlag[0] == 0) {
 					colorFlag[0] = gamePanelIndex + 1;
-					redCup[gamePanelIndex][4 - gamePanelY].setVisible(true);
+					board.getCups(0, gamePanelIndex, 4-gamePanelY).setVisible(true);
 					if (gamePanelY < 4)
 						gamePanelY++;
 				}
@@ -156,7 +152,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 				wKey.setIcon(new ImageIcon("image/yellow(w).png"));
 				if (colorFlag[1] == 0) {
 					colorFlag[1] = gamePanelIndex + 1;
-					yellowCup[gamePanelIndex][4 - gamePanelY].setVisible(true);
+					board.getCups(1, gamePanelIndex, 4-gamePanelY).setVisible(true);
 					if (gamePanelY < 4)
 						gamePanelY++;
 				}
@@ -164,7 +160,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 				eKey.setIcon(new ImageIcon("image/green(e).png"));
 				if (colorFlag[2] == 0) {
 					colorFlag[2] = gamePanelIndex + 1;
-					greenCup[gamePanelIndex][4 - gamePanelY].setVisible(true);
+					board.getCups(2, gamePanelIndex, 4-gamePanelY).setVisible(true);
 					if (gamePanelY < 4)
 						gamePanelY++;
 				}
@@ -172,7 +168,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 				aKey.setIcon(new ImageIcon("image/blue(a).png"));
 				if (colorFlag[3] == 0) {
 					colorFlag[3] = gamePanelIndex + 1;
-					blueCup[gamePanelIndex][4 - gamePanelY].setVisible(true);
+					board.getCups(3, gamePanelIndex, 4-gamePanelY).setVisible(true);
 					if (gamePanelY < 4)
 						gamePanelY++;
 				}
@@ -180,7 +176,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 				sKey.setIcon(new ImageIcon("image/black(s).png"));
 				if (colorFlag[4] == 0) {
 					colorFlag[4] = gamePanelIndex + 1;
-					blackCup[gamePanelIndex][4 - gamePanelY].setVisible(true);
+					board.getCups(4, gamePanelIndex, 4-gamePanelY).setVisible(true);
 					if (gamePanelY < 4)
 						gamePanelY++;
 				}
@@ -191,11 +187,11 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 						colorFlag[i] = 0;
 						point[i].setVisible(false);
 						for (int j = 0; j < 5; j++) {
-							redCup[i][j].setVisible(false);
-							blackCup[i][j].setVisible(false);
-							greenCup[i][j].setVisible(false);
-							yellowCup[i][j].setVisible(false);
-							blueCup[i][j].setVisible(false);
+							board.getCups(0, i, j).setVisible(false);
+							board.getCups(1, i, j).setVisible(false);
+							board.getCups(2, i, j).setVisible(false);
+							board.getCups(3, i, j).setVisible(false);
+							board.getCups(4, i, j).setVisible(false);
 						}
 					}
 					gamePanelIndex = 0;
@@ -256,15 +252,8 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 					y = y - velY;
 				} else if (y < -300) {
 					System.out.println("뭐가");
-					// try {
-					// Thread.sleep(1000);
-					// }catch(InterruptedException e1) {
-					// }
+
 					ImageIcon icon = (ImageIcon) systemCardDeck.card_arr.get(cardCnt).getIcon();
-
-					// systemCardDeck.card_arr.get(cardCnt).setBounds(648,newY+y,154,238);
-					// west.add(systemCardDeck.card_arr.get(cardCnt));
-
 					one_Deck.add(new JLabel(ImageCut.resizeIcon(icon, 90, 140)));
 					one_Deck.get(cnt).setBounds(549 + cnt * 30, 15, 90, 150);
 					west.setBorder(new LineBorder(Color.gray, 0));
@@ -276,9 +265,6 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 					flag = false;
 					cardCnt++;
 					correctCnt.setText("" + cnt);
-
-					// user_Deck.add(new JLabel(ImageCut.resizeIcon(icon, 90, 140))); //사용자 카드덱에 추가
-					// user_Deck.get(cnt).setBounds(50+)
 				}
 			}
 		}
@@ -353,9 +339,6 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 
 		// 카드 덱 -----------
 		JPanel cardDeck = new RoundedPanel(null, 120, Color.WHITE);
-		// JLabel sampleCard = new JLabel(new ImageIcon("image/sampleCard.png"));
-		// sampleCard.setBounds(10, 10, 280, 280);
-		// cardDeck.add(sys);
 		for (int i = 0; i < systemCardDeck.card_arr.size(); i++) {
 			systemCardDeck.card_arr.get(i).setBounds(73, 31, 154, 238);
 			cardDeck.add(systemCardDeck.card_arr.get(i));
@@ -434,59 +417,18 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		west.setLayout(null);
 
 		// 게임화면(w:787.8, h:470)
-
-		JPanel line[] = new JPanel[5];
-		for (int i = 0; i < 5; i++)
-			line[i] = new JPanel(null);
-		// --cup
-
-		line[0].setBorder(new LineBorder(Color.gray, 2));
-		line[0].setBounds(15, 185, 157, 440);
-		line[1].setBorder(new LineBorder(Color.gray, 2));
-		line[1].setBounds(170, 185, 157, 440);
-		line[2].setBorder(new LineBorder(Color.gray, 2));
-		line[2].setBounds(325, 185, 157, 440);
-		line[3].setBorder(new LineBorder(Color.gray, 2));
-		line[3].setBounds(480, 185, 157, 440);
-		line[4].setBorder(new LineBorder(Color.gray, 2));
-		line[4].setBounds(635, 185, 157, 440);
-
-		redCup = new JLabel[5][5];
-		blackCup = new JLabel[5][5];
-		greenCup = new JLabel[5][5];
-		blueCup = new JLabel[5][5];
-		yellowCup = new JLabel[5][5];
-		int y = 30;
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				redCup[i][j] = new JLabel(new ImageIcon("image/cup(red)_solo.png"));
-				blackCup[i][j] = new JLabel(new ImageIcon("image/cup(black)_solo.png"));
-				greenCup[i][j] = new JLabel(new ImageIcon("image/cup(green)_solo.png"));
-				blueCup[i][j] = new JLabel(new ImageIcon("image/cup(blue)_solo.png"));
-				yellowCup[i][j] = new JLabel(new ImageIcon("image/cup(yellow)_solo.png"));
-				redCup[i][j].setBounds(13, 170 + j * y, 130, 140);
-				blackCup[i][j].setBounds(13, 170 + j * y, 130, 140);
-				greenCup[i][j].setBounds(13, 170 + j * y, 130, 140);
-				blueCup[i][j].setBounds(13, 170 + j * y, 130, 140);
-				yellowCup[i][j].setBounds(13, 170 + j * y, 130, 140);
-				redCup[i][j].setVisible(false);
-				blackCup[i][j].setVisible(false);
-				greenCup[i][j].setVisible(false);
-				yellowCup[i][j].setVisible(false);
-				blueCup[i][j].setVisible(false);
-				line[i].add(redCup[i][j]);
-				line[i].add(blackCup[i][j]);
-				line[i].add(greenCup[i][j]);
-				line[i].add(blueCup[i][j]);
-				line[i].add(yellowCup[i][j]);
-			}
-		}
-
-		west.add(line[0]);
-		west.add(line[1]);
-		west.add(line[2]);
-		west.add(line[3]);
-		west.add(line[4]);
+		board = new Board(5,5);
+		board.setBounds(15, 185, 785, 440);
+		board.setBackground(Color.white);
+		
+		board.setCupsBounds(13, 170, 130, 140, 30);
+		board.setCupsImg(0,"image/cup(red)_solo.png");
+		board.setCupsImg(1,"image/cup(yellow)_solo.png");
+		board.setCupsImg(2,"image/cup(green)_solo.png");
+		board.setCupsImg(3,"image/cup(blue)_solo.png");
+		board.setCupsImg(4,"image/cup(black)_solo.png");
+		board.setCups();
+		west.add(board);
 		// --point
 		point = new JLabel[5];
 		for (int i = 0; i < 5; i++) {
@@ -529,11 +471,6 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 
 		// 카드덱 --------------------------------------------------------------
 		JPanel myCardPanel = new JPanel(null);
-		// --myCardPanel의 컴포넌트 시작
-		// JLabel card1 = new JLabel(new ImageIcon("image/card(back).png"));
-		// card1.setBounds(549, 15, 90, 150);
-		// west.add(card1);
-		// --myCardPanel의 컴포넌트 끝
 		myCardPanel.setBorder(new LineBorder(Color.red, 5));
 		myCardPanel.setBounds(549, 15, 252, 150);
 
@@ -553,19 +490,4 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 			e.printStackTrace();
 		}
 	}
-
-	public int resultY(int y) {
-
-		if (y == 0)
-			return 290;
-		else if (y == 1)
-			return 260;
-		else if (y == 2)
-			return 230;
-		else if (y == 3)
-			return 200;
-		else
-			return 170;
-	}
-
 }
