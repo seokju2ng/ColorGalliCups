@@ -32,6 +32,7 @@ import etc.Cards;
 import etc.ChangePanelService;
 import etc.ImageCut;
 import etc.KeyImage;
+import etc.MouseBtnHandler;
 import etc.RoundedPanel;
 import etc.Time1;
 
@@ -63,23 +64,6 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 	//***********시간을 나타내는 패널(Edit by DK KIM)
 	private Time1 timePanel;
 
-	private class MouseHandler extends MouseAdapter {
-		public void mouseEntered(MouseEvent e) {
-			if (e.getSource().equals(exitBtn)) {
-				exitBtn.setIcon(new ImageIcon("image/exit(click).png"));
-			} else if (e.getSource().equals(pauseBtn)) {
-				pauseBtn.setIcon(new ImageIcon("image/pause(click).png"));
-			}
-		}
-
-		public void mouseExited(MouseEvent e) {
-			if (e.getSource().equals(exitBtn)) {
-				exitBtn.setIcon(new ImageIcon("image/exit.png"));
-			} else if (e.getSource().equals(pauseBtn)) {
-				pauseBtn.setIcon(new ImageIcon("image/pause.png"));
-			}
-		}
-	}
 
 	private class ClickHandler implements ActionListener {
 
@@ -302,10 +286,11 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		// Handler
 		this.setFocusable(true);
 		addKeyListener(new KeyHandler());// listener
-		exitBtn.addMouseListener(new MouseHandler());
+		MouseBtnHandler mbh = new MouseBtnHandler(exitBtn,pauseBtn);
+		exitBtn.addMouseListener(mbh);
 		exitBtn.addActionListener(new FocusButtonHandler(this));
 		pauseBtn.addActionListener(new FocusButtonHandler(this));
-		pauseBtn.addMouseListener(new MouseHandler());
+		pauseBtn.addMouseListener(mbh);
 		pauseBackground.addActionListener(new ClickHandler());
 		pauseBackground.addActionListener(new FocusButtonHandler(this));
 		// this.setSize(1363, 714);
