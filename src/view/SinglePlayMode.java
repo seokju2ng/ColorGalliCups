@@ -278,7 +278,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		systemCardDeck = new Cards();
 		one_Deck = new ArrayList<>();
 		////////////////////////////////////
-
+		
 		colorFlag = new int[5];
 		spaceFlag = false;
 		for (int i = 0; i < 5; i++) {
@@ -336,7 +336,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		// 컴포넌트 생성 --------------------------------------------------------------
 		east = new JPanel();
 		east.setLayout(null);
-
+		east.setBackground(Color.white);
 		// 카드 덱 -----------
 		JPanel cardDeck = new RoundedPanel(null, 120, Color.WHITE);
 		for (int i = 0; i < systemCardDeck.card_arr.size(); i++) {
@@ -344,6 +344,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 			cardDeck.add(systemCardDeck.card_arr.get(i));
 
 		}
+		cardDeck.setBackground(Color.white);
 		cardDeck.setBounds(50, 20, 300, 300);
 
 		east.add(cardDeck);
@@ -415,7 +416,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 
 		west = new JPanel();
 		west.setLayout(null);
-
+		west.setBackground(Color.white);
 		// 게임화면(w:787.8, h:470)
 		board = new Board(5,5);
 		board.setBounds(15, 185, 785, 440);
@@ -445,6 +446,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		JPanel timePanel = new JPanel(new GridLayout(2, 1));
 		timePanel.setBorder(new LineBorder(Color.gray, 1));
 		timePanel.setBounds(15, 15, 252, 150);
+		timePanel.setBackground(Color.white);
 		// --timePanel의 컴포넌트 시작
 		JLabel timeRemaining = new JLabel("남은시간", SwingConstants.CENTER);
 		timeRemaining.setFont(new Font("배달의민족 한나는 열한살", Font.BOLD, 36));
@@ -457,6 +459,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 
 		// 정답개수 --------------------------------------------------------------
 		JPanel correctPanel = new JPanel(new GridLayout(2, 1));
+		correctPanel.setBackground(Color.white);
 		// --correctPanel의 컴포넌트 시작
 		JLabel correct = new JLabel("정답개수", SwingConstants.CENTER);
 		correct.setFont(new Font("배달의민족 한나는 열한살", Font.BOLD, 36));
