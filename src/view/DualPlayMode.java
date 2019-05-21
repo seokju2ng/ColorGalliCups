@@ -28,6 +28,7 @@ import etc.Cards;
 import etc.ChangePanelService;
 import etc.HandVanish;
 import etc.KeyImage;
+import etc.MouseBtnHandler;
 import etc.RoundedPanel;
 
 public class DualPlayMode extends JPanel implements ActionListener {
@@ -78,24 +79,6 @@ public class DualPlayMode extends JPanel implements ActionListener {
 	private int index = 3; // 손쌓는 층 나타내는 index 0,1층만 있다
 	private boolean[] handCheck; // 한사람이 연속으로 벨 못누른다 flag 역할
 	//////////////////////////////// 준희가 수정 끝//////////////////
-
-	private class MouseHandler extends MouseAdapter {
-		public void mouseEntered(MouseEvent e) {
-			if (e.getSource().equals(exit)) {
-				exit.setIcon(new ImageIcon("image/exit(click).png"));
-			} else if (e.getSource().equals(pause)) {
-				pause.setIcon(new ImageIcon("image/pause(click).png"));
-			}
-		}
-
-		public void mouseExited(MouseEvent e) {
-			if (e.getSource().equals(exit)) {
-				exit.setIcon(new ImageIcon("image/exit.png"));
-			} else if (e.getSource().equals(pause)) {
-				pause.setIcon(new ImageIcon("image/pause.png"));
-			}
-		}
-	}
 
 	private class ActionHandler implements ActionListener {
 		@Override
@@ -656,10 +639,12 @@ public class DualPlayMode extends JPanel implements ActionListener {
 		exit.setBounds(380, 30, 80, 80);
 
 		pause.addActionListener(new ActionHandler()); // pause버튼에 액션핸들러 추가
-		pause.addMouseListener(new MouseHandler());
 		pause.addActionListener(new FocusButtonHandler(this));
+		MouseBtnHandler mbh = new MouseBtnHandler(exit,pause);
+		pause.addMouseListener(mbh);
 		
-		exit.addMouseListener(new MouseHandler());
+		
+		exit.addMouseListener(mbh);
 		exit.addActionListener(new FocusButtonHandler(this));
 		exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
