@@ -27,7 +27,7 @@ public class KeyControl extends JPanel {
 		this.setLayout(null);
 		this.setBackground(new Color(251, 229, 214));
 		this.addComponentListener(new FocusHandler());
-		this.addKeyListener(new Handler());
+		this.addKeyListener(new BackHelpHandler());
 
 		// JButton[] threeButtons=new JButton[] {new JButton(new
 		// ImageIcon("image/red(q)_k.png")), new JButton(new
@@ -147,7 +147,7 @@ public class KeyControl extends JPanel {
 
 		///////////////////////////////////////////// 뒤로가기
 		///////////////////////////////////////////// /////////////////////////////////////////////////////////////////
-		Handler l = new Handler();
+		BackHelpHandler l = new BackHelpHandler();
 		JButton back = new JButton("뒤로가기");
 		back.setFont(font);
 		back.setForeground(new Color(197, 90, 17));
@@ -156,7 +156,6 @@ public class KeyControl extends JPanel {
 		back.setFocusPainted(false);
 		back.setBorderPainted(false);
 		back.addActionListener(l);
-		back.addKeyListener(l);
 		add(back);
 
 		this.addKeyListener(new Key1pHandler(soloKey));
@@ -182,16 +181,4 @@ public class KeyControl extends JPanel {
 		g2.drawRoundRect(700, 110, 550, 400, 50, 50);
 	}
 
-	private class Handler extends KeyAdapter implements ActionListener {
-		public void keyPressed(KeyEvent e) {
-			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-				actionPerformed(new ActionEvent(e.getSource(), e.getID(), Character.toString(e.getKeyChar())));
-			}
-		}
-
-		public void actionPerformed(ActionEvent e) {
-			ChangePanelService cps = ChangePanelService.getInstance();
-			cps.changePanel("Help");
-		}
-	}
 }

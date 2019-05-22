@@ -2,24 +2,17 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import etc.ChangePanelService;
-
 public class Tutorial extends JPanel {
    public Tutorial() {
       setLayout(null);
       setBackground(new Color(251,229,214));
-      this.addComponentListener(new FocusHandler());
-      this.addKeyListener(new Handler());
+      
       JLabel picture=new JLabel(new ImageIcon("image/tutorial.gif"));
       picture.setBounds(230, 50, 900, 500);
       add(picture);
@@ -36,25 +29,14 @@ public class Tutorial extends JPanel {
       larrow.setBounds(460,550,100,100);
       rarrow.setBounds(800,550,100,100);
       
-      Handler l = new Handler();
-      this.addKeyListener(l);
-      back.addKeyListener(l);
+      BackHelpHandler l = new BackHelpHandler();
       back.addActionListener(l);
+      this.addKeyListener(l);
+      this.addComponentListener(new FocusHandler());
       
       add(back);
       add(rarrow);
       add(larrow);
    }
    
-   private class Handler extends KeyAdapter implements ActionListener{
-	   public void keyPressed(KeyEvent e) {
-		   if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-			   actionPerformed(new ActionEvent(e.getSource(), e.getID(), Character.toString(e.getKeyChar())));
-		   }
-	   }
-	   public void actionPerformed(ActionEvent e) {
-		   ChangePanelService cps = ChangePanelService.getInstance();
-		   cps.changePanel("Help");
-	   }
-   }
 }
