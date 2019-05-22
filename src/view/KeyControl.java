@@ -19,9 +19,9 @@ import etc.ChangePanelService;
 import etc.KeyImage;
 
 public class KeyControl extends JPanel {
-	private JLabel[] fiveButtons;
-	private JLabel[] firstPlay5;
-	private JLabel[] secondPlay5;
+	private JLabel[] soloKey;
+	private JLabel[] dualKey1;
+	private JLabel[] dualKey2;
 
 	public KeyControl() {
 		this.setLayout(null);
@@ -33,20 +33,18 @@ public class KeyControl extends JPanel {
 		// ImageIcon("image/red(q)_k.png")), new JButton(new
 		// ImageIcon("image/green(w)_k.png")), new JButton(new
 		// ImageIcon("image/blue(e)_k.png"))};
-		fiveButtons = KeyImage.getKey("1P", 90, 90);
+		
+		soloKey = KeyImage.getKey("1P", 90, 90);
 		JLabel functionButton = new JLabel(new ImageIcon("image/spacebar.png"));
-		/////////////////////////////////////////// SINGLEPLAY
-		/////////////////////////////////////////// ////////////////////////////////////////////////
-
 		JLabel singlePlay = new JLabel(new ImageIcon("image/singleplay.png"));
 		singlePlay.setBounds(40, 10, 250, 150);
 		add(singlePlay);
 
-		for (int i = 0; i < fiveButtons.length / 2; i++) {
-			fiveButtons[i].setBounds(110 + 100 * i, 200, 90, 90);
-			fiveButtons[i + 5].setBounds(110 + 100 * i, 200, 90, 90);
-			add(fiveButtons[i]);
-			add(fiveButtons[i + 5]);
+		for (int i = 0; i < soloKey.length / 2; i++) {
+			soloKey[i].setBounds(110 + 100 * i, 200, 90, 90);
+			soloKey[i + 5].setBounds(110 + 100 * i, 200, 90, 90);
+			add(soloKey[i]);
+			add(soloKey[i + 5]);
 		}
 		functionButton.setBounds(190, 350, 350, 94);
 		add(functionButton);
@@ -84,20 +82,20 @@ public class KeyControl extends JPanel {
 		// add(firstPlay3[i]);
 		// }
 
-		firstPlay5 = KeyImage.getKey("1P", 60, 60);
+		dualKey1 = KeyImage.getKey("1P", 60, 60);
 		JLabel functionButton1 = new JLabel(new ImageIcon("image/spacebar_1p.png"));
 
 		for (int i = 0; i < 3; i++) {
-			firstPlay5[i].setBounds(730 + 70 * i, 230, 60, 60);
-			firstPlay5[i + 5].setBounds(730 + 70 * i, 230, 60, 60);
-			add(firstPlay5[i]);
-			add(firstPlay5[i + 5]);
+			dualKey1[i].setBounds(730 + 70 * i, 230, 60, 60);
+			dualKey1[i + 5].setBounds(730 + 70 * i, 230, 60, 60);
+			add(dualKey1[i]);
+			add(dualKey1[i + 5]);
 		}
 		for (int i = 3; i < 5; i++) {
-			firstPlay5[i].setBounds(560 + 70 * i, 300, 60, 60);
-			firstPlay5[i + 5].setBounds(560 + 70 * i, 300, 60, 60);
-			add(firstPlay5[i]);
-			add(firstPlay5[i + 5]);
+			dualKey1[i].setBounds(560 + 70 * i, 300, 60, 60);
+			dualKey1[i + 5].setBounds(560 + 70 * i, 300, 60, 60);
+			add(dualKey1[i]);
+			add(dualKey1[i + 5]);
 		}
 		functionButton1.setBounds(735, 400, 191, 59);
 		add(functionButton1);
@@ -113,20 +111,20 @@ public class KeyControl extends JPanel {
 		// secondPlay3[i].setBorderPainted(false);
 		// add(secondPlay3[i]);
 		// }
-		secondPlay5 = KeyImage.getKey("2P", 60, 60);
+		dualKey2 = KeyImage.getKey("2P", 60, 60);
 		JLabel functionButton2 = new JLabel(new ImageIcon("image/enter_2p.png"));
 
 		for (int i = 0; i < 3; i++) {
-			secondPlay5[i].setBounds(1010 + 70 * i, 230, 60, 60);
-			secondPlay5[i + 5].setBounds(1010 + 70 * i, 230, 60, 60);
-			add(secondPlay5[i]);
-			add(secondPlay5[i + 5]);
+			dualKey2[i].setBounds(1010 + 70 * i, 230, 60, 60);
+			dualKey2[i + 5].setBounds(1010 + 70 * i, 230, 60, 60);
+			add(dualKey2[i]);
+			add(dualKey2[i + 5]);
 		}
 		for (int i = 3; i < 5; i++) {
-			secondPlay5[i].setBounds(835 + 70 * i, 300, 60, 60);
-			secondPlay5[i + 5].setBounds(835 + 70 * i, 300, 60, 60);
-			add(secondPlay5[i]);
-			add(secondPlay5[i + 5]);
+			dualKey2[i].setBounds(835 + 70 * i, 300, 60, 60);
+			dualKey2[i + 5].setBounds(835 + 70 * i, 300, 60, 60);
+			add(dualKey2[i]);
+			add(dualKey2[i + 5]);
 		}
 
 		functionButton2.setBounds(1015, 400, 191, 60);
@@ -160,8 +158,11 @@ public class KeyControl extends JPanel {
 		back.addActionListener(l);
 		back.addKeyListener(l);
 		add(back);
-		addKeyListener(new KeyHandler());
 
+		this.addKeyListener(new Key1pHandler(soloKey));
+		this.addKeyListener(new Key1pHandler(dualKey1));
+		this.addKeyListener(new Key2pHandler(dualKey2));
+		
 		JLabel rarrow = new JLabel(new ImageIcon("image/right.png"));
 		JLabel larrow = new JLabel(new ImageIcon("image/left.png"));
 		larrow.setBounds(470, 540, 100, 100);
@@ -193,94 +194,4 @@ public class KeyControl extends JPanel {
 			cps.changePanel("Help");
 		}
 	}
-
-	private class KeyHandler extends KeyAdapter {
-
-		public void keyPressed(KeyEvent e) {
-			int code = e.getKeyCode();
-
-			switch (code) {
-			case KeyEvent.VK_Q:
-				fiveButtons[0].setVisible(false);
-				firstPlay5[0].setVisible(false);
-				break;
-			case KeyEvent.VK_W:
-				fiveButtons[1].setVisible(false);
-				firstPlay5[1].setVisible(false);
-				break;
-			case KeyEvent.VK_E:
-				fiveButtons[2].setVisible(false);
-				firstPlay5[2].setVisible(false);
-				break;
-			case KeyEvent.VK_A:
-				fiveButtons[3].setVisible(false);
-				firstPlay5[3].setVisible(false);
-				break;
-			case KeyEvent.VK_S:
-				fiveButtons[4].setVisible(false);
-				firstPlay5[4].setVisible(false);
-				break;
-			case KeyEvent.VK_I:
-				secondPlay5[0].setVisible(false);
-				break;
-			case KeyEvent.VK_O:
-				secondPlay5[1].setVisible(false);
-				break;
-			case KeyEvent.VK_P:
-				secondPlay5[2].setVisible(false);
-				break;
-			case KeyEvent.VK_K:
-				secondPlay5[3].setVisible(false);
-				break;
-			case KeyEvent.VK_L:
-				secondPlay5[4].setVisible(false);
-				break;
-			}
-		}
-
-		public void keyReleased(KeyEvent e) {
-			int code = e.getKeyCode();
-
-			switch (code) {
-			case KeyEvent.VK_Q:
-				fiveButtons[0].setVisible(true);
-				firstPlay5[0].setVisible(true);
-				break;
-			case KeyEvent.VK_W:
-				fiveButtons[1].setVisible(true);
-				firstPlay5[1].setVisible(true);
-				break;
-			case KeyEvent.VK_E:
-				fiveButtons[2].setVisible(true);
-				firstPlay5[2].setVisible(true);
-				break;
-			case KeyEvent.VK_A:
-				fiveButtons[3].setVisible(true);
-				firstPlay5[3].setVisible(true);
-				break;
-			case KeyEvent.VK_S:
-				fiveButtons[4].setVisible(true);
-				firstPlay5[4].setVisible(true);
-				break;
-			case KeyEvent.VK_I:
-				secondPlay5[0].setVisible(true);
-				break;
-			case KeyEvent.VK_O:
-				secondPlay5[1].setVisible(true);
-				break;
-			case KeyEvent.VK_P:
-				secondPlay5[2].setVisible(true);
-				break;
-			case KeyEvent.VK_K:
-				secondPlay5[3].setVisible(true);
-				break;
-			case KeyEvent.VK_L:
-				secondPlay5[4].setVisible(true);
-				break;
-
-			}
-		}
-
-	}
-
 }
