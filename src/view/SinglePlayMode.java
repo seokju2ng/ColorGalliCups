@@ -24,7 +24,7 @@ import javax.swing.border.LineBorder;
 import etc.Board;
 import etc.Cards;
 import etc.ChangePanelService;
-import etc.ExitButtonHandler;
+import etc.ExitBtnHandler;
 import etc.KeyImage;
 import etc.MouseBtnHandler;
 import etc.RoundedPanel;
@@ -105,10 +105,10 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		addKeyListener(new Key1pHandler(controllKey));
 		MouseBtnHandler mbh = new MouseBtnHandler(exitBtn, pauseBtn);
 		exitBtn.addMouseListener(mbh);
-		exitBtn.addActionListener(new FocusButtonHandler(this));
+		exitBtn.addActionListener(new FocusBtnHandler(this));
 		pauseBtn.addMouseListener(mbh);
 		pauseBackground.addActionListener(new ClickHandler());
-		pauseBackground.addActionListener(new FocusButtonHandler(this));
+		pauseBackground.addActionListener(new FocusBtnHandler(this));
 		// this.setSize(1363, 714);
 		// this.setVisible(true);
 
@@ -164,7 +164,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		exitBtn.setFocusPainted(false);
 		exitBtn.setBorderPainted(false);
 		exitBtn.addActionListener(new ClickHandler());
-		exitBtn.addActionListener(new ExitButtonHandler(this, this.tm, this.timePanel.getTimer()));
+		exitBtn.addActionListener(new ExitBtnHandler(this, this.tm, this.timePanel.getTimer()));
 		east.add(exitBtn);
 
 		// 일시정지 버튼 --------------------------------------------------------------

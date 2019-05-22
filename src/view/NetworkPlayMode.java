@@ -116,7 +116,7 @@ public class NetworkPlayMode extends JPanel {
 		pauseBackground.setBorderPainted(false);
 		pauseBackground.setVisible(false);
 		pauseBackground.addActionListener(new ButtonHandler());
-		pauseBackground.addActionListener(new FocusButtonHandler(this));
+		pauseBackground.addActionListener(new FocusBtnHandler(this));
 		panel.add(pauseBackground);
 
 		panel.setBorder(new LineBorder(Color.BLACK));
@@ -183,13 +183,13 @@ public class NetworkPlayMode extends JPanel {
 		MouseBtnHandler mbh = new MouseBtnHandler(exitButton, pauseButton);
 		exitButton.addMouseListener(mbh);
 		pauseButton.addMouseListener(mbh);
-		exitButton.addActionListener(new FocusButtonHandler(this));
+		exitButton.addActionListener(new FocusBtnHandler(this));
 		pauseButton.setBounds(700, 10, 80, 80);
 		pauseButton.setBorderPainted(false);
 		pauseButton.setContentAreaFilled(false);
 		pauseButton.setFocusPainted(false);
 		pauseButton.addActionListener(new ButtonHandler());
-		pauseButton.addActionListener(new FocusButtonHandler(this));
+		pauseButton.addActionListener(new FocusBtnHandler(this));
 
 		panel.add(exitButton);
 		panel.add(pauseButton);

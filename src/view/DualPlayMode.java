@@ -20,7 +20,7 @@ import javax.swing.border.LineBorder;
 import etc.Board;
 import etc.Cards;
 import etc.ChangePanelService;
-import etc.ExitButtonHandler;
+import etc.ExitBtnHandler;
 import etc.HandVanish;
 import etc.KeyImage;
 import etc.MouseBtnHandler;
@@ -125,7 +125,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 		pauseBackground.setBorderPainted(false);
 		pauseBackground.setVisible(false);
 		pauseBackground.addActionListener(new ActionHandler());
-		pauseBackground.addActionListener(new FocusButtonHandler(this));
+		pauseBackground.addActionListener(new FocusBtnHandler(this));
 		this.add(pauseBackground);
 
 		// 카드를 가장 먼저 붙임)(0518애니메이션)
@@ -272,8 +272,8 @@ public class DualPlayMode extends JPanel implements ActionListener {
 		pause.addMouseListener(mbh);
 
 		exit.addMouseListener(mbh);
-		exit.addActionListener(new FocusButtonHandler(this));
-		exit.addActionListener(new ExitButtonHandler(this,this.tm,this.timePanel.getTimer()));
+		exit.addActionListener(new FocusBtnHandler(this));
+		exit.addActionListener(new ExitBtnHandler(this,this.tm,this.timePanel.getTimer()));
 		p3.add(pause);
 		p3.add(exit);
 		p3.add(board2);
@@ -318,7 +318,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 		bell.setContentAreaFilled(false);
 		bell.setFocusPainted(false);
 		bell.setBorderPainted(false);
-		bell.addActionListener(new FocusButtonHandler(this));
+		bell.addActionListener(new FocusBtnHandler(this));
 		// bell.setOpaque(false);
 
 		// this.add(card);
