@@ -29,7 +29,7 @@ public class Time2 extends JPanel implements ActionListener {
 		timer = new Timer(1000, this);
 		this.add(time);
 		this.add(timeflow);
-	
+
 		timer.start();
 	}
 
@@ -45,23 +45,21 @@ public class Time2 extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		// System.out.println(chk_time++);
 		// timeflow.setText(sdf1.format(chk_time++));
-		if(sec/60 ==1)
+		sec++;
+		if (sec / 60 == 1)
 			min++;
 		sec = sec % 60;
 		if (min < 10) {
-			
-			if(sec<10) {
-				timeflow.setText("0"+min + ":0" + sec++);
-			}
-			else {
-				timeflow.setText("0"+min+":"+sec++);
+			if (sec < 10) {
+				timeflow.setText("0" + min + ":0" + sec);
+			} else {
+				timeflow.setText("0" + min + ":" + sec);
 			}
 		} else {
-			if(sec<10) {
-				timeflow.setText(min + ":0" + sec++);
-			}
-			else {
-				timeflow.setText(min+":"+sec++);
+			if (sec < 10) {
+				timeflow.setText(min + ":0" + sec);
+			} else {
+				timeflow.setText(min + ":" + sec);
 			}
 		}
 
