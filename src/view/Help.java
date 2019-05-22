@@ -23,12 +23,12 @@ import view.MainView.Handler;
 
 public class Help extends JPanel {
 	private JButton[] b;
-	private Integer cor;
+	private MyIndex cor;
 	private JLabel[] ll;
 	private JLabel[] rl;
 
 	public Help() {
-		cor = 0;
+		cor = new MyIndex();
 		this.addComponentListener(new FocusHandler());
 		this.makeUI();
 		this.addKeyListener(new KeyUpDownHandler(cor,3,ll,rl));
@@ -51,6 +51,7 @@ public class Help extends JPanel {
 		b = new JButton[4];
 		Font font = new Font("Nanum Brush Script", Font.BOLD, 40);
 		MouseHandler ml = new MouseHandler();
+		KeyUpDownHandler kudh = new KeyUpDownHandler(cor,3,ll,rl);
 		Handler l = new Handler();
 		// p.addKeyListener(l);
 		// p2.addKeyListener(l);
@@ -63,6 +64,7 @@ public class Help extends JPanel {
 			b[i].setForeground(fg);
 			b[i].addActionListener(l);
 			b[i].addKeyListener(l);
+			b[i].addKeyListener(kudh);
 			b[i].addMouseListener(ml);
 		}
 		b[0].setText("조작키");
@@ -94,6 +96,7 @@ public class Help extends JPanel {
 		// p.setFocusable(true);
 		
 		p.addKeyListener(l);
+		p.addKeyListener(kudh);
 		setFocusable(true);
 		addKeyListener(l);
 
@@ -103,13 +106,13 @@ public class Help extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("enter");
 			ChangePanelService cps = ChangePanelService.getInstance();
-			if (cor == 0)
+			if (cor.getIndex() == 0)
 				cps.changePanel("KeyControl");
-			if (cor == 1)
+			if (cor.getIndex() == 1)
 				cps.changePanel("Tutorial");
-			else if (cor == 2)
+			else if (cor.getIndex() == 2)
 				cps.changePanel("GameInfo");
-			else if (cor == 3)
+			else if (cor.getIndex() == 3)
 				cps.changePanel("MainView");
 		}
 
@@ -124,11 +127,11 @@ public class Help extends JPanel {
 		public void mouseEntered(MouseEvent e) {
 			for (int i = 0; i < 4; i++) {
 				if (e.getSource() == b[i]) {
-					ll[cor].setVisible(false);
-					rl[cor].setVisible(false);
+					ll[cor.getIndex()].setVisible(false);
+					rl[cor.getIndex()].setVisible(false);
 					ll[i].setVisible(true);
 					rl[i].setVisible(true);
-					cor = i;
+					cor.setIndex(i);
 					break;
 				}
 			}
