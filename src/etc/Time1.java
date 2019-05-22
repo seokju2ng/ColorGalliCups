@@ -59,5 +59,8 @@ public class Time1 extends JPanel implements ActionListener {
 	public Timer getTimer() {
 		return this.timer;
 	}
+	public int getSec() {
+		return this.sec;
+	}
 
 }
