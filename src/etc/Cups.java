@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 public class Cups {
 	//ColorCups
 	private JLabel cups[][][];
-	int cupCnt;
-	int panelCnt;
+	private int cupCnt;
+	private int panelCnt;
 	public Cups(int cupCnt, int panelCnt) {
 		this.cupCnt = cupCnt;
 		this.panelCnt = panelCnt;
