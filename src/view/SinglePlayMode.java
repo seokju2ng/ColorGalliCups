@@ -131,9 +131,8 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		pauseBackground.setBorderPainted(false);
 		pauseBackground.setVisible(false);
 		add(pauseBackground);
-		eastPaint();
 		westPaint();
-
+		eastPaint();
 	}
 
 	private void eastPaint() {
