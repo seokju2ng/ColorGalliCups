@@ -27,6 +27,7 @@ import etc.HandVanish;
 import etc.KeyImage;
 import etc.MouseBtnHandler;
 import etc.RoundedPanel;
+import etc.Sound;
 
 public class NetworkPlayMode extends JPanel {
 	private JPanel panel;
@@ -321,18 +322,6 @@ public class NetworkPlayMode extends JPanel {
 		// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	public void playSound(String fileName) {
-		try {
-			AudioInputStream ais = AudioSystem.getAudioInputStream(new File(fileName));
-			Clip clip = AudioSystem.getClip();
-			clip.stop();
-			clip.open(ais);
-			clip.start();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	private class ButtonHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource().equals(exitButton)) {
@@ -399,7 +388,7 @@ public class NetworkPlayMode extends JPanel {
 						return;
 					}
 					bell.setIcon(new ImageIcon("image/bell(Network).png"));
-					playSound("audio/bell.wav");
+					Sound.playSound("audio/bell.wav");
 					new HandVanish(0, hands, handCheck).start();
 				}
 			}
@@ -410,21 +399,21 @@ public class NetworkPlayMode extends JPanel {
 					return;
 				}
 				bell.setIcon(new ImageIcon("image/bell(Network).png"));
-				playSound("audio/bell.wav");
+				Sound.playSound("audio/bell.wav");
 				new HandVanish(1, hands, handCheck).start();
 			} else if (e.getKeyChar() == KeyEvent.VK_2) {
 				if (index == -1 || handCheck[2] == true) {
 					return;
 				}
 				bell.setIcon(new ImageIcon("image/bell(Network).png"));
-				playSound("audio/bell.wav");
+				Sound.playSound("audio/bell.wav");
 				new HandVanish(2, hands, handCheck).start();
 			} else if (e.getKeyChar() == KeyEvent.VK_3) {
 				if (index == -1 || handCheck[3] == true) {
 					return;
 				}
 				bell.setIcon(new ImageIcon("image/bell(Network).png"));
-				playSound("audio/bell.wav");
+				Sound.playSound("audio/bell.wav");
 				new HandVanish(3, hands, handCheck).start();
 			}
 			/////////////////////// 추가 끝 ////////////////////
