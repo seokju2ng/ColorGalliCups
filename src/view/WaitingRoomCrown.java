@@ -109,10 +109,10 @@ public class WaitingRoomCrown extends JPanel{
 	    }
 		private class MouseHandler extends MouseAdapter {
 
-			public void mousePressed(MouseEvent e) {
+			public void mouseEntered(MouseEvent e) {
 				startButton.setIcon(new ImageIcon("image/startBtn(press).png"));
 			}
-			public void mouseReleased(MouseEvent e) {
+			public void mouseExited(MouseEvent e) {
 				startButton.setIcon(new ImageIcon("image/startBtn.png"));
 			}
 		}
