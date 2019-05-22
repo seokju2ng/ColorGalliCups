@@ -28,6 +28,7 @@ import etc.HandVanish;
 import etc.KeyImage;
 import etc.MouseBtnHandler;
 import etc.RoundedPanel;
+import etc.Sound;
 import etc.Time2;
 
 public class DualPlayMode extends JPanel implements ActionListener {
@@ -160,7 +161,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 						return;
 					}
 					bell.setIcon(new ImageIcon("image/bell(push2).png"));
-					playSound("audio/bell.wav");
+					Sound.playSound("audio/bell.wav");
 					new HandVanish(3, hands, handCheck).start();
 					/////////////////////////// 손 나오는 부분 끝/////////////////
 					two_flag = true;
@@ -180,7 +181,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 						return;
 					}
 					bell.setIcon(new ImageIcon("image/bell(push).png"));
-					playSound("audio/bell.wav");
+					Sound.playSound("audio/bell.wav");
 					new HandVanish(2, hands, handCheck).start();
 					// bell.setIcon(new ImageIcon("image/bell.png"));
 
@@ -735,16 +736,5 @@ public class DualPlayMode extends JPanel implements ActionListener {
 		}
 	}
 
-	public void playSound(String fileName) {
-		try {
-			AudioInputStream ais = AudioSystem.getAudioInputStream(new File(fileName));
-			Clip clip = AudioSystem.getClip();
-			clip.stop();
-			clip.open(ais);
-			clip.start();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 }
