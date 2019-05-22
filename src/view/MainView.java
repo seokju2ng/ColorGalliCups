@@ -9,8 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,6 +18,7 @@ import javax.swing.JPanel;
 import etc.ChangePanelService;
 
 public class MainView extends JPanel {
+	private static final long serialVersionUID = 1L;
 	private JButton menuArr[];
 	private JLabel leftCursorArr[];
 	private JLabel rightCursorArr[];
@@ -33,7 +32,7 @@ public class MainView extends JPanel {
 		setLayout(new BorderLayout());
 
 		makeUI();
-		this.addKeyListener(new KeyUpDownHandler(cor,4,leftCursorArr,rightCursorArr));
+		this.addKeyListener(new KeyUpDownHandler(cor, 4, leftCursorArr, rightCursorArr));
 		this.setSize(1363, 714);
 	}
 
@@ -67,7 +66,7 @@ public class MainView extends JPanel {
 		Font font = new Font("Nanum Brush Script", Font.PLAIN, 60);
 		JPanel panel = new JPanel(new GridLayout(5, 0));
 		Handler l = new Handler();
-		MouseHandler ml = new MouseHandler();
+		MouseEnteredHandler ml = new MouseEnteredHandler(menuArr, leftCursorArr, rightCursorArr, cor);
 		for (JButton b : menuArr) {
 			b.setBorderPainted(false);
 			b.setContentAreaFilled(false);
@@ -77,12 +76,14 @@ public class MainView extends JPanel {
 			b.addActionListener(l);
 			b.addKeyListener(l);
 			b.addMouseListener(ml);
-			b.addKeyListener(new KeyUpDownHandler(cor,4,leftCursorArr,rightCursorArr));
+			b.addKeyListener(new KeyUpDownHandler(cor, 4, leftCursorArr, rightCursorArr));
 			panel.add(b);
 		}
 		ImageIcon img = new ImageIcon("image/MainBackground.png");
 
 		JPanel background = new JPanel() {
+			private static final long serialVersionUID = 1L;
+
 			public void paintComponent(Graphics g) {
 				g.drawImage(img.getImage(), 0, 0, null);
 				setOpaque(false);
@@ -101,23 +102,8 @@ public class MainView extends JPanel {
 		panel.setBounds(500, 300, 350, 300);
 		background.setOpaque(false);
 		panel.addKeyListener(new Handler());
-		panel.addKeyListener(new KeyUpDownHandler(cor,4,leftCursorArr,rightCursorArr));
+		panel.addKeyListener(new KeyUpDownHandler(cor, 4, leftCursorArr, rightCursorArr));
 		this.add(background);
-	}
-
-	class MouseHandler extends MouseAdapter {
-		public void mouseEntered(MouseEvent e) {
-			for (int i = 0; i < 5; i++) {
-				if (e.getSource() == menuArr[i]) {
-					leftCursorArr[cor.getIndex()].setVisible(false);
-					rightCursorArr[cor.getIndex()].setVisible(false);
-					leftCursorArr[i].setVisible(true);
-					rightCursorArr[i].setVisible(true);
-					cor.setIndex(i);
-					break;
-				}
-			}
-		}
 	}
 
 	class Handler extends KeyAdapter implements ActionListener {

@@ -6,8 +6,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -19,9 +17,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import etc.ChangePanelService;
-import view.MainView.Handler;
 
 public class Help extends JPanel {
+	private static final long serialVersionUID = 1L;
 	private JButton[] b;
 	private MyIndex cor;
 	private JLabel[] ll;
@@ -31,7 +29,7 @@ public class Help extends JPanel {
 		cor = new MyIndex();
 		this.addComponentListener(new FocusHandler());
 		this.makeUI();
-		this.addKeyListener(new KeyUpDownHandler(cor,3,ll,rl));
+		this.addKeyListener(new KeyUpDownHandler(cor, 3, ll, rl));
 		this.setSize(1363, 714);
 	}
 
@@ -50,8 +48,7 @@ public class Help extends JPanel {
 
 		b = new JButton[4];
 		Font font = new Font("Nanum Brush Script", Font.BOLD, 40);
-		MouseHandler ml = new MouseHandler();
-		KeyUpDownHandler kudh = new KeyUpDownHandler(cor,3,ll,rl);
+		KeyUpDownHandler kudh = new KeyUpDownHandler(cor, 3, ll, rl);
 		Handler l = new Handler();
 		// p.addKeyListener(l);
 		// p2.addKeyListener(l);
@@ -65,7 +62,6 @@ public class Help extends JPanel {
 			b[i].addActionListener(l);
 			b[i].addKeyListener(l);
 			b[i].addKeyListener(kudh);
-			b[i].addMouseListener(ml);
 		}
 		b[0].setText("조작키");
 		b[1].setText("게임설명");
@@ -88,13 +84,16 @@ public class Help extends JPanel {
 			rl[i].setVisible(false);
 			// rl[i].addKeyListener(l);
 		}
-
 		ll[0].setVisible(true);
 		rl[0].setVisible(true);
 
+		MouseEnteredHandler ml = new MouseEnteredHandler(b, ll, rl, cor);
+
+		for (int i = 0; i < 4; i++) {
+			b[i].addMouseListener(ml);
+		}
+
 		add(p);
-		// p.setFocusable(true);
-		
 		p.addKeyListener(l);
 		p.addKeyListener(kudh);
 		setFocusable(true);
@@ -117,7 +116,7 @@ public class Help extends JPanel {
 		}
 
 		public void keyPressed(KeyEvent e) {
-			 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 				actionPerformed(new ActionEvent(e.getSource(), e.getID(), Character.toString(e.getKeyChar())));
 			}
 		}
