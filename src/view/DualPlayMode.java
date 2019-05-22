@@ -72,8 +72,6 @@ public class DualPlayMode extends JPanel implements ActionListener {
 	private JLabel[] two_buttons; // 2p전용 키 버튼
 
 	private JButton pauseBackground;
-	private boolean pauseFlag = false; // 일시정지 여부
-
 	//////////////////////////////// 준희가 수정 //////////////////
 	private JLabel[][] hands; // 손 이미지 저장하는 라벨
 	private ImageIcon[] img; // 손 이미지
@@ -86,29 +84,28 @@ public class DualPlayMode extends JPanel implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			if (e.getSource().equals(pause)) {
-				if (pauseFlag == false) {
+
 					p2.setVisible(false);
 					pauseBackground.setVisible(true);
 					pause.setVisible(false);
 					exit.setVisible(false);
 					for (int i = cardCnt; i < 38; i++)
 						systemCardDeck.card_arr.get(i).setVisible(false);
-					pauseFlag = true;
+					pause.requestFocusInWindow();
 					timePanel.getTimer().stop();
-				}
+				
 
 			} else if (e.getSource().equals(pauseBackground)) {
 				System.out.println("눌림");
-				if (pauseFlag == true) {
 					p2.setVisible(true);
 					pauseBackground.setVisible(false);
 					pause.setVisible(true);
 					exit.setVisible(true);
 					for (int i = cardCnt; i < 38; i++)
 						systemCardDeck.card_arr.get(i).setVisible(true);
-					pauseFlag = false;
+					DualPlayMode.this.requestFocusInWindow();
 					timePanel.getTimer().start();
-				}
+				
 			}
 		}
 	}
@@ -630,7 +627,6 @@ public class DualPlayMode extends JPanel implements ActionListener {
 		exit.setBounds(380, 30, 80, 80);
 
 		pause.addActionListener(new ActionHandler()); // pause버튼에 액션핸들러 추가
-		pause.addActionListener(new FocusButtonHandler(this));
 		MouseBtnHandler mbh = new MouseBtnHandler(exit, pause);
 		pause.addMouseListener(mbh);
 
