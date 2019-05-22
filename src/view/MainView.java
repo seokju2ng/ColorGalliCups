@@ -23,15 +23,17 @@ public class MainView extends JPanel {
 	private JButton menuArr[];
 	private JLabel leftCursorArr[];
 	private JLabel rightCursorArr[];
-	private int cor;
+	private MyIndex cor;
 	private RankView rank;
 
 	public MainView() {
+		cor = new MyIndex();
 		this.addComponentListener(new FocusHandler());
 		this.addKeyListener(new Handler());
 		setLayout(new BorderLayout());
 
 		makeUI();
+		this.addKeyListener(new KeyUpDownHandler(cor,4,leftCursorArr,rightCursorArr));
 		this.setSize(1363, 714);
 	}
 
@@ -75,6 +77,7 @@ public class MainView extends JPanel {
 			b.addActionListener(l);
 			b.addKeyListener(l);
 			b.addMouseListener(ml);
+			b.addKeyListener(new KeyUpDownHandler(cor,4,leftCursorArr,rightCursorArr));
 			panel.add(b);
 		}
 		ImageIcon img = new ImageIcon("image/MainBackground.png");
@@ -98,6 +101,7 @@ public class MainView extends JPanel {
 		panel.setBounds(500, 300, 350, 300);
 		background.setOpaque(false);
 		panel.addKeyListener(new Handler());
+		panel.addKeyListener(new KeyUpDownHandler(cor,4,leftCursorArr,rightCursorArr));
 		this.add(background);
 	}
 
@@ -105,11 +109,11 @@ public class MainView extends JPanel {
 		public void mouseEntered(MouseEvent e) {
 			for (int i = 0; i < 5; i++) {
 				if (e.getSource() == menuArr[i]) {
-					leftCursorArr[cor].setVisible(false);
-					rightCursorArr[cor].setVisible(false);
+					leftCursorArr[cor.getIndex()].setVisible(false);
+					rightCursorArr[cor.getIndex()].setVisible(false);
 					leftCursorArr[i].setVisible(true);
 					rightCursorArr[i].setVisible(true);
-					cor = i;
+					cor.setIndex(i);
 					break;
 				}
 			}
@@ -119,38 +123,20 @@ public class MainView extends JPanel {
 	class Handler extends KeyAdapter implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			ChangePanelService cps = ChangePanelService.getInstance();
-			if (cor == 0)
+			if (cor.getIndex() == 0)
 				cps.changePanel("GameMode");
-			else if (cor == 1)
+			else if (cor.getIndex() == 1)
 				rank.setVisible(true);
-			else if (cor == 2)
+			else if (cor.getIndex() == 2)
 				cps.changePanel("Option");
-			else if (cor == 3)
+			else if (cor.getIndex() == 3)
 				cps.changePanel("Help");
-			else if (cor == 4)
+			else if (cor.getIndex() == 4)
 				System.exit(0);
 		}
 
 		public void keyPressed(KeyEvent e) {
-			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-				System.out.println("down");
-				if (cor != 4) {
-					leftCursorArr[cor].setVisible(false);
-					rightCursorArr[cor].setVisible(false);
-					cor = cor + 1;
-					leftCursorArr[cor].setVisible(true);
-					rightCursorArr[cor].setVisible(true);
-				}
-			} else if (e.getKeyCode() == KeyEvent.VK_UP) {
-				System.out.println("up");
-				if (cor != 0) {
-					leftCursorArr[cor].setVisible(false);
-					rightCursorArr[cor].setVisible(false);
-					cor = cor - 1;
-					leftCursorArr[cor].setVisible(true);
-					rightCursorArr[cor].setVisible(true);
-				}
-			} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 				actionPerformed(new ActionEvent(e.getSource(), e.getID(), Character.toString(e.getKeyChar())));
 			}
 		}
