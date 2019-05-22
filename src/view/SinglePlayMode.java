@@ -24,6 +24,7 @@ import javax.swing.border.LineBorder;
 import etc.Board;
 import etc.Cards;
 import etc.ChangePanelService;
+import etc.ExitButtonHandler;
 import etc.KeyImage;
 import etc.MouseBtnHandler;
 import etc.RoundedPanel;
@@ -164,18 +165,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		exitBtn.setFocusPainted(false);
 		exitBtn.setBorderPainted(false);
 		exitBtn.addActionListener(new ClickHandler());
-		exitBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int res = JOptionPane.showConfirmDialog(null, "게임을 종료하시겠습니까?", "게임 종료", JOptionPane.YES_NO_OPTION,
-						JOptionPane.WARNING_MESSAGE);
-				if (res == JOptionPane.YES_OPTION) {
-					timePanel.getTimer().stop();
-					tm.stop();
-					ChangePanelService.getInstance().changePanel("MainView", SinglePlayMode.this);
-				}
-			}
-		});
-
+		exitBtn.addActionListener(new ExitButtonHandler(this, this.tm, this.timePanel.getTimer()));
 		east.add(exitBtn);
 
 		// 일시정지 버튼 --------------------------------------------------------------
@@ -232,19 +222,9 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		}
 		point[0].setVisible(true);
 
-		// 남은시간 w:272.6 60
 		// --------------------------------------------------------------
 		timePanel = new Time1(15, 15, 252, 150);
 		timePanel.setBorder(new LineBorder(Color.gray, 1));
-		// timePanel.setBounds(15, 15, 252, 150);
-		// --timePanel의 컴포넌트 시작
-		// JLabel timeRemaining = new JLabel("남은시간", SwingConstants.CENTER);
-		// timeRemaining.setFont(new Font("배달의민족 한나는 열한살", Font.BOLD, 36));
-		// timePanel.add(timeRemaining);
-		// JLabel time = new JLabel("00:00", SwingConstants.CENTER);
-		// time.setFont(new Font("배달의민족 한나는 열한살", Font.BOLD, 30));
-		// timePanel.add(time);
-		// --timePanel의 컴포넌트 끝
 		west.add(timePanel);
 
 		// 정답개수 --------------------------------------------------------------
