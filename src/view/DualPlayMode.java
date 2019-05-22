@@ -342,8 +342,8 @@ public class DualPlayMode extends JPanel implements ActionListener {
 				one_buttons[i].setBounds(20 + i * 45, 550, 40, 40);
 				one_buttons[i + 5].setBounds(20 + i * 45, 550, 40, 40);
 			} else {
-				one_buttons[i].setBounds(i * 45 - 100, 600, 40, 40);
-				one_buttons[i + 5].setBounds(i * 45 - 100, 600, 40, 40);
+				one_buttons[i].setBounds(i * 45 - 92, 600, 40, 40);
+				one_buttons[i + 5].setBounds(i * 45 - 92, 600, 40, 40);
 			}
 
 			p2.add(one_buttons[i]);
@@ -355,8 +355,8 @@ public class DualPlayMode extends JPanel implements ActionListener {
 				two_buttons[i].setBounds(210 + i * 45, 550, 40, 40);
 				two_buttons[i + 5].setBounds(210 + i * 45, 550, 40, 40);
 			} else {
-				two_buttons[i].setBounds(i * 45 + 90, 600, 40, 40);
-				two_buttons[i + 5].setBounds(i * 45 + 90, 600, 40, 40);
+				two_buttons[i].setBounds(i * 45 + 98, 600, 40, 40);
+				two_buttons[i + 5].setBounds(i * 45 + 98, 600, 40, 40);
 			}
 
 			p2.add(two_buttons[i]);
