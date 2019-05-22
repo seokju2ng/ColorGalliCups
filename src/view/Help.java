@@ -23,13 +23,15 @@ import view.MainView.Handler;
 
 public class Help extends JPanel {
 	private JButton[] b;
-	private int cor;
+	private Integer cor;
 	private JLabel[] ll;
 	private JLabel[] rl;
 
 	public Help() {
+		cor = 0;
 		this.addComponentListener(new FocusHandler());
 		this.makeUI();
+		this.addKeyListener(new KeyUpDownHandler(cor,3,ll,rl));
 		this.setSize(1363, 714);
 	}
 
@@ -90,6 +92,7 @@ public class Help extends JPanel {
 
 		add(p);
 		// p.setFocusable(true);
+		
 		p.addKeyListener(l);
 		setFocusable(true);
 		addKeyListener(l);
@@ -111,25 +114,7 @@ public class Help extends JPanel {
 		}
 
 		public void keyPressed(KeyEvent e) {
-			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-				System.out.println("down");
-				if (cor != 3) {
-					ll[cor].setVisible(false);
-					rl[cor].setVisible(false);
-					cor = cor + 1;
-					ll[cor].setVisible(true);
-					rl[cor].setVisible(true);
-				}
-			} else if (e.getKeyCode() == KeyEvent.VK_UP) {
-				System.out.println("up");
-				if (cor != 0) {
-					ll[cor].setVisible(false);
-					rl[cor].setVisible(false);
-					cor = cor - 1;
-					ll[cor].setVisible(true);
-					rl[cor].setVisible(true);
-				}
-			} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 				actionPerformed(new ActionEvent(e.getSource(), e.getID(), Character.toString(e.getKeyChar())));
 			}
 		}
