@@ -121,19 +121,4 @@ public class Help extends JPanel {
 			}
 		}
 	}
-
-	class MouseHandler extends MouseAdapter {
-		public void mouseEntered(MouseEvent e) {
-			for (int i = 0; i < 4; i++) {
-				if (e.getSource() == b[i]) {
-					ll[cor.getIndex()].setVisible(false);
-					rl[cor.getIndex()].setVisible(false);
-					ll[i].setVisible(true);
-					rl[i].setVisible(true);
-					cor.setIndex(i);
-					break;
-				}
-			}
-		}
-	}
 }
