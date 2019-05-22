@@ -11,8 +11,7 @@ import javax.swing.SwingConstants;
 
 public class GameInfo extends JPanel {
    public GameInfo() {
-	   this.addComponentListener(new FocusHandler());
-	   this.addKeyListener(new BackHelpHandler());
+	   
       Color bg=new Color(197, 90, 17);
       Font font=new Font("nanum brush script", Font.BOLD, 45);
       this.setLayout(null);
@@ -34,8 +33,11 @@ public class GameInfo extends JPanel {
       back.setBorderPainted(false);
 	  back.setContentAreaFilled(false);
 	  back.setFocusPainted(false);
+	  
 	  BackHelpHandler l = new BackHelpHandler();
       back.addActionListener(l);
+      this.addComponentListener(new FocusHandler());
+	  this.addKeyListener(l);
 //      back.addKeyListener(l);
       
       JLabel rarrow=new JLabel(new ImageIcon("image/right.png"));
