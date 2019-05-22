@@ -22,13 +22,15 @@ import etc.ChangePanelService;
 
 public class NetworkMode extends JPanel{
 	private JButton[] b;
-	private int cor;
+	private MyIndex cor;
 	private JLabel[] ll;
 	private JLabel[] rl;
 	private JLabel nickName;
 	public NetworkMode() {
+		cor = new MyIndex();
 		this.addComponentListener(new FocusHandler());
 		makeUI();
+		this.addKeyListener(new KeyUpDownHandler(cor,3,ll,rl));
 		this.setSize(1363, 714);
 	}
 	private void makeUI() {
@@ -102,11 +104,11 @@ public class NetworkMode extends JPanel{
 	class Handler extends KeyAdapter implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("enter");
-			if(cor == 0) {
+			if(cor.getIndex() == 0) {
 				ChangePanelService cps = ChangePanelService.getInstance();
 				cps.changePanel("WaitingRoomCrown");
 			}
-			if(cor == 1) {
+			if(cor.getIndex() == 1) {
 				String num = JOptionPane.showInputDialog("방번호를 입력해주세요.(4자리)");
 				if(num != null) {
 					while(num.length() != 4) {
@@ -120,7 +122,7 @@ public class NetworkMode extends JPanel{
 					cps.changePanel("WaitingRoomNormal");
 				}
 			}
-			else if(cor == 2) {
+			else if(cor.getIndex() == 2) {
 				String name = JOptionPane.showInputDialog("닉네임을 입력해주세요.\n(닉네임 유효조건 : 1~10글자)");
 				if(name != null) {
 					while(name.length() < 1 || name.length() >= 11) {
@@ -130,31 +132,13 @@ public class NetworkMode extends JPanel{
 					nickName.setText("닉네임 : "+name);
 				}
 			}
-			else if(cor == 3) {
+			else if(cor.getIndex() == 3) {
 				ChangePanelService cps = ChangePanelService.getInstance();
 				cps.changePanel("GameMode");
 			}
 		}
 		public void keyPressed(KeyEvent e) {
-			if(e.getKeyCode() == KeyEvent.VK_DOWN) {
-				System.out.println("down");
-				if(cor != 3) {
-					ll[cor].setVisible(false);
-					rl[cor].setVisible(false);
-					cor = cor+1;
-					ll[cor].setVisible(true);
-					rl[cor].setVisible(true);
-				}
-			} else if(e.getKeyCode() == KeyEvent.VK_UP) {
-				System.out.println("up");
-				if(cor != 0) {
-					ll[cor].setVisible(false);
-					rl[cor].setVisible(false);
-					cor = cor-1;
-					ll[cor].setVisible(true);
-					rl[cor].setVisible(true);
-				}
-			} else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+			if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 				actionPerformed(new ActionEvent(e.getSource(), e.getID(), Character.toString(e.getKeyChar())));
 			}
 		}
@@ -164,11 +148,11 @@ public class NetworkMode extends JPanel{
 		   public void mouseEntered(MouseEvent e) {
 			   for(int i = 0; i < 4; i++) {
 					if(e.getSource() == b[i]) {
-						ll[cor].setVisible(false);
-						rl[cor].setVisible(false);
+						ll[cor.getIndex()].setVisible(false);
+						rl[cor.getIndex()].setVisible(false);
 						ll[i].setVisible(true);
 						rl[i].setVisible(true);
-						cor = i;
+						cor.setIndex(i);
 						break;
 					}
 				}
