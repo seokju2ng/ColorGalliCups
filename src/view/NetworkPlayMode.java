@@ -6,13 +6,9 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.File;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -193,12 +189,7 @@ public class NetworkPlayMode extends JPanel {
 		pauseButton.setContentAreaFilled(false);
 		pauseButton.setFocusPainted(false);
 		pauseButton.addActionListener(new ButtonHandler());
-		pauseButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				pauseButton.requestFocusInWindow();
-			}
-		});
+		pauseButton.addActionListener(new FocusButtonHandler(this));
 
 		panel.add(exitButton);
 		panel.add(pauseButton);
@@ -288,12 +279,15 @@ public class NetworkPlayMode extends JPanel {
 			panel.add(keyBoard[i]);
 			panel.add(keyBoard[i + 5]);
 		}
+
 		for (int i = 3; i < 5; i++) {
 			keyBoard[i].setBounds(600 + 90 * (i - 3), 570, 80, 80);
 			keyBoard[i + 5].setBounds(600 + 90 * (i - 3), 570, 80, 80);
 			panel.add(keyBoard[i]);
 			panel.add(keyBoard[i + 5]);
 		}
+
+		addKeyListener(new Key1pHandler(keyBoard));
 
 		// 색상에 해당하는 키
 
@@ -350,30 +344,19 @@ public class NetworkPlayMode extends JPanel {
 		}
 	}
 
-	private class KeyHandler implements KeyListener {
-		@Override
-		public void keyTyped(KeyEvent e) {
-		}
+	private class KeyHandler extends KeyAdapter {
 
-		@Override
 		public void keyPressed(KeyEvent e) {
-			// TODO Auto-generated method stub
-			System.out.println(e.getKeyChar());
 
 			if (e.getKeyCode() == KeyEvent.VK_Q) {
-				keyBoard[0].setVisible(false);
 				spaceFlag = false;
 			} else if (e.getKeyCode() == KeyEvent.VK_W) {
-				keyBoard[1].setVisible(false);
 				spaceFlag = false;
 			} else if (e.getKeyCode() == KeyEvent.VK_E) {
-				keyBoard[2].setVisible(false);
 				spaceFlag = false;
 			} else if (e.getKeyCode() == KeyEvent.VK_A) {
-				keyBoard[3].setVisible(false);
 				spaceFlag = false;
 			} else if (e.getKeyCode() == KeyEvent.VK_S) {
-				keyBoard[4].setVisible(false);
 				spaceFlag = false;
 			} else if (e.getKeyChar() == KeyEvent.VK_SPACE) {
 				////////////////////////// 추가 //////////////////////
@@ -423,7 +406,6 @@ public class NetworkPlayMode extends JPanel {
 		public void keyReleased(KeyEvent e) {
 			// TODO Auto-generated method stub
 			if (e.getKeyCode() == KeyEvent.VK_Q) {
-				keyBoard[0].setVisible(true);
 				if (colorFlag[0] == 0) {
 					colorFlag[0] = gamePanelIndex + 1;
 					mainBoard.getCups(0, gamePanelIndex, 4 - gamePanelY).setVisible(true);
@@ -431,7 +413,6 @@ public class NetworkPlayMode extends JPanel {
 						gamePanelY++;
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_W) {
-				keyBoard[1].setVisible(true);
 				if (colorFlag[1] == 0) {
 					colorFlag[1] = gamePanelIndex + 1;
 					mainBoard.getCups(1, gamePanelIndex, 4 - gamePanelY).setVisible(true);
@@ -439,7 +420,6 @@ public class NetworkPlayMode extends JPanel {
 						gamePanelY++;
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_E) {
-				keyBoard[2].setVisible(true);
 				if (colorFlag[2] == 0) {
 					colorFlag[2] = gamePanelIndex + 1;
 					mainBoard.getCups(2, gamePanelIndex, 4 - gamePanelY).setVisible(true);
@@ -447,7 +427,6 @@ public class NetworkPlayMode extends JPanel {
 						gamePanelY++;
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_A) {
-				keyBoard[3].setVisible(true);
 				if (colorFlag[3] == 0) {
 					colorFlag[3] = gamePanelIndex + 1;
 					mainBoard.getCups(3, gamePanelIndex, 4 - gamePanelY).setVisible(true);
@@ -455,7 +434,6 @@ public class NetworkPlayMode extends JPanel {
 						gamePanelY++;
 				}
 			} else if (e.getKeyCode() == KeyEvent.VK_S) {
-				keyBoard[4].setVisible(true);
 				if (colorFlag[4] == 0) {
 					colorFlag[4] = gamePanelIndex + 1;
 					mainBoard.getCups(4, gamePanelIndex, 4 - gamePanelY).setVisible(true);
