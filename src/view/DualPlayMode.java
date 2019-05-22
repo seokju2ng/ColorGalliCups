@@ -6,12 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.util.ArrayList;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -79,299 +75,6 @@ public class DualPlayMode extends JPanel implements ActionListener {
 	private boolean[] handCheck; // 한사람이 연속으로 벨 못누른다 flag 역할
 	//////////////////////////////// 준희가 수정 끝//////////////////
 
-	private class ActionHandler implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			if (e.getSource().equals(pause)) {
-
-					p2.setVisible(false);
-					pauseBackground.setVisible(true);
-					pause.setVisible(false);
-					exit.setVisible(false);
-					for (int i = cardCnt; i < 38; i++)
-						systemCardDeck.card_arr.get(i).setVisible(false);
-					pause.requestFocusInWindow();
-					timePanel.getTimer().stop();
-				
-
-			} else if (e.getSource().equals(pauseBackground)) {
-				System.out.println("눌림");
-					p2.setVisible(true);
-					pauseBackground.setVisible(false);
-					pause.setVisible(true);
-					exit.setVisible(true);
-					for (int i = cardCnt; i < 38; i++)
-						systemCardDeck.card_arr.get(i).setVisible(true);
-					DualPlayMode.this.requestFocusInWindow();
-					timePanel.getTimer().start();
-				
-			}
-		}
-	}
-
-	private class KeyHandler extends KeyAdapter {
-
-		@Override
-		public void keyPressed(KeyEvent e) {
-			// TODO Auto-generated method stub
-			if (e.getKeyCode() == KeyEvent.VK_Q) {
-				one_buttons[0].setVisible(false);
-				spaceFlag1p = false;
-			} else if (e.getKeyCode() == KeyEvent.VK_W) {
-				one_buttons[1].setVisible(false);
-				spaceFlag1p = false;
-			} else if (e.getKeyCode() == KeyEvent.VK_E) {
-				one_buttons[2].setVisible(false);
-				spaceFlag1p = false;
-			} else if (e.getKeyCode() == KeyEvent.VK_A) {
-				one_buttons[3].setVisible(false);
-				spaceFlag1p = false;
-			} else if (e.getKeyCode() == KeyEvent.VK_S) {
-				one_buttons[4].setVisible(false);
-				spaceFlag1p = false;
-			} else if (e.getKeyCode() == KeyEvent.VK_I) {
-				two_buttons[0].setVisible(false);
-				spaceFlag2p = false;
-			} else if (e.getKeyCode() == KeyEvent.VK_O) {
-				two_buttons[1].setVisible(false);
-				spaceFlag2p = false;
-			} else if (e.getKeyCode() == KeyEvent.VK_P) {
-				two_buttons[2].setVisible(false);
-				spaceFlag2p = false;
-			} else if (e.getKeyCode() == KeyEvent.VK_K) {
-				two_buttons[3].setVisible(false);
-				spaceFlag2p = false;
-			} else if (e.getKeyCode() == KeyEvent.VK_L) {
-				two_buttons[4].setVisible(false);
-				spaceFlag2p = false;
-			} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-				int setCupFlag = 0;
-				for (int i = 0; i < 5; i++) {
-					if (colorFlag2p[i] > 0) {
-						setCupFlag++;
-					}
-				}
-				if (setCupFlag == 5 && spaceFlag2p == false) {
-					/////////////////////////// 손 나오는 부분 ///////////////////
-					if (index == 1 || handCheck[3] == true) {
-						return;
-					}
-					bell.setIcon(new ImageIcon("image/bell(push2).png"));
-					Sound.playSound("audio/bell.wav");
-					new HandVanish(3, hands, handCheck).start();
-					/////////////////////////// 손 나오는 부분 끝/////////////////
-					two_flag = true;
-					two_x = initX; // 엔터누를때 2p 카드의 초기위치 재설정.
-					tm.start();
-				}
-			} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-				int setCupFlag = 0;
-				for (int i = 0; i < 5; i++) {
-					if (colorFlag1p[i] > 0) {
-						setCupFlag++;
-					}
-				}
-				if (setCupFlag == 5 && spaceFlag1p == false) {
-					/////////////////////////// 손 나오는 부분 ///////////////////
-					if (index == 1 || handCheck[2] == true) {
-						return;
-					}
-					bell.setIcon(new ImageIcon("image/bell(push).png"));
-					Sound.playSound("audio/bell.wav");
-					new HandVanish(2, hands, handCheck).start();
-					// bell.setIcon(new ImageIcon("image/bell.png"));
-
-					/////////////////////////// 손 나오는 부분 끝/////////////////
-					one_flag = true;
-					one_x = initX;
-					tm.start();
-				}
-			}
-		}
-
-		@Override
-		public void keyReleased(KeyEvent e) {
-			// TODO Auto-generated method stub
-			if (e.getKeyCode() == KeyEvent.VK_Q) {
-				one_buttons[0].setVisible(true);
-				if (colorFlag1p[0] == 0) {
-					colorFlag1p[0] = gamePanelIndex1p + 1;
-					// System.out.println(redCup1p+"," + gamePanelIndex1p +"," + gamePanelY1p);
-					board1.getCups(0, gamePanelIndex1p, 4 - gamePanelY1p).setVisible(true);
-
-					if (gamePanelY1p < 4)
-						gamePanelY1p++;
-				}
-			} else if (e.getKeyCode() == KeyEvent.VK_W) {
-				one_buttons[1].setVisible(true);
-				if (colorFlag1p[1] == 0) {
-					colorFlag1p[1] = gamePanelIndex1p + 1;
-					board1.getCups(1, gamePanelIndex1p, 4 - gamePanelY1p).setVisible(true);
-					if (gamePanelY1p < 4)
-						gamePanelY1p++;
-				}
-			} else if (e.getKeyCode() == KeyEvent.VK_E) {
-				one_buttons[2].setVisible(true);
-				if (colorFlag1p[2] == 0) {
-					colorFlag1p[2] = gamePanelIndex1p + 1;
-					board1.getCups(2, gamePanelIndex1p, 4 - gamePanelY1p).setVisible(true);
-					if (gamePanelY1p < 4)
-						gamePanelY1p++;
-				}
-			} else if (e.getKeyCode() == KeyEvent.VK_A) {
-				one_buttons[3].setVisible(true);
-				if (colorFlag1p[3] == 0) {
-					colorFlag1p[3] = gamePanelIndex1p + 1;
-					board1.getCups(3, gamePanelIndex1p, 4 - gamePanelY1p).setVisible(true);
-					if (gamePanelY1p < 4)
-						gamePanelY1p++;
-				}
-			} else if (e.getKeyCode() == KeyEvent.VK_S) {
-				one_buttons[4].setVisible(true);
-				if (colorFlag1p[4] == 0) {
-					colorFlag1p[4] = gamePanelIndex1p + 1;
-					board1.getCups(4, gamePanelIndex1p, 4 - gamePanelY1p).setVisible(true);
-					if (gamePanelY1p < 4)
-						gamePanelY1p++;
-				}
-			} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-				bell.setIcon(new ImageIcon("image/bell.png"));
-
-				if (spaceFlag1p == true) {
-					for (int i = 0; i < 5; i++) {
-						colorFlag1p[i] = 0;
-						pointerOne[i].setVisible(false);
-						for (int j = 0; j < 5; j++) {
-							board1.getCups(0, i, j).setVisible(false);
-							board1.getCups(1, i, j).setVisible(false);
-							board1.getCups(2, i, j).setVisible(false);
-							board1.getCups(3, i, j).setVisible(false);
-							board1.getCups(4, i, j).setVisible(false);
-						}
-					}
-					gamePanelIndex1p = 0;
-					gamePanelY1p = 0;
-					pointerOne[0].setVisible(true);
-					return;
-				}
-				int setCupFlag = 0;
-				for (int i = 0; i < 5; i++) {
-					if (colorFlag1p[i] > 0) {
-						setCupFlag++;
-					}
-				}
-				if (setCupFlag < 5) {
-					boolean isEmptyPanel = true;
-					for (int i = 0; i < 5; i++) {
-						if (colorFlag1p[i] == gamePanelIndex1p + 1) {
-							isEmptyPanel = false;
-						}
-					}
-					if (gamePanelIndex1p < 4 && isEmptyPanel == false) {
-						gamePanelIndex1p++;
-						gamePanelY1p = 0;
-						if (gamePanelIndex1p < 5) {
-							for (int i = 0; i < 5; i++)
-								pointerOne[i].setVisible(false);
-							pointerOne[gamePanelIndex1p].setVisible(true);
-						}
-
-					}
-				}
-				spaceFlag1p = true;
-			}
-
-			// 2p
-			else if (e.getKeyCode() == KeyEvent.VK_I) {
-				two_buttons[0].setVisible(true);
-				if (colorFlag2p[0] == 0) {
-					colorFlag2p[0] = gamePanelIndex2p + 1;
-					board2.getCups(0, gamePanelIndex2p, 4 - gamePanelY2p).setVisible(true);
-					if (gamePanelY2p < 4)
-						gamePanelY2p++;
-				}
-			} else if (e.getKeyCode() == KeyEvent.VK_O) {
-				two_buttons[1].setVisible(true);
-				if (colorFlag2p[1] == 0) {
-					colorFlag2p[1] = gamePanelIndex2p + 1;
-					board2.getCups(1, gamePanelIndex2p, 4 - gamePanelY2p).setVisible(true);
-					if (gamePanelY2p < 4)
-						gamePanelY2p++;
-				}
-			} else if (e.getKeyCode() == KeyEvent.VK_P) {
-				two_buttons[2].setVisible(true);
-				if (colorFlag2p[2] == 0) {
-					colorFlag2p[2] = gamePanelIndex2p + 1;
-					board2.getCups(2, gamePanelIndex2p, 4 - gamePanelY2p).setVisible(true);
-					if (gamePanelY2p < 4)
-						gamePanelY2p++;
-				}
-			} else if (e.getKeyCode() == KeyEvent.VK_K) {
-				two_buttons[3].setVisible(true);
-				if (colorFlag2p[3] == 0) {
-					colorFlag2p[3] = gamePanelIndex2p + 1;
-					board2.getCups(3, gamePanelIndex2p, 4 - gamePanelY2p).setVisible(true);
-					if (gamePanelY2p < 4)
-						gamePanelY2p++;
-				}
-			} else if (e.getKeyCode() == KeyEvent.VK_L) {
-				two_buttons[4].setVisible(true);
-				if (colorFlag2p[4] == 0) {
-					colorFlag2p[4] = gamePanelIndex2p + 1;
-					board2.getCups(4, gamePanelIndex2p, 4 - gamePanelY2p).setVisible(true);
-					if (gamePanelY2p < 4)
-						gamePanelY2p++;
-				}
-			} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-				bell.setIcon(new ImageIcon("image/bell.png"));
-				if (spaceFlag2p == true) {
-					for (int i = 0; i < 5; i++) {
-						colorFlag2p[i] = 0;
-						pointerTwo[i].setVisible(false);
-						for (int j = 0; j < 5; j++) {
-							board2.getCups(0, i, j).setVisible(false);
-							board2.getCups(1, i, j).setVisible(false);
-							board2.getCups(2, i, j).setVisible(false);
-							board2.getCups(3, i, j).setVisible(false);
-							board2.getCups(4, i, j).setVisible(false);
-						}
-					}
-					gamePanelIndex2p = 0;
-					gamePanelY2p = 0;
-					pointerTwo[0].setVisible(true);
-					return;
-				}
-				int setCupFlag = 0;
-				for (int i = 0; i < 5; i++) {
-					if (colorFlag2p[i] > 0) {
-						setCupFlag++;
-					}
-				}
-				if (setCupFlag < 5) {
-					boolean isEmptyPanel = true;
-					for (int i = 0; i < 5; i++) {
-						if (colorFlag2p[i] == gamePanelIndex2p + 1) {
-							isEmptyPanel = false;
-						}
-					}
-					if (gamePanelIndex2p < 4 && isEmptyPanel == false) {
-						gamePanelIndex2p++;
-						gamePanelY2p = 0;
-						if (gamePanelIndex2p < 5) {
-							for (int i = 0; i < 5; i++)
-								pointerTwo[i].setVisible(false);
-							pointerTwo[gamePanelIndex2p].setVisible(true);
-						}
-
-					}
-				}
-				spaceFlag2p = true;
-			}
-		}
-
-	}
-
 	// 애니메이션//
 	private Timer tm = new Timer(10, this);
 	private int initX = 604, velX = 5; // 초기 카드위치와 카드가 움직이는 속도
@@ -384,69 +87,6 @@ public class DualPlayMode extends JPanel implements ActionListener {
 	//////
 
 	// 여기서부터 카드 애니메이션 0518//
-	public void actionPerformed(ActionEvent e) {
-		if (one_flag == true) {
-			if (one_x > 150) {
-				// velX = -velX;
-				systemCardDeck.card_arr.get(cardCnt).setBounds(one_x, -(one_x / 7) + 128, 154, 238);
-				one_x = one_x - velX;
-				// card.setBounds(610,-(610/7)+45,154,238);
-
-			}
-			// x = x + velX;
-			// card.setBounds(x,x/7-45,154,238);
-			else if (one_x < 150) {
-				ImageIcon icon = (ImageIcon) systemCardDeck.card_arr.get(cardCnt).getIcon(); // 얻은 카드의 이미지를 따온다.
-				this.remove(systemCardDeck.card_arr.get(cardCnt)); // 카드를 지우고
-				this.revalidate(); // 부모컨테이너를 새로고침한다
-				this.repaint(); // 새로고침.
-
-				one_Deck.add(new JLabel(KeyImage.resizeIcon(icon, 90, 140))); // 1p 사용자 카드덱에 카드추가
-				one_Deck.get(one_cnt).setBounds(50 + one_cnt * 10, 190, 90, 140); // 좌표는 나중에 수정
-				for (int i = one_Deck.size() - 1; i >= 0; i--) {
-					p1.add(one_Deck.get(i));
-				}
-				one_cnt++; // 1p정답갯수를 늘려준다.
-				one_flag = false;
-				System.out.println("된다! one_cnt: " + one_cnt + ", arraylSize : " + one_Deck.size());
-				cardCnt++; // 시스템카드덱을 +1한다.
-				cardNum.setText(cardCnt + "/" + systemCardDeck.card_arr.size());
-			}
-		} else if (two_flag == true) {
-			if (two_x < 1100) {
-				systemCardDeck.card_arr.get(cardCnt).setBounds(two_x, two_x / 7 - 45, 154, 238); // 원래
-				two_x = two_x + velX;
-
-			} else if (two_x > 1100) {
-				// try {
-				// Thread.sleep(1000); // 카드가 1초후 사라진다.
-				// } catch (InterruptedException e1) {
-				ImageIcon icon = (ImageIcon) systemCardDeck.card_arr.get(cardCnt).getIcon(); // 얻은 카드의 이미지를 따온다.
-				this.remove(systemCardDeck.card_arr.get(cardCnt)); // 카드를 지우고
-				this.revalidate(); // 부모컨테이너를 새로고침한다
-				this.repaint(); // 새로고침.
-
-				two_Deck.add(new JLabel(KeyImage.resizeIcon(icon, 90, 140))); // 2p 사용자 카드덱에 카드추가
-				two_Deck.get(two_cnt).setBounds(350 - two_cnt * 10, 190, 90, 140); // 좌표는 나중에 수정
-				for (int i = two_Deck.size() - 1; i >= 0; i--) {
-					p3.add(two_Deck.get(i)); // 겹치는 순서 지키기위해 같은 것도 다시 add한다.
-				}
-				two_cnt++; // 2p정답갯수를 늘려준다.
-
-				System.out.println("된다! two_cnt: " + two_cnt + ", arraylSize : " + two_Deck.size());
-
-				two_flag = false;
-				cardCnt++;
-				cardNum.setText(cardCnt + "/" + systemCardDeck.card_arr.size());
-			}
-		}
-		if (cardCnt == systemCardDeck.card_arr.size()) {
-			timePanel.getTimer().stop();
-			tm.stop();
-			JOptionPane.showMessageDialog(null, "xx승리", "게임 종료", JOptionPane.CANCEL_OPTION);
-			ChangePanelService.getInstance().changePanel("MainView", DualPlayMode.this);
-		}
-	}
 
 	//////////////////////// 여기까지 카드 에니메이션/////////////
 
@@ -713,7 +353,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 				one_buttons[i].setBounds(i * 45 - 100, 600, 40, 40);
 				one_buttons[i + 5].setBounds(i * 45 - 100, 600, 40, 40);
 			}
-			one_buttons[i].addKeyListener(new KeyHandler());
+
 			p2.add(one_buttons[i]);
 			p2.add(one_buttons[i + 5]);
 		}
@@ -726,11 +366,348 @@ public class DualPlayMode extends JPanel implements ActionListener {
 				two_buttons[i].setBounds(i * 45 + 90, 600, 40, 40);
 				two_buttons[i + 5].setBounds(i * 45 + 90, 600, 40, 40);
 			}
-			two_buttons[i].addKeyListener(new KeyHandler());
+
 			p2.add(two_buttons[i]);
 			p2.add(two_buttons[i + 5]);
 		}
+		addKeyListener(new Key1pHandler(one_buttons));
+		addKeyListener(new Key2pHandler(two_buttons));
 	}
 
+	public void actionPerformed(ActionEvent e) {
+		if (one_flag == true) {
+			if (one_x > 150) {
+				// velX = -velX;
+				systemCardDeck.card_arr.get(cardCnt).setBounds(one_x, -(one_x / 7) + 128, 154, 238);
+				one_x = one_x - velX;
+				// card.setBounds(610,-(610/7)+45,154,238);
+
+			}
+			// x = x + velX;
+			// card.setBounds(x,x/7-45,154,238);
+			else if (one_x < 150) {
+				ImageIcon icon = (ImageIcon) systemCardDeck.card_arr.get(cardCnt).getIcon(); // 얻은 카드의 이미지를 따온다.
+				this.remove(systemCardDeck.card_arr.get(cardCnt)); // 카드를 지우고
+				this.revalidate(); // 부모컨테이너를 새로고침한다
+				this.repaint(); // 새로고침.
+
+				one_Deck.add(new JLabel(KeyImage.resizeIcon(icon, 90, 140))); // 1p 사용자 카드덱에 카드추가
+				one_Deck.get(one_cnt).setBounds(50 + one_cnt * 10, 190, 90, 140); // 좌표는 나중에 수정
+				for (int i = one_Deck.size() - 1; i >= 0; i--) {
+					p1.add(one_Deck.get(i));
+				}
+				one_cnt++; // 1p정답갯수를 늘려준다.
+				one_flag = false;
+				System.out.println("된다! one_cnt: " + one_cnt + ", arraylSize : " + one_Deck.size());
+				cardCnt++; // 시스템카드덱을 +1한다.
+				cardNum.setText(cardCnt + "/" + systemCardDeck.card_arr.size());
+			}
+		} else if (two_flag == true) {
+			if (two_x < 1100) {
+				systemCardDeck.card_arr.get(cardCnt).setBounds(two_x, two_x / 7 - 45, 154, 238); // 원래
+				two_x = two_x + velX;
+
+			} else if (two_x > 1100) {
+				// try {
+				// Thread.sleep(1000); // 카드가 1초후 사라진다.
+				// } catch (InterruptedException e1) {
+				ImageIcon icon = (ImageIcon) systemCardDeck.card_arr.get(cardCnt).getIcon(); // 얻은 카드의 이미지를 따온다.
+				this.remove(systemCardDeck.card_arr.get(cardCnt)); // 카드를 지우고
+				this.revalidate(); // 부모컨테이너를 새로고침한다
+				this.repaint(); // 새로고침.
+
+				two_Deck.add(new JLabel(KeyImage.resizeIcon(icon, 90, 140))); // 2p 사용자 카드덱에 카드추가
+				two_Deck.get(two_cnt).setBounds(350 - two_cnt * 10, 190, 90, 140); // 좌표는 나중에 수정
+				for (int i = two_Deck.size() - 1; i >= 0; i--) {
+					p3.add(two_Deck.get(i)); // 겹치는 순서 지키기위해 같은 것도 다시 add한다.
+				}
+				two_cnt++; // 2p정답갯수를 늘려준다.
+
+				System.out.println("된다! two_cnt: " + two_cnt + ", arraylSize : " + two_Deck.size());
+
+				two_flag = false;
+				cardCnt++;
+				cardNum.setText(cardCnt + "/" + systemCardDeck.card_arr.size());
+			}
+		}
+		if (cardCnt == systemCardDeck.card_arr.size()) {
+			timePanel.getTimer().stop();
+			tm.stop();
+			JOptionPane.showMessageDialog(null, "xx승리", "게임 종료", JOptionPane.CANCEL_OPTION);
+			ChangePanelService.getInstance().changePanel("MainView", DualPlayMode.this);
+		}
+	}
+
+	private class ActionHandler implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			if (e.getSource().equals(pause)) {
+
+				p2.setVisible(false);
+				pauseBackground.setVisible(true);
+				pause.setVisible(false);
+				exit.setVisible(false);
+				for (int i = cardCnt; i < 38; i++)
+					systemCardDeck.card_arr.get(i).setVisible(false);
+				pause.requestFocusInWindow();
+				timePanel.getTimer().stop();
+
+			} else if (e.getSource().equals(pauseBackground)) {
+				System.out.println("눌림");
+				p2.setVisible(true);
+				pauseBackground.setVisible(false);
+				pause.setVisible(true);
+				exit.setVisible(true);
+				for (int i = cardCnt; i < 38; i++)
+					systemCardDeck.card_arr.get(i).setVisible(true);
+				DualPlayMode.this.requestFocusInWindow();
+				timePanel.getTimer().start();
+
+			}
+		}
+	}
+
+	private class KeyHandler extends KeyAdapter {
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			// TODO Auto-generated method stub
+			if (e.getKeyCode() == KeyEvent.VK_Q) {
+				spaceFlag1p = false;
+			} else if (e.getKeyCode() == KeyEvent.VK_W) {
+				spaceFlag1p = false;
+			} else if (e.getKeyCode() == KeyEvent.VK_E) {
+				spaceFlag1p = false;
+			} else if (e.getKeyCode() == KeyEvent.VK_A) {
+				spaceFlag1p = false;
+			} else if (e.getKeyCode() == KeyEvent.VK_S) {
+				spaceFlag1p = false;
+			} else if (e.getKeyCode() == KeyEvent.VK_I) {
+				spaceFlag2p = false;
+			} else if (e.getKeyCode() == KeyEvent.VK_O) {
+				spaceFlag2p = false;
+			} else if (e.getKeyCode() == KeyEvent.VK_P) {
+				spaceFlag2p = false;
+			} else if (e.getKeyCode() == KeyEvent.VK_K) {
+				spaceFlag2p = false;
+			} else if (e.getKeyCode() == KeyEvent.VK_L) {
+				spaceFlag2p = false;
+			} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+				int setCupFlag = 0;
+				for (int i = 0; i < 5; i++) {
+					if (colorFlag2p[i] > 0) {
+						setCupFlag++;
+					}
+				}
+				if (setCupFlag == 5 && spaceFlag2p == false) {
+					/////////////////////////// 손 나오는 부분 ///////////////////
+					if (index == 1 || handCheck[3] == true) {
+						return;
+					}
+					bell.setIcon(new ImageIcon("image/bell(push2).png"));
+					Sound.playSound("audio/bell.wav");
+					new HandVanish(3, hands, handCheck).start();
+					/////////////////////////// 손 나오는 부분 끝/////////////////
+					two_flag = true;
+					two_x = initX; // 엔터누를때 2p 카드의 초기위치 재설정.
+					tm.start();
+				}
+			} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+				int setCupFlag = 0;
+				for (int i = 0; i < 5; i++) {
+					if (colorFlag1p[i] > 0) {
+						setCupFlag++;
+					}
+				}
+				if (setCupFlag == 5 && spaceFlag1p == false) {
+					/////////////////////////// 손 나오는 부분 ///////////////////
+					if (index == 1 || handCheck[2] == true) {
+						return;
+					}
+					bell.setIcon(new ImageIcon("image/bell(push).png"));
+					Sound.playSound("audio/bell.wav");
+					new HandVanish(2, hands, handCheck).start();
+					// bell.setIcon(new ImageIcon("image/bell.png"));
+
+					/////////////////////////// 손 나오는 부분 끝/////////////////
+					one_flag = true;
+					one_x = initX;
+					tm.start();
+				}
+			}
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+			if (e.getKeyCode() == KeyEvent.VK_Q) {
+				if (colorFlag1p[0] == 0) {
+					colorFlag1p[0] = gamePanelIndex1p + 1;
+					// System.out.println(redCup1p+"," + gamePanelIndex1p +"," + gamePanelY1p);
+					board1.getCups(0, gamePanelIndex1p, 4 - gamePanelY1p).setVisible(true);
+
+					if (gamePanelY1p < 4)
+						gamePanelY1p++;
+				}
+			} else if (e.getKeyCode() == KeyEvent.VK_W) {
+				if (colorFlag1p[1] == 0) {
+					colorFlag1p[1] = gamePanelIndex1p + 1;
+					board1.getCups(1, gamePanelIndex1p, 4 - gamePanelY1p).setVisible(true);
+					if (gamePanelY1p < 4)
+						gamePanelY1p++;
+				}
+			} else if (e.getKeyCode() == KeyEvent.VK_E) {
+				if (colorFlag1p[2] == 0) {
+					colorFlag1p[2] = gamePanelIndex1p + 1;
+					board1.getCups(2, gamePanelIndex1p, 4 - gamePanelY1p).setVisible(true);
+					if (gamePanelY1p < 4)
+						gamePanelY1p++;
+				}
+			} else if (e.getKeyCode() == KeyEvent.VK_A) {
+				if (colorFlag1p[3] == 0) {
+					colorFlag1p[3] = gamePanelIndex1p + 1;
+					board1.getCups(3, gamePanelIndex1p, 4 - gamePanelY1p).setVisible(true);
+					if (gamePanelY1p < 4)
+						gamePanelY1p++;
+				}
+			} else if (e.getKeyCode() == KeyEvent.VK_S) {
+				if (colorFlag1p[4] == 0) {
+					colorFlag1p[4] = gamePanelIndex1p + 1;
+					board1.getCups(4, gamePanelIndex1p, 4 - gamePanelY1p).setVisible(true);
+					if (gamePanelY1p < 4)
+						gamePanelY1p++;
+				}
+			} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+				bell.setIcon(new ImageIcon("image/bell.png"));
+
+				if (spaceFlag1p == true) {
+					for (int i = 0; i < 5; i++) {
+						colorFlag1p[i] = 0;
+						pointerOne[i].setVisible(false);
+						for (int j = 0; j < 5; j++) {
+							board1.getCups(0, i, j).setVisible(false);
+							board1.getCups(1, i, j).setVisible(false);
+							board1.getCups(2, i, j).setVisible(false);
+							board1.getCups(3, i, j).setVisible(false);
+							board1.getCups(4, i, j).setVisible(false);
+						}
+					}
+					gamePanelIndex1p = 0;
+					gamePanelY1p = 0;
+					pointerOne[0].setVisible(true);
+					return;
+				}
+				int setCupFlag = 0;
+				for (int i = 0; i < 5; i++) {
+					if (colorFlag1p[i] > 0) {
+						setCupFlag++;
+					}
+				}
+				if (setCupFlag < 5) {
+					boolean isEmptyPanel = true;
+					for (int i = 0; i < 5; i++) {
+						if (colorFlag1p[i] == gamePanelIndex1p + 1) {
+							isEmptyPanel = false;
+						}
+					}
+					if (gamePanelIndex1p < 4 && isEmptyPanel == false) {
+						gamePanelIndex1p++;
+						gamePanelY1p = 0;
+						if (gamePanelIndex1p < 5) {
+							for (int i = 0; i < 5; i++)
+								pointerOne[i].setVisible(false);
+							pointerOne[gamePanelIndex1p].setVisible(true);
+						}
+
+					}
+				}
+				spaceFlag1p = true;
+			}
+
+			// 2p
+			else if (e.getKeyCode() == KeyEvent.VK_I) {
+				if (colorFlag2p[0] == 0) {
+					colorFlag2p[0] = gamePanelIndex2p + 1;
+					board2.getCups(0, gamePanelIndex2p, 4 - gamePanelY2p).setVisible(true);
+					if (gamePanelY2p < 4)
+						gamePanelY2p++;
+				}
+			} else if (e.getKeyCode() == KeyEvent.VK_O) {
+				if (colorFlag2p[1] == 0) {
+					colorFlag2p[1] = gamePanelIndex2p + 1;
+					board2.getCups(1, gamePanelIndex2p, 4 - gamePanelY2p).setVisible(true);
+					if (gamePanelY2p < 4)
+						gamePanelY2p++;
+				}
+			} else if (e.getKeyCode() == KeyEvent.VK_P) {
+				if (colorFlag2p[2] == 0) {
+					colorFlag2p[2] = gamePanelIndex2p + 1;
+					board2.getCups(2, gamePanelIndex2p, 4 - gamePanelY2p).setVisible(true);
+					if (gamePanelY2p < 4)
+						gamePanelY2p++;
+				}
+			} else if (e.getKeyCode() == KeyEvent.VK_K) {
+				if (colorFlag2p[3] == 0) {
+					colorFlag2p[3] = gamePanelIndex2p + 1;
+					board2.getCups(3, gamePanelIndex2p, 4 - gamePanelY2p).setVisible(true);
+					if (gamePanelY2p < 4)
+						gamePanelY2p++;
+				}
+			} else if (e.getKeyCode() == KeyEvent.VK_L) {
+				if (colorFlag2p[4] == 0) {
+					colorFlag2p[4] = gamePanelIndex2p + 1;
+					board2.getCups(4, gamePanelIndex2p, 4 - gamePanelY2p).setVisible(true);
+					if (gamePanelY2p < 4)
+						gamePanelY2p++;
+				}
+			} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+				bell.setIcon(new ImageIcon("image/bell.png"));
+				if (spaceFlag2p == true) {
+					for (int i = 0; i < 5; i++) {
+						colorFlag2p[i] = 0;
+						pointerTwo[i].setVisible(false);
+						for (int j = 0; j < 5; j++) {
+							board2.getCups(0, i, j).setVisible(false);
+							board2.getCups(1, i, j).setVisible(false);
+							board2.getCups(2, i, j).setVisible(false);
+							board2.getCups(3, i, j).setVisible(false);
+							board2.getCups(4, i, j).setVisible(false);
+						}
+					}
+					gamePanelIndex2p = 0;
+					gamePanelY2p = 0;
+					pointerTwo[0].setVisible(true);
+					return;
+				}
+				int setCupFlag = 0;
+				for (int i = 0; i < 5; i++) {
+					if (colorFlag2p[i] > 0) {
+						setCupFlag++;
+					}
+				}
+				if (setCupFlag < 5) {
+					boolean isEmptyPanel = true;
+					for (int i = 0; i < 5; i++) {
+						if (colorFlag2p[i] == gamePanelIndex2p + 1) {
+							isEmptyPanel = false;
+						}
+					}
+					if (gamePanelIndex2p < 4 && isEmptyPanel == false) {
+						gamePanelIndex2p++;
+						gamePanelY2p = 0;
+						if (gamePanelIndex2p < 5) {
+							for (int i = 0; i < 5; i++)
+								pointerTwo[i].setVisible(false);
+							pointerTwo[gamePanelIndex2p].setVisible(true);
+						}
+
+					}
+				}
+				spaceFlag2p = true;
+			}
+		}
+
+	}
 
 }
