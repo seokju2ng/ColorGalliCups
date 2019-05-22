@@ -35,6 +35,7 @@ import etc.ImageCut;
 import etc.KeyImage;
 import etc.MouseBtnHandler;
 import etc.RoundedPanel;
+import etc.Sound;
 import etc.Time1;
 
 public class SinglePlayMode extends JPanel implements ActionListener {
@@ -113,7 +114,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
             // (gamePanelIndex >= 4 &&setCupFlag == 5) ||
             if (setCupFlag == 5 && spaceFlag == false) {
                bellBtn.setIcon(new ImageIcon("image/bell(push).png"));
-               playSound("audio/bell.wav");
+               Sound.playSound("audio/bell.wav");
                flag = true;
                y = initY;
                tm.start();
@@ -382,8 +383,6 @@ public class SinglePlayMode extends JPanel implements ActionListener {
       east.add(pauseBtn);
 
       // 키보드 아이콘 --------------------------------------------------------------
-      // q
-
       controllKey = KeyImage.getKey("1P", 75, 75);
 
       for (int i = 0; i < 5; i++) {
@@ -466,15 +465,4 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 
    }
 
-   public void playSound(String fileName) {
-      try {
-         AudioInputStream ais = AudioSystem.getAudioInputStream(new File(fileName));
-         Clip clip = AudioSystem.getClip();
-         clip.stop();
-         clip.open(ais);
-         clip.start();
-      } catch (Exception e) {
-         e.printStackTrace();
-      }
-   }
 }
