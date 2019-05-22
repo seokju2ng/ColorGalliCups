@@ -61,20 +61,22 @@ public class RankView extends JDialog {
       check.setContentAreaFilled(false);
       check.setFocusPainted(false);
       check.setBorderPainted(false);
-      reset.addActionListener(e->{
-         int result = JOptionPane.showConfirmDialog(null, "정말로 초기화하시겠습니까?", "랭크 초기화", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-         if(result == JOptionPane.YES_OPTION) {
-            for(int i = 0;i<names.length;i++) {
-               names[i].setText("");
-               cards[i].setText("");
-            }
-         }
+      reset.addActionListener(new ActionListener() {
+    	  	public void actionPerformed(ActionEvent e) {
+	         int result = JOptionPane.showConfirmDialog(null, "정말로 초기화하시겠습니까?", "랭크 초기화", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+	         if(result == JOptionPane.YES_OPTION) {
+	            for(int i = 0;i<names.length;i++) {
+	               names[i].setText("");
+	               cards[i].setText("");
+	            }
+	         }
+    	  	 }
       });
       check.addActionListener(new ActionListener() {
-    	  public void actionPerformed(ActionEvent e){
-    	  	//System.exit(0);
-    	  	dispose();
-    	  }});
+	    	  public void actionPerformed(ActionEvent e){
+	    	  	dispose();
+	    	  }
+	  });
       
       panel2.add(reset);
       panel2.add(check);
