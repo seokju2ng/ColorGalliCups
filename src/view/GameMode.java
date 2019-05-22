@@ -25,15 +25,18 @@ public class GameMode extends JPanel {
 	private JButton menuArr[];
 	private JLabel leftCursorArr[];
 	private JLabel rightCursorArr[];
-	private int cor;
+	private Integer cor;
 	private SinglePlayMode singleMode;
 	private DualPlayMode dualMode;
 
 	public GameMode() {
+		cor = 0;
 		this.addComponentListener(new FocusHandler());
 		this.setLayout(new BorderLayout());
 		this.addKeyListener(new Handler());
 		this.makeUI();
+		this.addKeyListener(new KeyUpDownHandler(cor,3,leftCursorArr,rightCursorArr));
+
 		this.setSize(1363, 714);
 	}
 
@@ -69,6 +72,7 @@ public class GameMode extends JPanel {
 		JPanel panel = new JPanel(new GridLayout(5, 0));
 		MouseHandler ml = new MouseHandler();
 		Handler l = new Handler();
+		KeyUpDownHandler kudh = new KeyUpDownHandler(cor,3,leftCursorArr,rightCursorArr);
 		for (JButton b : menuArr) {
 			b.setBorderPainted(false);
 			b.setContentAreaFilled(false);
@@ -77,6 +81,7 @@ public class GameMode extends JPanel {
 			b.setForeground(new Color(80, 80, 180));
 			b.addActionListener(l);
 			b.addKeyListener(l);
+			b.addKeyListener(kudh);
 			b.addMouseListener(ml);
 			panel.add(b);
 		}
@@ -101,6 +106,7 @@ public class GameMode extends JPanel {
 		panel.setBounds(500, 360, 350, 300);
 		background.setOpaque(false);
 		panel.addKeyListener(new Handler());
+		panel.addKeyListener(kudh);
 		this.add(background);
 	}
 
@@ -124,25 +130,7 @@ public class GameMode extends JPanel {
 		}
 
 		public void keyPressed(KeyEvent e) {
-			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-				System.out.println("down");
-				if (cor != 3) {
-					leftCursorArr[cor].setVisible(false);
-					rightCursorArr[cor].setVisible(false);
-					cor = cor + 1;
-					leftCursorArr[cor].setVisible(true);
-					rightCursorArr[cor].setVisible(true);
-				}
-			} else if (e.getKeyCode() == KeyEvent.VK_UP) {
-				System.out.println("up");
-				if (cor != 0) {
-					leftCursorArr[cor].setVisible(false);
-					rightCursorArr[cor].setVisible(false);
-					cor = cor - 1;
-					leftCursorArr[cor].setVisible(true);
-					rightCursorArr[cor].setVisible(true);
-				}
-			} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 				actionPerformed(new ActionEvent(e.getSource(), e.getID(), Character.toString(e.getKeyChar())));
 			}
 		}
