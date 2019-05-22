@@ -7,11 +7,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class ExitButtonHandler implements ActionListener {
+public class ExitBtnHandler implements ActionListener {
 	private JPanel prevPanel;
 	private Timer tm;
 	private Timer tm2;
-	public ExitButtonHandler(JPanel prevPanel,Timer tm,Timer tm2) {
+	public ExitBtnHandler(JPanel prevPanel,Timer tm,Timer tm2) {
 		this.prevPanel=prevPanel;
 		this.tm = tm;
 		this.tm2 = tm2;
