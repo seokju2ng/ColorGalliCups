@@ -25,12 +25,12 @@ public class GameMode extends JPanel {
 	private JButton menuArr[];
 	private JLabel leftCursorArr[];
 	private JLabel rightCursorArr[];
-	private Integer cor;
+	private MyIndex cor;
 	private SinglePlayMode singleMode;
 	private DualPlayMode dualMode;
 
 	public GameMode() {
-		cor = 0;
+		cor = new MyIndex();
 		this.addComponentListener(new FocusHandler());
 		this.setLayout(new BorderLayout());
 		this.addKeyListener(new Handler());
@@ -112,23 +112,25 @@ public class GameMode extends JPanel {
 
 	class Handler extends KeyAdapter implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			
 			ChangePanelService cps = ChangePanelService.getInstance();
-			if (cor == 0) {
+			if (cor.getIndex() == 0) {
 				// cps.removePanel(singleMode);
 				singleMode = new SinglePlayMode();
 				cps.addPanel("SingleMode", singleMode);
 				cps.changePanel("SingleMode");
-			} else if (cor == 1) {
+			} else if (cor.getIndex() == 1) {
 				// cps.removePanel(singleMode);
 				dualMode = new DualPlayMode();
 				cps.addPanel("DualMode", dualMode);
 				cps.changePanel("DualMode");
-			} else if (cor == 2)
+			} else if (cor.getIndex() == 2)
 				cps.changePanel("NetworkMode");
-			else if (cor == 3)
+			else if (cor.getIndex() == 3)
 				cps.changePanel("MainView");
 		}
 
+		
 		public void keyPressed(KeyEvent e) {
 			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 				actionPerformed(new ActionEvent(e.getSource(), e.getID(), Character.toString(e.getKeyChar())));
@@ -140,11 +142,11 @@ public class GameMode extends JPanel {
 		public void mouseEntered(MouseEvent e) {
 			for (int i = 0; i < 5; i++) {
 				if (e.getSource() == menuArr[i]) {
-					leftCursorArr[cor].setVisible(false);
-					rightCursorArr[cor].setVisible(false);
+					leftCursorArr[cor.getIndex()].setVisible(false);
+					rightCursorArr[cor.getIndex()].setVisible(false);
 					leftCursorArr[i].setVisible(true);
 					rightCursorArr[i].setVisible(true);
-					cor = i;
+					cor.setIndex(i);
 					break;
 				}
 			}
