@@ -20,6 +20,7 @@ import javax.swing.border.LineBorder;
 import etc.Board;
 import etc.Cards;
 import etc.ChangePanelService;
+import etc.ExitButtonHandler;
 import etc.HandVanish;
 import etc.KeyImage;
 import etc.MouseBtnHandler;
@@ -272,16 +273,7 @@ public class DualPlayMode extends JPanel implements ActionListener {
 
 		exit.addMouseListener(mbh);
 		exit.addActionListener(new FocusButtonHandler(this));
-		exit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int res = JOptionPane.showConfirmDialog(null, "게임을 종료하시겠습니까?", "게임 종료", JOptionPane.YES_NO_OPTION,
-						JOptionPane.WARNING_MESSAGE);
-				if (res == JOptionPane.YES_OPTION) {
-					ChangePanelService.getInstance().changePanel("MainView", DualPlayMode.this);
-				}
-			}
-		}); // exit버튼에 액션핸들러 추가
-
+		exit.addActionListener(new ExitButtonHandler(this,this.tm,this.timePanel.getTimer()));
 		p3.add(pause);
 		p3.add(exit);
 		p3.add(board2);
