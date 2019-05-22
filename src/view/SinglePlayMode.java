@@ -72,9 +72,11 @@ public class SinglePlayMode extends JPanel implements ActionListener {
       public void actionPerformed(ActionEvent e) {
          if (e.getSource().equals(pauseBtn)) {
             pauseBackground.setVisible(true);
+            pauseBtn.requestFocusInWindow();
             timePanel.getTimer().stop();
          } else if (e.getSource().equals(pauseBackground)) {
             pauseBackground.setVisible(false);
+            SinglePlayMode.this.requestFocusInWindow();
             timePanel.getTimer().start();
          }
       }
@@ -298,7 +300,6 @@ public class SinglePlayMode extends JPanel implements ActionListener {
       MouseBtnHandler mbh = new MouseBtnHandler(exitBtn,pauseBtn);
       exitBtn.addMouseListener(mbh);
       exitBtn.addActionListener(new FocusButtonHandler(this));
-      pauseBtn.addActionListener(new FocusButtonHandler(this));
       pauseBtn.addMouseListener(mbh);
       pauseBackground.addActionListener(new ClickHandler());
       pauseBackground.addActionListener(new FocusButtonHandler(this));
