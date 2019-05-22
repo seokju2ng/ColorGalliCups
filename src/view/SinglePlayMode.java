@@ -414,7 +414,7 @@ public class SinglePlayMode extends JPanel implements ActionListener {
 		}
 		// System.out.println(timePanel.getTimer().isRunning());
 		// 시간이 다되면 JDialog띄우고 종료
-		if (!timePanel.getTimer().isRunning()) {
+		if (timePanel.getSec() == 0) {
 			tm.stop();
 			JOptionPane.showMessageDialog(null, cnt + "개 맞춤", "게임 종료", JOptionPane.CANCEL_OPTION);
 			ChangePanelService.getInstance().changePanel("MainView", SinglePlayMode.this);
